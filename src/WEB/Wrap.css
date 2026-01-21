@@ -1,0 +1,17 @@
+.wrap {
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #1a1a1a;
+  color: #e2e2e2;
+}
+
+ul,li {
+    list-style: none;
+}
+
+
+a{
+    text-decoration: none;
+    color:  #e2e2e2;;
+}
