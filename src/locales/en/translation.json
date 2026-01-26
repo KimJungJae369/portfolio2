@@ -1,0 +1,23 @@
+{
+  "header": {
+    "mypage": "My page",
+    "logout": "Sign Out",
+    "login": "Sign In",
+    "register": "Sign Up",
+    "language": "Languages",
+    "help": "Help",
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "shopping-mall": "Shopping Mall"
+  },
+  "section": {
+    "subtitle": "Visual Artists and Fashion",
+    "title1": "WEB-FRONTEND",
+    "title2": "PORTFOLIO"
+  }
+}

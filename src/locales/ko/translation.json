@@ -1,0 +1,23 @@
+{
+  "header": {
+    "mypage": "마이페이지",
+    "logout": "로그아웃",
+    "login": "로그인",
+    "register": "회원가입",
+    "language": "언어설정",
+    "help": "고객센터",
+    "home": "홈",
+    "about": "소개",
+    "projects": "프로젝트",
+    "contact": "연락처"
+  },
+  "nav": {
+    "dashboard": "대시보드",
+    "shopping-mall": "쇼핑몰 관리"
+  },
+  "section": {
+    "subtitle": "비주얼 아티스트와 패션",
+    "title1": "웹 프론트엔드",
+    "title2": "포트폴리오"
+  }
+}

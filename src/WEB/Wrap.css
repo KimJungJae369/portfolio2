@@ -2,8 +2,9 @@
   width: 100%;
   min-height: 100vh;
   padding: 20px;
-  background-color: #1a1a1a;
-  color: #e2e2e2;
+  background-color: #1a1612;
+  color: #d4af6a ;
+  font-family: "Cormorant Garamond", serif;
 }
 
 ul,li {
@@ -13,5 +14,6 @@ ul,li {
 
 a{
     text-decoration: none;
-    color:  #e2e2e2;;
+    color:  #d4af6a;
+    font-family: "Cormorant Garamond", serif;
 }
