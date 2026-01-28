@@ -30,12 +30,23 @@ export default function Header() {
     i18n.changeLanguage(newLang);
   };
 
-  const  HomeClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
+  const HomeClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
+  }
+  
+  const AboutClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const sectionElement = document.querySelector('section');
+    if (sectionElement) {
+      sectionElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
   }
 
   return (
@@ -45,7 +56,7 @@ export default function Header() {
 
             <ul>
                 <li><a href="#" onClick={HomeClick}>{splitText(t('header.home'))}</a></li>
-                <li><a href="#">{splitText(t('header.about'))}</a></li>
+                <li><a href="#" onClick={AboutClick}>{splitText(t('header.about'))}</a></li>
                 <li><a href="#">{splitText(t('header.projects'))}</a></li>
                 <li><a href="#">{splitText(t('header.contact'))}</a></li>
             </ul>

@@ -4,10 +4,10 @@ img{
 }
 
 section{
-    position: relative;
+    /* position: relative; */
     width: 63%;
-    /* height: 2000px; */
-    margin: 400px auto;
+    height: 2000px;
+    margin: auto;
     text-align: center;
 }
 
@@ -28,13 +28,50 @@ section>h1::after {
 }
 
 .mainTitle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     transition: all 0.5s ease;
     opacity: 1;
-    transform: translateY(0);
+    width: 100%;
 }
 
 .mainTitle.slide-up {
     opacity: 0;
-    transform: translateY(-100px);
+    transform: translate(-50%, -150%);
     pointer-events: none;
+}
+
+.swiperContainer {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s ease;
+    pointer-events: none;
+}
+
+.swiperContainer.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.mySwiper {
+    width: 100% !important;
+    height: 80vh !important;
+    max-width: 100% !important;
+}
+
+.mySwiper .swiper-slide {
+    width: 60vw !important;
+    height: 70vh !important;
+    max-width: 800px;
 }
