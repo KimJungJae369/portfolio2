@@ -8,7 +8,7 @@ export default function Header() {
 
   useEffect(() => {
     const handlerScroll = () => {
-      if(window.scrollY >= 10){
+      if(window.scrollY >= 1){
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -58,7 +58,7 @@ export default function Header() {
                 <li><a href="#" onClick={HomeClick}>{splitText(t('header.home'))}</a></li>
                 <li><a href="#" onClick={AboutClick}>{splitText(t('header.about'))}</a></li>
                 <li><a href="#">{splitText(t('header.projects'))}</a></li>
-                <li><a href="#">{splitText(t('header.contact'))}</a></li>
+                <li><a href="https://github.com/KimJungJae369/myPORTFOLIO" target='_blank' rel="noopener noreferrer">{splitText(t('Github'))}</a></li>
             </ul>
         </header>
         

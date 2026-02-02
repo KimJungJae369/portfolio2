@@ -19,5 +19,9 @@
     "subtitle": "Visual Artists and Fashion",
     "title1": "WEB-FRONTEND",
     "title2": "PORTFOLIO"
+  },
+  "projects": {
+    "subtitle": "Projects Section",
+    "title": "Introducing my project"
   }
 }

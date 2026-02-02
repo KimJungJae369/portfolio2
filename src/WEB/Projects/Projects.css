@@ -1,0 +1,24 @@
+#projects_section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 100px 0;
+    text-align: center;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(100%);
+    opacity: 0;
+    z-index: 10;
+    transition: transform 1s ease, opacity 1s ease;
+}
+
+body.section-scrolled-out #projects_section {
+    transform: translateY(0);
+    opacity: 1;
+}
