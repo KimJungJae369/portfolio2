@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Navigation } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
@@ -55,7 +55,6 @@ export default function SwiperCarousel({
                         return;
                     }
                     
-                    const scrollDiff = Math.abs(currentScrollY - lastScrollY.current);
                     const totalSlides = 5;
                     const firstSlideHeight = 160; // 메인 타이틀 -> 이미지1까지 (50~160px, 110px 구간)
                     const nextSlideHeight = 110; // 이미지1 -> 이미지2, ... 110px씩
@@ -87,10 +86,14 @@ export default function SwiperCarousel({
                         
                         const currentIndex = swiperRef.current?.realIndex || 0;
                         
+                        // 한 번에 한 슬라이드씩만 전환되도록 제한
                         if (targetSlide !== currentIndex && targetSlide >= 0) {
-                            swiperRef.current?.slideToLoop(targetSlide, 500);
+                            const slideStep = targetSlide > currentIndex ? 1 : -1;
+                            const nextSlide = currentIndex + slideStep;
                             
-                            if (targetSlide === totalSlides - 1) {
+                            swiperRef.current?.slideToLoop(nextSlide, 500);
+                            
+                            if (nextSlide === totalSlides - 1) {
                                 setIsLastSlide(true);
                             } else {
                                 setIsLastSlide(false);
@@ -200,6 +203,7 @@ export default function SwiperCarousel({
                                 </div>
                                 <div className="slide-card-back">
                                     <div className="slide-back-content">
+                                        <div className="slide-back-tag">Front-End</div>
                                         <h3 className="slide-back-title">{slide.backTitle}</h3>
                                         {slide.isSkills ? (
                                             <div className="skills-grid">
