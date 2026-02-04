@@ -32,6 +32,7 @@ export default function Header() {
 
   const HomeClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    document.body.classList.remove('section-scrolled-out');
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
@@ -40,24 +41,35 @@ export default function Header() {
   
   const AboutClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    const sectionElement = document.querySelector('section');
-    if (sectionElement) {
-      sectionElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
+    document.body.classList.remove('section-scrolled-out');
+    
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
       });
-    }
+    }, 100);
+  }
+
+  const ProjectsClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    document.body.classList.add('section-scrolled-out');
+    requestAnimationFrame(() => {
+      const projectsElement = document.querySelector('#projects_section');
+      if (projectsElement) {
+        projectsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
   }
 
   return (
     <>
         <header className={isScrolled ? 'scrolled' : ''}>
-            <h3><a href="#">FRONTEND</a></h3>
 
             <ul>
                 <li><a href="#" onClick={HomeClick}>{splitText(t('header.home'))}</a></li>
                 <li><a href="#" onClick={AboutClick}>{splitText(t('header.about'))}</a></li>
-                <li><a href="#">{splitText(t('header.projects'))}</a></li>
+                <li><a href="#" onClick={ProjectsClick}>{splitText(t('header.projects'))}</a></li>
                 <li><a href="https://github.com/KimJungJae369/myPORTFOLIO" target='_blank' rel="noopener noreferrer">{splitText(t('Github'))}</a></li>
             </ul>
         </header>
