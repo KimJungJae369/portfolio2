@@ -3,12 +3,16 @@ import { useTranslation } from 'react-i18next';
 import Portfolio1 from './img/Portfolio1.png';
 import Portfolio2 from './img/Portfolio2.png';
 
-export default function Projects() {
+interface ProjectsProps {
+  isHorizontalPage?: boolean;
+}
+
+export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
   const { t } = useTranslation();
   
   return (
     <>
-        <div id="projects_section">
+        <div id="projects_section" className={isHorizontalPage ? 'horizontal-mode' : ''}>
             <span className='yell'>{t('projects.subtitle')}</span>
             <h1>{t('projects.title')}</h1>
          

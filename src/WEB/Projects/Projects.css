@@ -278,3 +278,47 @@ body.section-scrolled-out #projects_section {
         margin-top: 0;
     }
 }
+
+/* Horizontal Mode (Mobile 원페이지 레이아웃) */
+#projects_section.horizontal-mode {
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    margin: 0;
+    padding: 20px;
+    transform: none;
+    opacity: 1;
+    background-color: transparent;
+}
+
+#projects_section.horizontal-mode .yell {
+    font-size: 0.8rem;
+    margin-bottom: 12px;
+}
+
+#projects_section.horizontal-mode > h1 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+}
+
+#projects_section.horizontal-mode main {
+    margin-bottom: 40px;
+}
+
+#projects_section.horizontal-mode main img {
+    max-height: 200px;
+}
+
+#projects_section.horizontal-mode .left_title h1 {
+    font-size: 1.5rem;
+}
+
+#projects_section.horizontal-mode .left_title span {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+#projects_section.horizontal-mode .subMenu a {
+    padding: 10px 20px;
+    font-size: 0.85rem;
+}
