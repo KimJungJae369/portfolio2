@@ -113,33 +113,9 @@ export default function SwiperCarousel({
                     return;
                 }
                 
-                // 모바일에서는 아래로 스크롤 시 바로 Projects로 이동
-                if (isMobile && e.deltaY > 0) {
-                    if (isWheeling.current || isTransitioning.current) {
-                        e.preventDefault();
-                        return;
-                    }
-                    
+                // 모바일에서는 세로 스크롤 완전 차단 (버튼으로만 이동)
+                if (isMobile) {
                     e.preventDefault();
-                    isWheeling.current = true;
-                    isTransitioning.current = true;
-                    
-                    setIsScrollOut(true);
-                    setIsLastSlide(true);
-                    document.body.classList.add('section-scrolled-out');
-                    
-                    setTimeout(() => {
-                        const projectsSection = document.getElementById('projects_section');
-                        if (projectsSection) {
-                            window.scrollTo({ top: projectsSection.offsetTop, behavior: 'smooth' });
-                        }
-                    }, 100);
-                    
-                    setTimeout(() => {
-                        isWheeling.current = false;
-                        isTransitioning.current = false;
-                    }, 1500);
-                    
                     return;
                 }
                 
@@ -301,6 +277,45 @@ export default function SwiperCarousel({
         },
     ];
 
+    const handlePrevSlide = () => {
+        if (swiperRef.current && !isWheeling.current) {
+            swiperRef.current.slidePrev();
+            const currentIndex = swiperRef.current.realIndex;
+            if (currentIndex < 4) {
+                setIsLastSlide(false);
+            }
+        }
+    };
+
+    const handleNextSlide = () => {
+        if (swiperRef.current && !isWheeling.current) {
+            swiperRef.current.slideNext();
+            const currentIndex = swiperRef.current.realIndex;
+            if (currentIndex === 4) {
+                setIsLastSlide(true);
+            }
+        }
+    };
+
+    const handleGoToProjects = () => {
+        if (isTransitioning.current) return;
+        
+        isTransitioning.current = true;
+        setIsScrollOut(true);
+        document.body.classList.add('section-scrolled-out');
+        
+        setTimeout(() => {
+            const projectsSection = document.getElementById('projects_section');
+            if (projectsSection) {
+                window.scrollTo({ top: projectsSection.offsetTop, behavior: 'smooth' });
+            }
+        }, 100);
+        
+        setTimeout(() => {
+            isTransitioning.current = false;
+        }, 1500);
+    };
+
     return (
         <div 
             ref={containerRef}
@@ -359,6 +374,36 @@ export default function SwiperCarousel({
                     </SwiperSlide>
                 ))}
             </Swiper>
+            
+            {/* 모바일 전용 네비게이션 버튼 */}
+            {isMobile && isHidden && (
+                <div className="mobile-nav-bottom">
+                    <button 
+                        className="nav-btn nav-btn-prev" 
+                        onClick={handlePrevSlide}
+                        aria-label="이전 슬라이드"
+                    >
+                        ‹
+                    </button>
+                    
+                    {_isLastSlide ? (
+                        <button 
+                            className="nav-btn nav-btn-projects" 
+                            onClick={handleGoToProjects}
+                        >
+                            Projects 보기
+                        </button>
+                    ) : (
+                        <button 
+                            className="nav-btn nav-btn-next" 
+                            onClick={handleNextSlide}
+                            aria-label="다음 슬라이드"
+                        >
+                            ›
+                        </button>
+                    )}
+                </div>
+            )}
         </div>
     );
 }

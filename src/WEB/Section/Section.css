@@ -382,4 +382,71 @@ body.section-scrolled-out .mainTitle {
         top: 0;
         left: 0;
     }
+    
+    /* 모바일 네비게이션 버튼 컨테이너 */
+    .mobile-nav-bottom {
+        position: fixed;
+        bottom: 100px;
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        z-index: 20;
+        padding: 0 20px;
+    }
+    
+    /* 네비게이션 버튼 공통 스타일 */
+    .nav-btn {
+        border: none;
+        cursor: pointer;
+        font-family: "Crimson Text", serif;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+    
+    /* 좌우 화살표 버튼 */
+    .nav-btn-prev,
+    .nav-btn-next {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: rgba(212, 175, 106, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 2px solid rgba(212, 175, 106, 0.3);
+        color: #d4af6a;
+        font-size: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .nav-btn-prev:active,
+    .nav-btn-next:active {
+        transform: scale(0.9);
+        background: rgba(212, 175, 106, 0.3);
+    }
+    
+    /* Projects 보기 버튼 */
+    .nav-btn-projects {
+        padding: 18px 40px;
+        border-radius: 30px;
+        background: linear-gradient(135deg, #d4af6a 0%, #b8935a 100%);
+        color: #1a1612;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        box-shadow: 0 6px 20px rgba(212, 175, 106, 0.4);
+        min-width: 200px;
+    }
+    
+    .nav-btn-projects:active {
+        transform: scale(0.95);
+        box-shadow: 0 4px 15px rgba(212, 175, 106, 0.3);
+    }
 }
