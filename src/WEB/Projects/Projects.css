@@ -271,3 +271,10 @@ body.section-scrolled-out #projects_section {
         font-size: 0.85rem;
     }
 }
+
+/* 모바일 전용: Section이 fixed이므로 Projects의 margin-top 제거 */
+@media (max-width: 768px) {
+    body.section-scrolled-out #projects_section {
+        margin-top: 0;
+    }
+}

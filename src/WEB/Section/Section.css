@@ -374,3 +374,12 @@ body.section-scrolled-out .mainTitle {
         font-size: 11px;
     }
 }
+
+/* 모바일 전용: Section을 fixed로 변경하여 배경이 제대로 보이도록 */
+@media (max-width: 768px) {
+    section {
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+}
