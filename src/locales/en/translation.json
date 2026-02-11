@@ -9,7 +9,8 @@
     "home": "Home",
     "about": "About",
     "projects": "Projects",
-    "contact": "Contact"
+    "contact": "Contact",
+    "footer": "Footer"
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -23,5 +24,10 @@
   "projects": {
     "subtitle": "Projects Section",
     "title": "Introducing my project"
+  },
+  "footer": {
+    "title": "KIMJUNGJAE PORTFOLIO",
+    "email": "Email",
+    "github": "GitHub"
   }
 }

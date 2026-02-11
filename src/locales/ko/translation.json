@@ -9,7 +9,8 @@
     "home": "홈",
     "about": "소개",
     "projects": "프로젝트",
-    "contact": "연락처"
+    "contact": "연락처",
+    "footer": "푸터"
   },
   "nav": {
     "dashboard": "대시보드",
@@ -23,5 +24,10 @@
   "projects": {
     "subtitle": "프로젝트 섹션",
     "title": "내 프로젝트 소개"
+  },
+  "footer": {
+    "title": "김정재 포트폴리오",
+    "email": "이메일",
+    "github": "깃허브"
   }
 }

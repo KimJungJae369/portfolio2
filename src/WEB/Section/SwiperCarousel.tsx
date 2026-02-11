@@ -33,105 +33,191 @@ export default function SwiperCarousel({
     setIsLastSlide,
 }: SwiperCarouselProps) {
     const swiperRef = useRef<SwiperType | null>(null);
-    const lastScrollY = useRef(0);
-    const scrollTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const lastSlideArmed = useRef(false);
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const wheelTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const isWheeling = useRef(false);
+    const isTransitioning = useRef(false);
 
     useEffect(() => {
-        let ticking = false;
+        const totalSlides = 5;
+        
+        const handleWheel = (e: WheelEvent) => {
+            const currentScrollY = window.scrollY;
+            const projectsSection = document.getElementById('projects_section');
+            const projectsRect = projectsSection?.getBoundingClientRect();
+            const projectsTop = projectsRect?.top || 0;
+            const windowHeight = window.innerHeight;
+            
+            // body 클래스 확인으로 실제 섹션 상태 체크
+            const isInProjectsOrFooter = document.body.classList.contains('section-scrolled-out');
+            
+            // Projects/Footer 섹션에 있을 때는 일반 휠 이벤트 허용 (내부 스크롤)
+            // 단, 상단 근처에서 위로 스크롤할 때만 슬라이드로 복귀
+            if (isScrollOut || isInProjectsOrFooter) {
+                // Projects 섹션의 상단이 viewport 상단 근처(100px 이내)에 있고, 위로 스크롤할 때만 복귀
+                if (e.deltaY < 0 && projectsTop >= 50 && projectsTop <= 150) {
+                    if (isTransitioning.current) return;
+                    
+                    e.preventDefault();
+                    isWheeling.current = true;
+                    isTransitioning.current = true;
+                    console.log('Returning to slides from Projects top');
+                    
+                    setIsScrollOut(false);
+                    document.body.classList.remove('section-scrolled-out');
+                    
+                    setIsHidden(true);
+                    setIsLastSlide(true);
+                    
+                    if (swiperRef.current) {
+                        swiperRef.current.slideToLoop(4, 0);
+                    }
+                    
+                    // 스크롤을 0으로 강제 이동하여 섹션이 확실히 보이게 함
+                    window.scrollTo({ top: 0, behavior: 'auto' });
+                    
+                    if (wheelTimeout.current) {
+                        clearTimeout(wheelTimeout.current);
+                    }
+                    wheelTimeout.current = setTimeout(() => {
+                        isWheeling.current = false;
+                        isTransitioning.current = false;
+                    }, 800);
+                    
+                    return;
+                }
+                // 그 외의 경우 일반 스크롤 허용
+                return;
+            }
+            
+            // 스크롤이 50px 이상일 때만 슬라이드 컨트롤
+            if (currentScrollY > 50) {
+                // 첫 진입시 hidden 상태로 전환
+                if (!isHidden) {
+                    e.preventDefault();
+                    setIsHidden(true);
+                    setTimeout(() => {
+                        swiperRef.current?.slideToLoop(0, 0);
+                    }, 100);
+                    return;
+                }
+                
+                // 휠 이벤트 디바운싱
+                // 전환 중일 때 휠 막기
+                if (isWheeling.current || isTransitioning.current) {
+                    e.preventDefault();
+                    return;
+                }
+                
+                e.preventDefault();
+                isWheeling.current = true;
+                
+                const currentIndex = swiperRef.current?.realIndex || 0;
+                const totalSlides = 5;
+                const direction = e.deltaY > 0 ? 1 : -1;
+                
+                // 위로 스크롤
+                if (direction < 0 && currentIndex > 0) {
+                    const nextSlide = currentIndex - 1;
+                    swiperRef.current?.slideToLoop(nextSlide, 500);
+                    setIsLastSlide(false);
+                }
+                // 아래로 스크롤
+                else if (direction > 0) {
+                    if (currentIndex < totalSlides - 1) {
+                        const nextSlide = currentIndex + 1;
+                        swiperRef.current?.slideToLoop(nextSlide, 500);
+                        
+                        if (nextSlide === totalSlides - 1) {
+                            setIsLastSlide(true);
+                        }
+                    } else {
+                        // 마지막 슬라이드에서 아래로 스크롤 -> Projects로 이동
+                        setIsScrollOut(true);
+                        isTransitioning.current = true; // 전환 중 표시
+                        document.body.classList.add('section-scrolled-out');
+                        
+                        // Projects 가시성을 위해 스크롤 이동
+                        setTimeout(() => {
+                            const projectsSection = document.getElementById('projects_section');
+                            if (projectsSection) {
+                                // offsetTop으로 이동하여 헤더/타이틀이 잘 보이게
+                                window.scrollTo({ top: projectsSection.offsetTop, behavior: 'smooth' });
+                            }
+                        }, 100);
+                        
+                        // 전환 완료 후 플래그 해제 (스크롤 애니메이션 시간 고려)
+                        setTimeout(() => {
+                            isTransitioning.current = false;
+                        }, 1500);
+                    }
+                }
+                
+                // 700ms 후 다음 휠 입력 허용
+                if (wheelTimeout.current) {
+                    clearTimeout(wheelTimeout.current);
+                }
+                wheelTimeout.current = setTimeout(() => {
+                    isWheeling.current = false;
+                }, 700);
+            }
+        };
         
         const handleScroll = () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    const currentScrollY = window.scrollY;
+            const currentScrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const projectsSection = document.getElementById('projects_section');
+            const projectsOffsetTop = projectsSection?.offsetTop || windowHeight;
+            const isInProjectsOrFooter = document.body.classList.contains('section-scrolled-out');
+            
+            // 1. 위로 스크롤해서 50px 이하로 돌아오면 완전 초기화 (Home)
+            if (currentScrollY <= 50) {
+                if (isHidden || isScrollOut || isInProjectsOrFooter) {
+                    setIsHidden(false);
+                    setIsScrollOut(false);
+                    setIsLastSlide(false);
+                    document.body.classList.remove('section-scrolled-out');
+                    isWheeling.current = false;
+                    isTransitioning.current = false;
                     
-                    // Projects 섹션에서는 처리 안함
-                    if (document.body.classList.contains('section-scrolled-out')) {
-                        if (currentScrollY < 50) {
-                            document.body.classList.remove('section-scrolled-out');
-                            setIsScrollOut(false);
-                        }
-                        ticking = false;
-                        return;
-                    }
-                    
-                    const totalSlides = 5;
-                    const firstSlideHeight = 160; // 메인 타이틀 -> 이미지1까지 (50~160px, 110px 구간)
-                    const nextSlideHeight = 110; // 이미지1 -> 이미지2, ... 110px씩
-                    
-                    if (currentScrollY > 50) {
-                        if (!isHidden) {
-                            setIsHidden(true);
-
-                            setTimeout(() => {
-                                swiperRef.current?.slideToLoop(0, 0);
-                            }, 100);
-                            
-                            lastScrollY.current = currentScrollY;
-                            ticking = false;
-                            return;
-                        }
-                        
-                        // 스크롤 위치에 따라 슬라이드 인덱스 계산
-                        let targetSlide = 0;
-                        
-                        if (currentScrollY <= firstSlideHeight) {
-                            // 50~160px: 이미지1 (110px 구간)
-                            targetSlide = 0;
-                        } else {
-                            // 161px 이후 110px씩 슬라이드 전환
-                            const afterFirstScroll = currentScrollY - firstSlideHeight;
-                            targetSlide = Math.min(Math.floor(afterFirstScroll / nextSlideHeight) + 1, totalSlides - 1);
-                        }
-                        
-                        const currentIndex = swiperRef.current?.realIndex || 0;
-                        
-                        // 한 번에 한 슬라이드씩만 전환되도록 제한
-                        if (targetSlide !== currentIndex && targetSlide >= 0) {
-                            const slideStep = targetSlide > currentIndex ? 1 : -1;
-                            const nextSlide = currentIndex + slideStep;
-                            
-                            swiperRef.current?.slideToLoop(nextSlide, 500);
-                            
-                            if (nextSlide === totalSlides - 1) {
-                                setIsLastSlide(true);
-                            } else {
-                                setIsLastSlide(false);
-                            }
-                        }
-                        
-                        // 이미지5(마지막 이미지) 이후 추가 스크롤 시 Projects 전환
-                        // 이미지5 표시 후 50px만 더 스크롤하면 Projects 표시
-                        const image5StartScroll = firstSlideHeight + (nextSlideHeight * (totalSlides - 1));
-                        if (targetSlide === totalSlides - 1 && currentScrollY > image5StartScroll + 50) {
-                            setIsScrollOut(true);
-                            document.body.classList.add('section-scrolled-out');
-                            ticking = false;
-                            return;
-                        }
-                    } else if (currentScrollY <= 50) {
-                        setIsHidden(false);
-                        setIsLastSlide(false);
-                        lastSlideArmed.current = false;
-                        document.body.classList.remove('section-scrolled-out');
-                    }
-
-                    lastScrollY.current = currentScrollY;
-                    
-                    ticking = false;
-                });
-                ticking = true;
+                    setTimeout(() => {
+                        swiperRef.current?.slideToLoop(0, 0);
+                    }, 100);
+                }
+            }
+            // 2. Projects 모드에서 수동으로 스크롤을 올려서 Projects 시작점보다 위로 갔을 때
+            // 단, 전환 중이 아닐 때만 체크
+            else if ((isScrollOut || isInProjectsOrFooter) && !isTransitioning.current && currentScrollY < projectsOffsetTop - 200) {
+                console.log('Manual scroll up from Projects detected');
+                setIsScrollOut(false);
+                document.body.classList.remove('section-scrolled-out');
+                setIsHidden(true); // 슬라이드 보임 상태 유지
+                setIsLastSlide(true); // 마지막 슬라이드 상태
+                
+                if (swiperRef.current && swiperRef.current.realIndex !== 4) {
+                    swiperRef.current.slideToLoop(4, 0);
+                }
+            }
+            // 3. 50px 넘으면 hidden 활성화 (일반적인 스크롤 다운 진입)
+            else if (currentScrollY > 50 && !isHidden && !isScrollOut && !isInProjectsOrFooter) {
+                setIsHidden(true);
+                setTimeout(() => {
+                    swiperRef.current?.slideToLoop(0, 0);
+                }, 100);
             }
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('wheel', handleWheel, { passive: false });
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        
         return () => {
+            window.removeEventListener('wheel', handleWheel);
             window.removeEventListener('scroll', handleScroll);
-            if (scrollTimeout.current) {
-                clearTimeout(scrollTimeout.current);
+            if (wheelTimeout.current) {
+                clearTimeout(wheelTimeout.current);
             }
         };
-    }, [isHidden, isLastSlide, setIsHidden, setIsScrollOut, setIsLastSlide]);
+    }, [isHidden, isScrollOut, setIsHidden, setIsScrollOut, setIsLastSlide]);
 
     const slides: Slide[] = [
         {
@@ -171,7 +257,10 @@ export default function SwiperCarousel({
     ];
 
     return (
-        <div className={`swiperContainer ${isHidden ? 'show' : ''} ${isScrollOut ? 'scroll-out' : ''}`}>
+        <div 
+            ref={containerRef}
+            className={`swiperContainer ${isHidden ? 'show' : ''} ${isScrollOut ? 'scroll-out' : ''}`}
+        >
             <Swiper
                 onSwiper={(swiper) => { swiperRef.current = swiper; }}
                 effect={'coverflow'}

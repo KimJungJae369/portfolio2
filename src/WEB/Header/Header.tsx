@@ -45,7 +45,7 @@ export default function Header() {
     
     setTimeout(() => {
       window.scrollTo({
-        top: 0,
+        top: 50,
         behavior: 'smooth'
       });
     }, 100);
@@ -62,6 +62,17 @@ export default function Header() {
     });
   }
 
+  const FooterClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    document.body.classList.add('section-scrolled-out');
+    requestAnimationFrame(() => {
+      const footerElement = document.querySelector('#footer_section');
+      if (footerElement) {
+        footerElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  }
+
   return (
     <>
         <header className={isScrolled ? 'scrolled' : ''}>
@@ -70,6 +81,7 @@ export default function Header() {
                 <li><a href="#" onClick={HomeClick}>{splitText(t('header.home'))}</a></li>
                 <li><a href="#" onClick={AboutClick}>{splitText(t('header.about'))}</a></li>
                 <li><a href="#" onClick={ProjectsClick}>{splitText(t('header.projects'))}</a></li>
+                <li><a href="#" onClick={FooterClick}>{splitText(t('header.footer'))}</a></li>
                 <li><a href="https://github.com/KimJungJae369/myPORTFOLIO" target='_blank' rel="noopener noreferrer">{splitText(t('Github'))}</a></li>
             </ul>
         </header>

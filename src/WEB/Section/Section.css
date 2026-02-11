@@ -81,7 +81,7 @@ section>h1::after {
     justify-content: center;
     opacity: 0;
     transform: translateY(50px);
-    transition: all 0.8s ease;
+    transition: transform 2s cubic-bezier(0.22, 1, 0.36, 1), opacity 2s ease;
     pointer-events: none;
     z-index: 5;
 }
@@ -272,4 +272,102 @@ body.section-scrolled-out .mainTitle {
     font-family: 'Georgia', serif;
     letter-spacing: 0.5px;
     text-align: center;
+}
+/* 태블릿 (768px ~ 1024px) */
+@media (max-width: 1024px) {
+    .mainTitle h1 {
+        font-size: 2.5rem;
+    }
+
+    .mySwiper .swiper-slide {
+        width: 70vw !important;
+        height: 60vh !important;
+    }
+
+    .slide-back-content {
+        padding: 30px 20px;
+    }
+
+    .slide-back-title {
+        font-size: 20px;
+    }
+
+    .slide-back-desc {
+        font-size: 14px;
+    }
+
+    .skills-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+
+    .skill-icon {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+/* 모바일 (768px 이하) */
+@media (max-width: 768px) {
+    .mainTitle {
+        width: 90%;
+    }
+
+    .mainTitle h1 {
+        font-size: 1.8rem;
+    }
+
+    .mainTitle span {
+        font-size: 10px;
+    }
+
+    .swiperContainer {
+        top: 60px;
+        height: calc(100vh - 60px);
+    }
+
+    .mySwiper {
+        height: 70vh !important;
+    }
+
+    .mySwiper .swiper-slide {
+        width: 85vw !important;
+        height: 55vh !important;
+        max-width: none;
+    }
+
+    .slide-back-content {
+        padding: 20px 15px;
+    }
+
+    .slide-back-tag {
+        font-size: 12px;
+        padding: 4px 10px;
+        margin-bottom: 12px;
+    }
+
+    .slide-back-title {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .slide-back-desc {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 8px;
+    }
+
+    .skill-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .skill-name {
+        font-size: 11px;
+    }
 }

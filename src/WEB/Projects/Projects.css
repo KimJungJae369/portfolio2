@@ -3,8 +3,9 @@
     width: 100%;
     min-height: 150vh;
     margin: 0;
-    padding: 100px 0 40px;
-    padding-top: 100px;
+    margin-top: 100vh;
+    padding: 120px 0 80px;
+    padding-top: 150px;
     text-align: center;
     background-color: transparent;
     display: flex;
@@ -14,7 +15,7 @@
     transform: translateY(100px);
     opacity: 0;
     z-index: 100;
-    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease;
+    transition: transform 2s cubic-bezier(0.22, 1, 0.36, 1), opacity 2s ease;
     will-change: transform, opacity;
     pointer-events: auto;
     scroll-margin-top: 90px;
@@ -25,4 +26,248 @@ body.section-scrolled-out #projects_section {
     opacity: 1;
     pointer-events: auto;
     transition-delay: 0.1s;
+}
+
+#projects_section .yell {
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #d4af6a;
+    margin-bottom: 16px;
+    opacity: 0.9;
+}
+
+#projects_section > h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 80px;
+    color: #d4af6a;
+    letter-spacing: -1px;
+}
+
+#projects_section main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    max-width: 1280px;
+    width: 90%;
+    margin: 60px auto;
+    padding: 50px;
+    font-family: 'Gowun Batang', 'Nanum Myeongjo', 'Noto Serif KR', serif;
+    background: linear-gradient(to bottom,  #1a1612,  #2c261f);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(212, 175, 106, 0.3);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#projects_section main:hover {
+    transform: translateY(-8px);
+    box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.3),
+        0 12px 30px rgba(0, 0, 0, 0.15);
+    border-color: rgba(212, 175, 106, 0.5);
+}
+
+#projects_section main img {
+    width: 48%;
+    max-width: 550px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.15),
+        0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+#projects_section main img:hover {
+    transform: scale(1.02) translateY(-4px);
+    box-shadow: 
+        0 30px 70px rgba(0, 0, 0, 0.2),
+        0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+#projects_section .left_title {
+    flex: 1;
+    text-align: left;
+    padding: 10px 0;
+}
+
+#projects_section .left_title h1 {
+    font-size: 2.5rem;
+    margin-bottom: 28px;
+    font-family: 'Gowun Batang', 'Nanum Myeongjo', serif;
+    font-weight: 700;
+    letter-spacing: 0px;
+    color: #e8dcc8;
+    line-height: 1.3;
+}
+
+#projects_section .left_title span {
+    display: block;
+    line-height: 2.2;
+    margin-bottom: 32px;
+    font-family: 'Gowun Batang', 'Nanum Myeongjo', serif;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    word-break: keep-all;
+    color: #e8dcc8;
+    font-size: 1.05rem;
+    opacity: 0.95;
+}
+
+#projects_section .subMenu {
+    display: flex;
+    gap: 16px;
+    margin-top: 8px;
+}
+
+#projects_section .subMenu a {
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #3d3530 0%, #5a4f45 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    border: 2px solid rgba(212, 175, 106, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.3),
+        0 2px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+#projects_section .subMenu a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    transition: left 0.5s ease;
+}
+
+#projects_section .subMenu a:hover {
+    transform: translateY(-2px);
+    border-color: rgba(212, 175, 106, 0.5);
+    background: linear-gradient(135deg, #4d4540 0%, #6a5f55 100%);
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.4),
+        0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+#projects_section .subMenu a:hover::before {
+    left: 0;
+}
+
+#projects_section .subMenu a:active {
+    transform: translateY(0);
+}
+
+/* 태블릿 (769px ~ 1024px) */
+@media (max-width: 1024px) {
+    #projects_section {
+        padding: 100px 0 60px;
+    }
+
+    #projects_section .yell {
+        font-size: 0.85rem;
+        letter-spacing: 2.5px;
+    }
+
+    #projects_section > h1 {
+        font-size: 2.5rem;
+        margin-bottom: 60px;
+    }
+
+    #projects_section main {
+        gap: 40px;
+        padding: 40px 30px;
+        margin: 50px auto;
+        max-width: 95%;
+    }
+    
+    #projects_section main img {
+        width: 45%;
+    }
+    
+    #projects_section .left_title h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    #projects_section .left_title span {
+        font-size: 0.98rem;
+        line-height: 2;
+    }
+    
+    #projects_section .subMenu a {
+        padding: 12px 28px;
+        font-size: 0.9rem;
+    }
+}
+
+/* 모바일 (768px 이하) */
+@media (max-width: 768px) {
+    #projects_section {
+        padding: 80px 0 50px;
+        margin-top: 60vh;
+    }
+
+    #projects_section .yell {
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+        margin-bottom: 12px;
+    }
+
+    #projects_section > h1 {
+        font-size: 1.8rem;
+        margin-bottom: 40px;
+    }
+
+    #projects_section main {
+        flex-direction: column;
+        gap: 30px;
+        padding: 25px 20px;
+        margin: 30px auto;
+    }
+    
+    #projects_section main img {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    #projects_section .left_title {
+        text-align: center;
+    }
+
+    #projects_section .left_title h1 {
+        font-size: 1.5rem;
+        margin-bottom: 16px;
+    }
+
+    #projects_section .left_title span {
+        font-size: 0.9rem;
+        line-height: 1.9;
+        margin-bottom: 24px;
+    }
+    
+    #projects_section .subMenu {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    #projects_section .subMenu a {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+    }
 }

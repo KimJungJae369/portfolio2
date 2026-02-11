@@ -1,0 +1,55 @@
+footer{
+    width: 100%;
+    padding: 25px;
+    text-align: center;
+    border-top: 1px solid #e8dcc8;
+    scroll-margin-top: 90px;
+    box-shadow: 0 -2px 8px rgba(232, 220, 200, 0.3);
+}
+
+footer ul li:first-child{
+    font-size: 18px;
+    padding-bottom: 15px;
+}
+
+footer ul li{
+    padding-bottom: 5px;
+    font-size: 13px;
+}
+
+/* 태블릿 (768px ~ 1024px) */
+@media (max-width: 1024px) {
+    footer {
+        padding: 20px;
+    }
+
+    footer ul li:first-child {
+        font-size: 16px;
+        padding-bottom: 12px;
+    }
+
+    footer ul li {
+        font-size: 12px;
+    }
+}
+
+/* 모바일 (768px 이하) */
+@media (max-width: 768px) {
+    footer {
+        padding: 20px 15px;
+    }
+
+    footer ul li:first-child {
+        font-size: 14px;
+        padding-bottom: 10px;
+    }
+
+    footer ul li {
+        font-size: 11px;
+        padding-bottom: 4px;
+    }
+
+    footer ul li a {
+        word-break: break-all;
+    }
+}
