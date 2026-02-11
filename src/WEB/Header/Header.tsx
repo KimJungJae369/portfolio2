@@ -59,7 +59,7 @@ export default function Header() {
       const projectsElement = document.querySelector('#projects_section') as HTMLElement;
       if (projectsElement) {
         window.scrollTo({
-          top: projectsElement.offsetTop + window.innerHeight,
+          top: projectsElement.offsetTop,
           behavior: 'smooth'
         });
       }
