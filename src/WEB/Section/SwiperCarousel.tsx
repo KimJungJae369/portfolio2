@@ -158,52 +158,53 @@ export default function SwiperCarousel({
                     const totalSlides = 5;
                     const direction = e.deltaY > 0 ? 1 : -1;
                 
-                // 위로 스크롤
-                if (direction < 0 && currentIndex > 0) {
-                    const nextSlide = currentIndex - 1;
-                    swiperRef.current?.slideToLoop(nextSlide, 500);
-                    setIsLastSlide(false);
-                }
-                // 아래로 스크롤
-                else if (direction > 0) {
-                    if (currentIndex < totalSlides - 1) {
-                        const nextSlide = currentIndex + 1;
+                    // 위로 스크롤
+                    if (direction < 0 && currentIndex > 0) {
+                        const nextSlide = currentIndex - 1;
                         swiperRef.current?.slideToLoop(nextSlide, 500);
-                        
-                        if (nextSlide === totalSlides - 1) {
-                            setIsLastSlide(true);
-                        }
-                    } else {
-                        // 마지막 슬라이드에서 아래로 스크롤 -> Projects로 이동
-                        setIsScrollOut(true);
-                        isTransitioning.current = true; // 전환 중 표시
-                        document.body.classList.add('section-scrolled-out');
-                        
-                        // Projects 가시성을 위해 스크롤 이동
-                        setTimeout(() => {
-                            const projectsSection = document.getElementById('projects_section');
-                            if (projectsSection) {
-                                // offsetTop으로 이동하여 헤더/타이틀이 잘 보이게
-                                window.scrollTo({ top: projectsSection.offsetTop, behavior: 'smooth' });
-                            }
-                        }, 100);
-                        
-                        // 전환 완료 후 플래그 해제 (스크롤 애니메이션 시간 고려)
-                        setTimeout(() => {
-                            isTransitioning.current = false;
-                        }, 1500);
+                        setIsLastSlide(false);
                     }
+                    // 아래로 스크롤
+                    else if (direction > 0) {
+                        if (currentIndex < totalSlides - 1) {
+                            const nextSlide = currentIndex + 1;
+                            swiperRef.current?.slideToLoop(nextSlide, 500);
+                            
+                            if (nextSlide === totalSlides - 1) {
+                                setIsLastSlide(true);
+                            }
+                        } else {
+                            // 마지막 슬라이드에서 아래로 스크롤 -> Projects로 이동
+                            setIsScrollOut(true);
+                            isTransitioning.current = true; // 전환 중 표시
+                            document.body.classList.add('section-scrolled-out');
+                            
+                            // Projects 가시성을 위해 스크롤 이동
+                            setTimeout(() => {
+                                const projectsSection = document.getElementById('projects_section');
+                                if (projectsSection) {
+                                    // offsetTop으로 이동하여 헤더/타이틀이 잘 보이게
+                                    window.scrollTo({ top: projectsSection.offsetTop, behavior: 'smooth' });
+                                }
+                            }, 100);
+                            
+                            // 전환 완료 후 플래그 해제 (스크롤 애니메이션 시간 고려)
+                            setTimeout(() => {
+                                isTransitioning.current = false;
+                            }, 1500);
+                        }
+                    }
+                    
+                    // 700ms 후 다음 휠 입력 허용
+                    if (wheelTimeout.current) {
+                        clearTimeout(wheelTimeout.current);
+                    }
+                    wheelTimeout.current = setTimeout(() => {
+                        isWheeling.current = false;
+                    }, 700);
                 }
-                
-                // 700ms 후 다음 휠 입력 허용
-                if (wheelTimeout.current) {
-                    clearTimeout(wheelTimeout.current);
-                }
-                wheelTimeout.current = setTimeout(() => {
-                    isWheeling.current = false;
-                }, 700);
             }
-        }
+        };
         
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
