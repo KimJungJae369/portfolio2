@@ -29,7 +29,7 @@ export default function SwiperCarousel({
     setIsHidden,
     isScrollOut,
     setIsScrollOut,
-    isLastSlide,
+    isLastSlide: _isLastSlide,
     setIsLastSlide,
 }: SwiperCarouselProps) {
     const swiperRef = useRef<SwiperType | null>(null);
@@ -39,14 +39,12 @@ export default function SwiperCarousel({
     const isTransitioning = useRef(false);
 
     useEffect(() => {
-        const totalSlides = 5;
         
         const handleWheel = (e: WheelEvent) => {
             const currentScrollY = window.scrollY;
             const projectsSection = document.getElementById('projects_section');
             const projectsRect = projectsSection?.getBoundingClientRect();
             const projectsTop = projectsRect?.top || 0;
-            const windowHeight = window.innerHeight;
             
             // body 클래스 확인으로 실제 섹션 상태 체크
             const isInProjectsOrFooter = document.body.classList.contains('section-scrolled-out');
