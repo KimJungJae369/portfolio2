@@ -54,15 +54,16 @@ export default function Header() {
   const ProjectsClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     document.body.classList.add('section-scrolled-out');
-    requestAnimationFrame(() => {
+    
+    setTimeout(() => {
       const projectsElement = document.querySelector('#projects_section') as HTMLElement;
       if (projectsElement) {
         window.scrollTo({
-          top: projectsElement.offsetTop + 100,
+          top: projectsElement.offsetTop + window.innerHeight + 100,
           behavior: 'smooth'
         });
       }
-    });
+    }, 100);
   }
 
   const FooterClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
