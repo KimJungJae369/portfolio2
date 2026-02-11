@@ -22,6 +22,7 @@
 }
 
 body.section-scrolled-out #projects_section {
+    margin-top: 0;
     transform: translateY(0);
     opacity: 1;
     pointer-events: auto;
