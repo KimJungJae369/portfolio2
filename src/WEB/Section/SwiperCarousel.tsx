@@ -100,8 +100,9 @@ export default function SwiperCarousel({
                 return;
             }
             
-            // 스크롤이 50px 이상일 때만 슬라이드 컨트롤
-            if (currentScrollY > 50) {
+            // 모바일은 10px, PC는 50px 이상일 때 슬라이드 컨트롤
+            const scrollThreshold = isMobile ? 10 : 50;
+            if (currentScrollY > scrollThreshold) {
                 // 첫 진입시 hidden 상태로 전환
                 if (!isHidden) {
                     e.preventDefault();
@@ -212,9 +213,10 @@ export default function SwiperCarousel({
             const projectsSection = document.getElementById('projects_section');
             const projectsOffsetTop = projectsSection?.offsetTop || windowHeight;
             const isInProjectsOrFooter = document.body.classList.contains('section-scrolled-out');
+            const scrollThreshold = isMobile ? 10 : 50;
             
-            // 1. 위로 스크롤해서 50px 이하로 돌아오면 완전 초기화 (Home)
-            if (currentScrollY <= 50) {
+            // 1. 위로 스크롤해서 threshold 이하로 돌아오면 완전 초기화 (Home)
+            if (currentScrollY <= scrollThreshold) {
                 if (isHidden || isScrollOut || isInProjectsOrFooter) {
                     setIsHidden(false);
                     setIsScrollOut(false);
@@ -241,8 +243,8 @@ export default function SwiperCarousel({
                     swiperRef.current.slideToLoop(4, 0);
                 }
             }
-            // 3. 50px 넘으면 hidden 활성화 (일반적인 스크롤 다운 진입)
-            else if (currentScrollY > 50 && !isHidden && !isScrollOut && !isInProjectsOrFooter) {
+            // 3. threshold 넘으면 hidden 활성화 (일반적인 스크롤 다운 진입)
+            else if (currentScrollY > scrollThreshold && !isHidden && !isScrollOut && !isInProjectsOrFooter) {
                 setIsHidden(true);
                 setTimeout(() => {
                     swiperRef.current?.slideToLoop(0, 0);
