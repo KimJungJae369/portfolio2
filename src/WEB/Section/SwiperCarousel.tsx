@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Navigation } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
@@ -37,6 +37,18 @@ export default function SwiperCarousel({
     const wheelTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
     const isWheeling = useRef(false);
     const isTransitioning = useRef(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+        
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     useEffect(() => {
         
@@ -100,19 +112,51 @@ export default function SwiperCarousel({
                     return;
                 }
                 
-                // 휠 이벤트 디바운싱
-                // 전환 중일 때 휠 막기
-                if (isWheeling.current || isTransitioning.current) {
+                // 모바일에서는 아래로 스크롤 시 바로 Projects로 이동
+                if (isMobile && e.deltaY > 0) {
+                    if (isWheeling.current || isTransitioning.current) {
+                        e.preventDefault();
+                        return;
+                    }
+                    
                     e.preventDefault();
+                    isWheeling.current = true;
+                    isTransitioning.current = true;
+                    
+                    setIsScrollOut(true);
+                    setIsLastSlide(true);
+                    document.body.classList.add('section-scrolled-out');
+                    
+                    setTimeout(() => {
+                        const projectsSection = document.getElementById('projects_section');
+                        if (projectsSection) {
+                            window.scrollTo({ top: projectsSection.offsetTop, behavior: 'smooth' });
+                        }
+                    }, 100);
+                    
+                    setTimeout(() => {
+                        isWheeling.current = false;
+                        isTransitioning.current = false;
+                    }, 1500);
+                    
                     return;
                 }
                 
-                e.preventDefault();
-                isWheeling.current = true;
-                
-                const currentIndex = swiperRef.current?.realIndex || 0;
-                const totalSlides = 5;
-                const direction = e.deltaY > 0 ? 1 : -1;
+                // PC에서는 기존 슬라이드 로직
+                if (!isMobile) {
+                    // 휠 이벤트 디바운싱
+                    // 전환 중일 때 휠 막기
+                    if (isWheeling.current || isTransitioning.current) {
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    e.preventDefault();
+                    isWheeling.current = true;
+                    
+                    const currentIndex = swiperRef.current?.realIndex || 0;
+                    const totalSlides = 5;
+                    const direction = e.deltaY > 0 ? 1 : -1;
                 
                 // 위로 스크롤
                 if (direction < 0 && currentIndex > 0) {
@@ -159,7 +203,7 @@ export default function SwiperCarousel({
                     isWheeling.current = false;
                 }, 700);
             }
-        };
+        }
         
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
@@ -215,7 +259,7 @@ export default function SwiperCarousel({
                 clearTimeout(wheelTimeout.current);
             }
         };
-    }, [isHidden, isScrollOut, setIsHidden, setIsScrollOut, setIsLastSlide]);
+    }, [isHidden, isScrollOut, setIsHidden, setIsScrollOut, setIsLastSlide, isMobile]);
 
     const slides: Slide[] = [
         {
@@ -262,11 +306,12 @@ export default function SwiperCarousel({
             <Swiper
                 onSwiper={(swiper) => { swiperRef.current = swiper; }}
                 effect={'coverflow'}
-                grabCursor={true}
+                grabCursor={!isMobile}
                 centeredSlides={true}
                 slidesPerView={'auto'}
                 loop={true}
                 initialSlide={0}
+                allowTouchMove={!isMobile}
                 coverflowEffect={{
                     rotate: 50,
                     stretch: 0,
