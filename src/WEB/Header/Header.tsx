@@ -55,9 +55,12 @@ export default function Header() {
     e.preventDefault();
     document.body.classList.add('section-scrolled-out');
     requestAnimationFrame(() => {
-      const projectsElement = document.querySelector('#projects_section');
+      const projectsElement = document.querySelector('#projects_section') as HTMLElement;
       if (projectsElement) {
-        projectsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.scrollTo({
+          top: projectsElement.offsetTop + 10,
+          behavior: 'smooth'
+        });
       }
     });
   }
