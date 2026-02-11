@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectCreative, Pagination } from 'swiper/modules';
+import { EffectCreative } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 import { useTranslation } from 'react-i18next';
 import Projects from '../Projects/Projects';
@@ -10,7 +10,6 @@ import './MobileHorizontalLayout.css';
 
 import 'swiper/css';
 import 'swiper/css/effect-creative';
-import 'swiper/css/pagination';
 
 interface Slide {
     src: string;
@@ -92,11 +91,7 @@ export default function MobileHorizontalLayout() {
                         rotate: [0, 0, 15]
                     }
                 }}
-                pagination={{
-                    clickable: true,
-                    dynamicBullets: true
-                }}
-                modules={[EffectCreative, Pagination]}
+                modules={[EffectCreative]}
                 className="mobile-swiper"
             >
                 {/* Page 0: Home */}

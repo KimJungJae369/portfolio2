@@ -16,6 +16,15 @@
     "dashboard": "대시보드",
     "shopping-mall": "쇼핑몰 관리"
   },
+  "mainTitle": {
+    "title": "웹 프론트엔드 포트폴리오"
+  },
+  "mobileNav": {
+    "home": "홈",
+    "about": "소개",
+    "projects": "프로젝트",
+    "footer": "푸터"
+  },
   "section": {
     "subtitle": "비주얼 아티스트와 패션",
     "title1": "웹 프론트엔드",

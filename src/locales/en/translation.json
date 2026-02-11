@@ -16,6 +16,15 @@
     "dashboard": "Dashboard",
     "shopping-mall": "Shopping Mall"
   },
+  "mainTitle": {
+    "title": "WEB-FRONTEND PORTFOLIO"
+  },
+  "mobileNav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "footer": "Footer"
+  },
   "section": {
     "subtitle": "Visual Artists and Fashion",
     "title1": "WEB-FRONTEND",

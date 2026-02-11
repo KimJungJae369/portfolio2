@@ -1,5 +1,6 @@
 import { RefObject } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
+import { useTranslation } from 'react-i18next';
 
 interface MobileBottomNavProps {
     swiperRef: RefObject<SwiperType | null>;
@@ -7,12 +8,13 @@ interface MobileBottomNavProps {
 }
 
 export default function MobileBottomNav({ swiperRef, currentPage }: MobileBottomNavProps) {
+    const { t } = useTranslation();
 
     const navItems = [
-        { label: 'Home', icon: '⌂', page: 0 },
-        { label: 'About', icon: 'ⓘ', page: 1 },
-        { label: 'Projects', icon: '⚡', page: 6 },
-        { label: 'Footer', icon: '✉', page: 7 }
+        { label: t('mobileNav.home'), icon: '⌂', page: 0 },
+        { label: t('mobileNav.about'), icon: 'ⓘ', page: 1 },
+        { label: t('mobileNav.projects'), icon: '⚡', page: 6 },
+        { label: t('mobileNav.footer'), icon: '✉', page: 7 }
     ];
 
     const handleNavClick = (page: number) => {

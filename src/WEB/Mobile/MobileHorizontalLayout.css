@@ -285,21 +285,3 @@
     transform: scale(0.9);
     background: rgba(212, 175, 106, 0.2);
 }
-
-/* Pagination Dots */
-.swiper-pagination {
-    bottom: 120px !important;
-}
-
-.swiper-pagination-bullet {
-    background: rgba(212, 175, 106, 0.3);
-    width: 8px;
-    height: 8px;
-    opacity: 1;
-}
-
-.swiper-pagination-bullet-active {
-    background: #d4af6a;
-    width: 24px;
-    border-radius: 4px;
-}
