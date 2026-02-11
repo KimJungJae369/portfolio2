@@ -32,7 +32,8 @@
   },
   "projects": {
     "subtitle": "Projects Section",
-    "title": "Introducing my project"
+    "title": "Introducing my project",
+    "scrollHint": "Scroll down for more projects"
   },
   "footer": {
     "title": "KIMJUNGJAE PORTFOLIO",

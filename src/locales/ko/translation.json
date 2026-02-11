@@ -32,7 +32,8 @@
   },
   "projects": {
     "subtitle": "프로젝트 섹션",
-    "title": "내 프로젝트 소개"
+    "title": "내 프로젝트 소개",
+    "scrollHint": "아래로 스크롤하여 프로젝트를 확인하세요"
   },
   "footer": {
     "title": "김정재 포트폴리오",

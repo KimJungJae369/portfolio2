@@ -298,7 +298,19 @@ body.section-scrolled-out #projects_section {
 
 #projects_section.horizontal-mode > h1 {
     font-size: 2rem;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+}
+
+#projects_section.horizontal-mode .projects-scroll-hint {
+    font-size: 0.85rem;
+    color: rgba(212, 175, 106, 0.6);
+    margin-bottom: 30px;
+    animation: fadeInOut 2s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
 }
 
 #projects_section.horizontal-mode main {

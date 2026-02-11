@@ -15,6 +15,9 @@ export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
         <div id="projects_section" className={isHorizontalPage ? 'horizontal-mode' : ''}>
             <span className='yell'>{t('projects.subtitle')}</span>
             <h1>{t('projects.title')}</h1>
+            {isHorizontalPage && (
+              <p className="projects-scroll-hint">{t('projects.scrollHint')}</p>
+            )}
          
 
             <main>
