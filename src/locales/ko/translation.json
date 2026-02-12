@@ -17,6 +17,8 @@
     "shopping-mall": "쇼핑몰 관리"
   },
   "mainTitle": {
+    "story_my": "나의",
+    "story_story": "이야기",
     "title": "웹 프론트엔드 포트폴리오"
   },
   "mobileNav": {

@@ -99,7 +99,7 @@ export default function MobileHorizontalLayout() {
                     <div className="mobile-page mobile-page-home">
                         <div className="mobile-home-content">
                             <h1 className="mobile-home-title">
-                                <span className="mobile-home-subtitle">VISUAL ARTISTS<br/>AND FASHION</span>
+                                <span className="mobile-home-subtitle">{t('mainTitle.story_my')}<br/>{t('mainTitle.story_story')}</span>
                                 <span className="mobile-home-main">{t('mainTitle.title')}</span>
                             </h1>
                             <p className="mobile-home-hint">← Swipe to explore →</p>
