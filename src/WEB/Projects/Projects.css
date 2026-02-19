@@ -21,12 +21,51 @@
     scroll-margin-top: 90px;
 }
 
-body.section-scrolled-out #projects_section {
-    transform: translateY(0);
+/* Reveal when in viewport (fallback if Swiper's body class isn't present) */
+#projects_section.in-view {
+    transform: none;
     opacity: 1;
-    pointer-events: auto;
-    transition-delay: 0.1s;
 }
+
+#projects_section.in-view main {
+    animation: projectCardReveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+#projects_section.in-view main:nth-of-type(2) {
+    animation-delay: 0.16s;
+}
+
+/* When rendered inside the horizontal mobile swiper, force visible, reset offsets */
+#projects_section.horizontal-mode {
+    margin-top: 0 !important;
+    padding-top: 20px !important;
+    min-height: auto !important;
+    transform: none !important;
+    opacity: 1 !important;
+    position: static !important;
+    pointer-events: auto !important;
+    z-index: 2;
+}
+
+#projects_section.horizontal-mode main {
+    /* start hidden and animate in like desktop cards */
+    opacity: 0 !important;
+    transform: translateY(28px) !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    animation: projectCardReveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards !important;
+}
+
+#projects_section.horizontal-mode main:nth-of-type(2) {
+    animation-delay: 0.16s !important;
+}
+
+
 
 #projects_section .yell {
     font-size: 0.95rem;
@@ -46,6 +85,36 @@ body.section-scrolled-out #projects_section {
     letter-spacing: -1px;
 }
 
+/* Projects list: stacked layout — 각 프로젝트를 한 줄(세로)로 표시 */
+#projects_section .projects-list {
+    display: flex;
+    flex-direction: column; /* 한 줄씩 쌓음 */
+    gap: 60px;
+    align-items: center;
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+}
+
+#projects_section .projects-list > main {
+    width: 100%;
+    max-width: 980px;
+    margin: 30px auto;
+}
+
+@media (max-width: 1024px) {
+    /* 모바일/태블릿에서는 동일하게 세로 스택 유지 */
+    #projects_section .projects-list {
+        gap: 28px;
+    }
+
+    #projects_section .projects-list > main {
+        width: 100%;
+        max-width: 980px;
+        margin: 30px auto;
+    }
+}
+
 #projects_section main {
     display: flex;
     align-items: center;
@@ -61,6 +130,21 @@ body.section-scrolled-out #projects_section {
     border-radius: 24px;
     border: 1px solid rgba(212, 175, 106, 0.3);
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateY(28px);
+}
+
+body.section-scrolled-out #projects_section {
+    transition-delay: 120ms; /* 슬라이더 퇴장 후 즉시 reveal 시작 */
+}
+
+body.section-scrolled-out #projects_section main {
+    animation: projectCardReveal 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 160ms; /* 카드 애니메이션 지연 단축 */
+}
+
+body.section-scrolled-out #projects_section main:nth-of-type(2) {
+    animation-delay: 260ms;
 }
 
 #projects_section main:hover {
@@ -91,6 +175,79 @@ body.section-scrolled-out #projects_section {
         0 12px 30px rgba(0, 0, 0, 0.12);
 }
 
+#projects_section .project-device-preview {
+    width: 48%;
+    max-width: 560px;
+    min-height: 340px;
+    position: relative;
+}
+
+#projects_section .device-frame {
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(212, 175, 106, 0.28);
+    background: rgba(212, 175, 106, 0.05);
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.22),
+        0 8px 20px rgba(0, 0, 0, 0.14);
+}
+
+#projects_section .device-label {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(26, 22, 18, 0.82);
+    border: 1px solid rgba(212, 175, 106, 0.35);
+    color: #d4af6a;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+#projects_section .device-frame img {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    display: block;
+}
+
+#projects_section .device-desktop {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    padding: 10px;
+    border-radius: 22px;
+}
+
+#projects_section .device-desktop img {
+    border-radius: 12px;
+}
+
+#projects_section .device-mobile {
+    width: 34%;
+    aspect-ratio: 9 / 18;
+    position: absolute;
+    right: -12px;
+    bottom: -18px;
+    padding: 8px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#projects_section .device-mobile img {
+    border-radius: 16px;
+    object-position: center center;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 #projects_section .left_title {
     flex: 1;
     text-align: left;
@@ -110,7 +267,7 @@ body.section-scrolled-out #projects_section {
 #projects_section .left_title span {
     display: block;
     line-height: 2.2;
-    margin-bottom: 32px;
+    margin-bottom: 10px;
     font-family: 'Gowun Batang', 'Nanum Myeongjo', serif;
     font-weight: 400;
     letter-spacing: 0.5px;
@@ -118,6 +275,201 @@ body.section-scrolled-out #projects_section {
     color: #e8dcc8;
     font-size: 1.05rem;
     opacity: 0.95;
+}
+
+#projects_section .left_title .feature-icons-title {
+    margin: 0 0 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #d4af6a;
+}
+
+/* Desktop keeps stacked layout; mobile will show title+subtitle inline (one-line) */
+
+/* Tablet and below: revert to stacked layout for readability */
+@media (max-width: 1024px) {
+    #projects_section .left_title {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    #projects_section .left_title h1 {
+        font-size: 1.8rem;
+        margin-bottom: 12px;
+    }
+
+    #projects_section .left_title span {
+        white-space: normal;
+        max-width: 100%;
+        display: block;
+        margin-bottom: 12px;
+    }
+}
+
+#projects_section .left_title .feature-icons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 14px;
+    margin-bottom: 28px;
+}
+
+#projects_section .left_title .feature-icon-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(212, 175, 106, 0.25);
+    background: rgba(212, 175, 106, 0.08);
+    color: #e8dcc8;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+#projects_section .left_title .ai-usage {
+    margin: -8px 0 22px;
+    width: 100%;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+}
+
+#projects_section .left_title .ai-usage-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 8px;
+    margin-bottom: 0px;
+    color: #d4af6a;
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+}
+
+#projects_section .left_title .ai-usage-bar {
+    width: 100%;
+    height: 22px;
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(180deg, rgba(212, 175, 106, 0.22) 0%, rgba(212, 175, 106, 0.12) 100%);
+    border: 1px solid rgba(212, 175, 106, 0.28);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.28);
+}
+
+#projects_section .left_title .ai-usage-bar::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: calc(72% - 7px);
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid rgba(26, 22, 18, 0.85);
+    background: #f2dcaa;
+    transform: translateY(-50%);
+    box-shadow: 0 0 0 3px rgba(212, 175, 106, 0.2);
+    animation: aiUsagePointer 1.4s ease-out forwards;
+}
+
+#projects_section .left_title .ai-usage.ai-usage-68 .ai-usage-bar::after {
+    left: calc(68% - 7px);
+    animation: aiUsagePointer68 1.4s ease-out forwards;
+}
+
+#projects_section .left_title .ai-usage-fill {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #b89553 0%, #d4af6a 55%, #f2dcaa 100%);
+    box-shadow: 0 0 10px rgba(212, 175, 106, 0.4);
+    animation: aiUsageFill 1.4s ease-out forwards;
+    position: relative;
+    overflow: hidden;
+}
+
+#projects_section .left_title .ai-usage.ai-usage-68 .ai-usage-fill {
+    animation: aiUsageFill68 1.4s ease-out forwards;
+}
+
+#projects_section .left_title .ai-usage-value {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #f2dcaa;
+    letter-spacing: 0.02em;
+}
+
+#projects_section .left_title .ai-usage-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -30%;
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.45) 55%, transparent 100%);
+    animation: aiUsageShine 2.2s ease-in-out infinite;
+}
+
+@keyframes aiUsageFill {
+    from {
+        width: 0;
+    }
+    to {
+        width: 72%;
+    }
+}
+
+@keyframes aiUsageFill68 {
+    from {
+        width: 0;
+    }
+    to {
+        width: 68%;
+    }
+}
+
+@keyframes aiUsageShine {
+    from {
+        left: -30%;
+    }
+    to {
+        left: 100%;
+    }
+}
+
+@keyframes aiUsagePointer {
+    from {
+        opacity: 0;
+        left: -8px;
+    }
+    to {
+        opacity: 1;
+        left: calc(72% - 7px);
+    }
+}
+
+@keyframes aiUsagePointer68 {
+    from {
+        opacity: 0;
+        left: -8px;
+    }
+    to {
+        opacity: 1;
+        left: calc(68% - 7px);
+    }
 }
 
 #projects_section .subMenu {
@@ -151,6 +503,188 @@ body.section-scrolled-out #projects_section {
     left: -100%;
     width: 100%;
     height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+    transition: left 0.45s ease;
+    pointer-events: none;
+}
+
+
+/* Responsive adjustments for Projects section */
+@media (max-width: 1024px) {
+    #projects_section {
+        padding: 100px 12px 80px;
+        min-height: 120vh;
+        margin-top: 80vh;
+    }
+
+    #projects_section > h1 {
+        font-size: 2.4rem;
+        margin-bottom: 48px;
+    }
+
+    #projects_section main {
+        flex-direction: column;
+        gap: 28px;
+        padding: 30px;
+        width: 95%;
+        margin: 30px auto;
+    }
+
+    #projects_section .project-device-preview {
+        width: 100%;
+        max-width: 920px;
+        min-height: auto;
+    }
+
+    #projects_section .device-desktop {
+        width: 100%;
+        aspect-ratio: 16/9;
+        padding: 8px;
+    }
+
+    /* stack mobile preview under desktop on smaller screens */
+    #projects_section .device-mobile {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        width: 40%;
+        margin: -36px auto 0;
+        left: 0;
+        transform: none;
+        aspect-ratio: 9/18;
+    }
+
+    #projects_section .left_title {
+        width: 100%;
+        text-align: center;
+        padding: 8px 0 0;
+    }
+
+    #projects_section .left_title h1 {
+        font-size: 1.8rem;
+        margin-bottom: 18px;
+    }
+
+    #projects_section .left_title span {
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+
+    #projects_section .left_title .feature-icons {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    #projects_section .left_title .ai-usage {
+        max-width: 100%;
+    }
+
+    #projects_section main img {
+        width: 100%;
+        max-width: none;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    #projects_section {
+        padding: 90px 10px 100px;
+        min-height: 100vh;
+        margin-top: 0;
+        opacity: 0;
+        transform: translateY(28px);
+    }
+
+    #projects_section > h1 {
+        font-size: 1.6rem;
+        margin-bottom: 28px;
+    }
+
+    #projects_section main {
+        padding: 20px;
+        gap: 18px;
+        opacity: 0;
+        transform: translateY(28px);
+        animation: projectCardReveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+
+    /* Make left_title title+subtitle one line on small screens */
+    #projects_section .left_title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    #projects_section .left_title h1 {
+        margin-bottom: 0;
+        font-size: 1.4rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 45%;
+    }
+
+    #projects_section .left_title span {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 45%;
+        font-size: 0.95rem;
+        line-height: 1.1;
+        margin: 0;
+    }
+
+    /* place feature icons and other blocks below the inline title */
+    #projects_section .left_title .feature-icons,
+    #projects_section .left_title .ai-usage,
+    #projects_section .left_title .subMenu {
+        width: 100%;
+        margin-top: 8px;
+        text-align: center;
+    }
+    }
+
+    #projects_section main:nth-of-type(2) {
+        animation-delay: 0.16s;
+    }
+
+    /* MOBILE: ensure the small device preview is visible and not clipped */
+    #projects_section .device-mobile {
+        width: 160px;
+        margin-top: 8px; /* previously negative — push into view */
+        display: block;
+        opacity: 1;
+        transform: none;
+        z-index: 3;
+        align-self: center;
+    }
+
+    #projects_section .left_title h1 {
+        font-size: 1.4rem;
+    }
+
+    #projects_section .left_title span {
+        font-size: 0.95rem;
+    }
+
+    #projects_section .left_title .feature-icons {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    #projects_section .left_title .ai-usage-bar {
+        height: 18px;
+    }
+
+    #projects_section .left_title .ai-usage-value {
+        font-size: 0.68rem;
+        right: 8px;
+    }
+}
+    width: 100%;
+    height: 100%;
     background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
     transition: left 0.5s ease;
 }
@@ -170,6 +704,17 @@ body.section-scrolled-out #projects_section {
 
 #projects_section .subMenu a:active {
     transform: translateY(0);
+}
+
+@keyframes projectCardReveal {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* 태블릿 (769px ~ 1024px) */
@@ -198,6 +743,17 @@ body.section-scrolled-out #projects_section {
     #projects_section main img {
         width: 45%;
     }
+
+    #projects_section .project-device-preview {
+        width: 45%;
+        min-height: 300px;
+    }
+
+    #projects_section .device-mobile {
+        width: 38%;
+        right: -8px;
+        bottom: -14px;
+    }
     
     #projects_section .left_title h1 {
         font-size: 2rem;
@@ -207,6 +763,28 @@ body.section-scrolled-out #projects_section {
     #projects_section .left_title span {
         font-size: 0.98rem;
         line-height: 2;
+    }
+
+    #projects_section .left_title .feature-icons {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    #projects_section .left_title .feature-icon-item {
+        font-size: 0.9rem;
+    }
+
+    #projects_section .left_title .ai-usage {
+        margin-bottom: 20px;
+        max-width: 100%;
+    }
+
+    #projects_section .left_title .ai-usage-head {
+        font-size: 0.88rem;
+    }
+
+    #projects_section .left_title .ai-usage-value {
+        font-size: 0.74rem;
     }
     
     #projects_section .subMenu a {
@@ -244,6 +822,30 @@ body.section-scrolled-out #projects_section {
         width: 100%;
         max-width: 100%;
     }
+
+    #projects_section .project-device-preview {
+        width: 100%;
+        max-width: 100%;
+        min-height: 0;
+        display: flex;
+        gap: 12px;
+        align-items: stretch;
+    }
+
+    #projects_section .device-desktop,
+    #projects_section .device-mobile {
+        position: relative;
+        right: auto;
+        bottom: auto;
+    }
+
+    #projects_section .device-desktop {
+        width: 62%;
+    }
+
+    #projects_section .device-mobile {
+        width: 38%;
+    }
     
     #projects_section .left_title {
         text-align: center;
@@ -258,6 +860,37 @@ body.section-scrolled-out #projects_section {
         font-size: 0.9rem;
         line-height: 1.9;
         margin-bottom: 24px;
+    }
+
+    #projects_section .left_title .feature-icons {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        margin-bottom: 22px;
+    }
+
+    #projects_section .left_title .feature-icon-item {
+        font-size: 0.85rem;
+        padding: 9px 10px;
+    }
+
+    #projects_section .left_title .ai-usage {
+        margin-bottom: 18px;
+        max-width: 100%;
+        align-items: stretch;
+    }
+
+    #projects_section .left_title .ai-usage-head {
+        font-size: 0.84rem;
+        justify-content: center;
+    }
+
+    #projects_section .left_title .ai-usage-bar {
+        height: 18px;
+    }
+
+    #projects_section .left_title .ai-usage-value {
+        right: 8px;
+        font-size: 0.7rem;
     }
     
     #projects_section .subMenu {

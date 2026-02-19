@@ -1,49 +1,15 @@
-@font-face {
-  font-family: 'Crimson Text';
-  src: url('/Crimson_Text/CrimsonText-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Crimson Text';
-  src: url('/Crimson_Text/CrimsonText-Italic.ttf') format('truetype');
-  font-weight: 400;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Crimson Text';
-  src: url('/Crimson_Text/CrimsonText-SemiBold.ttf') format('truetype');
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Crimson Text';
-  src: url('/Crimson_Text/CrimsonText-SemiBoldItalic.ttf') format('truetype');
-  font-weight: 600;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Crimson Text';
-  src: url('/Crimson_Text/CrimsonText-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Crimson Text';
-  src: url('/Crimson_Text/CrimsonText-BoldItalic.ttf') format('truetype');
-  font-weight: 700;
-  font-style: italic;
-}
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Serif+KR:wght@300;400;500;600;700&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Cormorant Garamond', 'Noto Serif KR', serif !important;
+}
+
+*::before,
+*::after {
+  font-family: 'Cormorant Garamond', 'Noto Serif KR', serif !important;
 }
 
 :root {
@@ -56,21 +22,55 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Helvetica Neue', sans-serif;
+  font-size: 17px;
   line-height: 1.5;
   color: var(--text-color);
   background-color: var(--white);
-  font-weight: 600;
-  letter-spacing: 0.3px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 800;
+  font-weight: 700;
   margin-bottom: 1rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Helvetica Neue', sans-serif;
-  letter-spacing: 0.5px;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+p, span, li, a, button, input, textarea, select, label {
+  font-weight: 400;
+}
+
+strong, b {
+  font-weight: 700;
+}
+
+html[lang='ko'] body {
+  font-weight: 300;
+  letter-spacing: 0;
+}
+
+html[lang='ko'] p,
+html[lang='ko'] span,
+html[lang='ko'] li,
+html[lang='ko'] a,
+html[lang='ko'] button,
+html[lang='ko'] input,
+html[lang='ko'] textarea,
+html[lang='ko'] select,
+html[lang='ko'] label {
+  font-weight: 300;
+}
+
+html[lang='ko'] h1,
+html[lang='ko'] h2,
+html[lang='ko'] h3,
+html[lang='ko'] h4,
+html[lang='ko'] h5,
+html[lang='ko'] h6 {
+  font-weight: 600;
 }
 
 a {

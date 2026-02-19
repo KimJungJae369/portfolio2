@@ -10,7 +10,7 @@
     "about": "소개",
     "projects": "프로젝트",
     "contact": "연락처",
-    "footer": "푸터"
+    "footer": "정보"
   },
   "nav": {
     "dashboard": "대시보드",
@@ -25,10 +25,10 @@
     "home": "홈",
     "about": "소개",
     "projects": "프로젝트",
-    "footer": "푸터"
+    "footer": "정보"
   },
   "section": {
-    "subtitle": "비주얼 아티스트와 패션",
+    "subtitle": "포트폴리오",
     "title1": "웹 프론트엔드",
     "title2": "포트폴리오"
   },

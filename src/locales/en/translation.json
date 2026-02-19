@@ -10,7 +10,7 @@
     "about": "About",
     "projects": "Projects",
     "contact": "Contact",
-    "footer": "Footer"
+    "footer": "Information"
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -28,7 +28,7 @@
     "footer": "Footer"
   },
   "section": {
-    "subtitle": "Visual Artists and Fashion",
+    "subtitle": "Portfolio",
     "title1": "WEB-FRONTEND",
     "title2": "PORTFOLIO"
   },

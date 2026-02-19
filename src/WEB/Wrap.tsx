@@ -1,5 +1,5 @@
 import './Wrap.css'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Loding from './Loding/loding'
 import Header from './Header/Header'
 import Section from './Section/Section'
@@ -15,12 +15,11 @@ function Wrap() {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768)
     }
-    
     checkMobile()
     window.addEventListener('resize', checkMobile)
-    
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
+
 
   return (
     <div className="wrap">
@@ -32,7 +31,7 @@ function Wrap() {
           <>
             <Header />
             <Section />
-            <Projects/>
+            <Projects />
             <Footer/>
           </>
         )
