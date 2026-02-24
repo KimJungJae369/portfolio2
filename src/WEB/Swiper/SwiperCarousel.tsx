@@ -5,6 +5,7 @@ declare global {
         setSwiperState?: (state: { isHidden: boolean; isScrollOut: boolean; isLastSlide: boolean }) => void;
         setProjectsState?: (state: { forceShow: boolean }) => void;
         setSectionState?: (state: { hide: boolean }) => void;
+        flyTitleTo?: (targetRect?: { left: number; top: number; width: number; height: number }) => void;
     }
 }
 import { useEffect, useRef, useState } from 'react';

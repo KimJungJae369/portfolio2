@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCreative } from 'swiper/modules';
 import { useTranslation } from 'react-i18next';

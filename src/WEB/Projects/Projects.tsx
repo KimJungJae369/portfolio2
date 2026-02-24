@@ -1,6 +1,15 @@
 import './Projects.css'
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
+
+function useSafeTranslation() {
+    try {
+        return useTranslation();
+    } catch (err) {
+        console.error('translation hook failed:', err);
+        return { t: (key: string) => key } as any;
+    }
+}
 import Portfolio1 from './img/Portfolio1.png';
 import Portfolio2 from './img/Portfolio2.png';
 
@@ -9,7 +18,7 @@ interface ProjectsProps {
 }
 
 export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
-  const { t } = useTranslation();
+  const { t } = useSafeTranslation();
   const [inView, setInView] = useState(false);
 
   useEffect(() => {

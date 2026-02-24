@@ -49,6 +49,16 @@ header li a {
     height: 100%;
 }
 
+/* Remove default focus rectangle on header links (click focus) but keep subtle focus-visible for keyboard users */
+header li a:focus,
+header li a:focus-visible {
+    outline: none;
+    box-shadow: none;
+}
+header li a:focus-visible {
+    box-shadow: 0 0 0 3px rgba(212,175,106,0.08);
+}
+
 .nav-icon {
     display: none;
     align-items: center;

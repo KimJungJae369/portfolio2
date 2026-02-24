@@ -3,6 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://<YOUR_USERNAME>.github.io/<YOUR_REPO>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/<YOUR_USERNAME>/<YOUR_REPO>.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

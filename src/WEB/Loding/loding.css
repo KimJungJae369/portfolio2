@@ -26,106 +26,240 @@
 
 .rotating-circles {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 220px;
+  height: 220px;
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: rotate 4s linear infinite;
+  transform-style: preserve-3d;
+  perspective: 1200px;
+  -webkit-perspective: 1200px;
+  animation: rotate 5s linear infinite;
+}
+
+/* subtle glowing ring behind */
+.rotating-circles::before {
+  content: '';
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 40%, rgba(212,175,106,0.06), rgba(212,175,106,0.02) 30%, rgba(0,0,0,0) 60%);
+  filter: blur(18px);
+  opacity: 0.75;
+  transform: translateZ(-60px) rotateX(18deg);
+  pointer-events: none;
 }
 
 .loding-container h1 {
-  font-size: 3rem;
-  color: #d4af6a;
-  animation: pulse 1.5s ease-in-out infinite;
+  font-size: 2.6rem;
+  color: #f7e9c8;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  animation: pulse 1.6s ease-in-out infinite;
   position: absolute;
-  z-index: 2;
+  z-index: 3;
+  text-shadow: 0 6px 20px rgba(212,175,106,0.18);
 }
 
 .circle-explosion {
   position: absolute;
   border-radius: 50%;
-  border: 3px solid #d4af6a;
-  width: 60px;
-  height: 60px;
-  animation: explodeBurst 1.5s ease-out infinite;
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle at 35% 30%, #fff5d9, #d4af6a 45%, #b8935a 70%);
+  box-shadow: 0 2px 8px rgba(212,175,106,0.28), 0 0 28px rgba(212,175,106,0.12);
+  transform-origin: center center;
+  opacity: 0.95;
+  animation: orbitPulse 2.2s ease-in-out infinite;
 }
 
-.circle-1 {
-  animation-delay: 0s;
-  transform: rotate(0deg) translateY(-100px);
-}
+.circle-1 { transform: rotate(0deg) translateX(96px) rotate(0deg); animation-delay: 0s; }
+.circle-2 { transform: rotate(45deg) translateX(96px) rotate(-45deg); animation-delay: -0.18s; }
+.circle-3 { transform: rotate(90deg) translateX(96px) rotate(-90deg); animation-delay: -0.36s; }
+.circle-4 { transform: rotate(135deg) translateX(96px) rotate(-135deg); animation-delay: -0.54s; }
+.circle-5 { transform: rotate(180deg) translateX(96px) rotate(-180deg); animation-delay: -0.72s; }
+.circle-6 { transform: rotate(225deg) translateX(96px) rotate(-225deg); animation-delay: -0.9s; }
+.circle-7 { transform: rotate(270deg) translateX(96px) rotate(-270deg); animation-delay: -1.08s; }
+.circle-8 { transform: rotate(315deg) translateX(96px) rotate(-315deg); animation-delay: -1.26s; }
 
-.circle-2 {
-  animation-delay: 0.15s;
-  transform: rotate(45deg) translateY(-100px);
-}
-
-.circle-3 {
-  animation-delay: 0.3s;
-  transform: rotate(90deg) translateY(-100px);
-}
-
-.circle-4 {
-  animation-delay: 0.45s;
-  transform: rotate(135deg) translateY(-100px);
-}
-
-.circle-5 {
-  animation-delay: 0.6s;
-  transform: rotate(180deg) translateY(-100px);
-}
-
-.circle-6 {
-  animation-delay: 0.75s;
-  transform: rotate(225deg) translateY(-100px);
-}
-
-.circle-7 {
-  animation-delay: 0.9s;
-  transform: rotate(270deg) translateY(-100px);
-}
-
-.circle-8 {
-  animation-delay: 1.05s;
-  transform: rotate(315deg) translateY(-100px);
-}
 
 @keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotateX(12deg) rotateZ(0deg); }
+  100% { transform: rotateX(12deg) rotateZ(360deg); }
 }
 
 @keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.3;
-  }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.98); }
 }
 
-@keyframes explodeBurst {
-  0% {
-    width: 40px;
-    height: 40px;
-    opacity: 1;
-    transform: scale(0.5) translateY(-100px);
-  }
-  50% {
-    width: 150px;
-    height: 150px;
-    opacity: 0.8;
-    transform: scale(1.5) translateY(-100px);
-  }
-  100% {
-    width: 350px;
-    height: 350px;
-    opacity: 0;
-    transform: scale(3.5) translateY(-100px);
-  }
+@keyframes orbitPulse {
+  0% { transform: translateZ(0px) scale(0.9); opacity: 0.9; }
+  50% { transform: translateZ(6px) scale(1.12); opacity: 1; }
+  100% { transform: translateZ(0px) scale(0.9); opacity: 0.9; }
 }
+
+/* small trailing glow to simulate light streak */
+.rotating-circles .trail {
+  position: absolute;
+  width: 6px;
+  height: 60px;
+  background: linear-gradient(180deg, rgba(212,175,106,0.8), rgba(212,175,106,0));
+  border-radius: 4px;
+  filter: blur(6px);
+  opacity: 0.5;
+  transform: translateX(96px) translateY(-18px) rotate(28deg) translateZ(10px);
+}
+
+/* small decorative sparks */
+.rotating-circles .spark {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, #fffefc, #ffdfa0 40%, rgba(212,175,106,0.9) 70%);
+  box-shadow: 0 0 16px rgba(212,175,106,0.22), 0 2px 8px rgba(0,0,0,0.18);
+  opacity: 0.95;
+  transform: translateZ(8px);
+  pointer-events: none;
+  animation: floatSpark 3.2s ease-in-out infinite;
+}
+.rotating-circles .spark-1 { left: 24%; top: 18%; animation-delay: 0s; }
+.rotating-circles .spark-2 { left: 78%; top: 20%; animation-delay: -0.6s; }
+.rotating-circles .spark-3 { left: 64%; top: 72%; animation-delay: -1.1s; }
+.rotating-circles .spark-4 { left: 36%; top: 74%; animation-delay: -0.9s; }
+.rotating-circles .spark-5 { left: 50%; top: 6%; animation-delay: -0.3s; }
+.rotating-circles .spark-6 { left: 8%; top: 48%; animation-delay: -1.6s; }
+
+@keyframes floatSpark {
+  0% { transform: translateZ(6px) translateY(0) scale(0.9); opacity: 0.9; }
+  50% { transform: translateZ(22px) translateY(-8px) scale(1.25); opacity: 1; }
+  100% { transform: translateZ(6px) translateY(0) scale(0.9); opacity: 0.9; }
+}
+
+/* subtle film grain + chromatic glow overlay */
+.loding-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 3px 3px;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  z-index: 9;
+}
+.loding-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 40%, rgba(212,175,106,0.06), rgba(212,175,106,0.02) 30%, transparent 60%);
+  filter: blur(18px);
+  opacity: 0.6;
+  mix-blend-mode: screen;
+  z-index: 8;
+}
+
+/* POLISH: layered rotor, halo, text shine + stronger orbit effects */
+.rotating-circles .rotor {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: conic-gradient(from 120deg, rgba(212,175,106,0.18), rgba(212,175,106,0.03) 30%, rgba(0,0,0,0) 60%);
+  filter: blur(12px);
+  opacity: 0.9;
+  transform: translateZ(-40px) rotateX(12deg);
+  pointer-events: none;
+  animation: rotorSpin 6s linear infinite;
+}
+
+.rotating-circles .halo {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 36%, rgba(212,175,106,0.10), rgba(212,175,106,0.02) 36%, rgba(0,0,0,0) 65%);
+  filter: blur(30px);
+  opacity: 0.85;
+  transform: translateZ(-80px);
+  pointer-events: none;
+}
+
+.circle-explosion {
+  position: absolute;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle at 35% 30%, #fff5d9, #d4af6a 45%, #b8935a 70%);
+  box-shadow: 0 2px 12px rgba(212,175,106,0.28), 0 0 36px rgba(212,175,106,0.14);
+  transform-origin: center center;
+  opacity: 0.95;
+  animation: orbitPulse 2.2s ease-in-out infinite;
+}
+
+.circle-1 { transform: rotate(0deg) translateX(96px) rotate(0deg); animation-delay: 0s; }
+.circle-2 { transform: rotate(45deg) translateX(96px) rotate(-45deg); animation-delay: -0.18s; }
+.circle-3 { transform: rotate(90deg) translateX(96px) rotate(-90deg); animation-delay: -0.36s; }
+.circle-4 { transform: rotate(135deg) translateX(96px) rotate(-135deg); animation-delay: -0.54s; }
+.circle-5 { transform: rotate(180deg) translateX(96px) rotate(-180deg); animation-delay: -0.72s; }
+.circle-6 { transform: rotate(225deg) translateX(96px) rotate(-225deg); animation-delay: -0.9s; }
+.circle-7 { transform: rotate(270deg) translateX(96px) rotate(-270deg); animation-delay: -1.08s; }
+.circle-8 { transform: rotate(315deg) translateX(96px) rotate(-315deg); animation-delay: -1.26s; }
+
+@keyframes rotorSpin {
+  from { transform: translateZ(-40px) rotateX(12deg) rotateZ(0deg); }
+  to { transform: translateZ(-40px) rotateX(12deg) rotateZ(360deg); }
+}
+
+@keyframes orbitPulse {
+  0% { transform: translateZ(0px) scale(0.92); opacity: 0.88; filter: hue-rotate(0deg); }
+  50% { transform: translateZ(8px) scale(1.18); opacity: 1; filter: hue-rotate(8deg); }
+  100% { transform: translateZ(0px) scale(0.92); opacity: 0.88; filter: hue-rotate(0deg); }
+}
+
+/* trailing streak rotates slowly to create motion blur */
+@keyframes trailRotate {
+  0% { transform: translateX(96px) translateY(-18px) rotate(28deg) translateZ(10px) rotate(0deg); opacity: 0.45; }
+  50% { transform: translateX(96px) translateY(-18px) rotate(28deg) translateZ(10px) rotate(90deg); opacity: 0.6; }
+  100% { transform: translateX(96px) translateY(-18px) rotate(28deg) translateZ(10px) rotate(180deg); opacity: 0.45; }
+}
+.rotating-circles .trail { animation: trailRotate 3.6s linear infinite; }
+
+/* central text: gradient + shine */
+.loding-container h1 {
+  font-size: 2.6rem;
+  color: transparent;
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  animation: pulse 1.6s ease-in-out infinite;
+  position: absolute;
+  z-index: 3;
+  text-shadow: 0 6px 24px rgba(212,175,106,0.16);
+}
+.loding-container h1 .loader-text {
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(90deg, #fffefc 0%, #f6e6b8 45%, #d4af6a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transform: translateZ(12px);
+}
+.loding-container h1 .loader-text::after {
+  content: '';
+  position: absolute;
+  left: -40%;
+  top: 0;
+  width: 36%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0));
+  transform: skewX(-18deg);
+  filter: blur(8px);
+  opacity: 0.9;
+  pointer-events: none;
+  animation: shine 2.6s linear infinite;
+}
+@keyframes shine { 0% { left: -40%; } 100% { left: 120%; } }

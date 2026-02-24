@@ -12,16 +12,20 @@ const resources = {
   }
 };
 
-i18n
-  .use(initReactI18next)
-  .init({
-    resources,
-    lng: "en",  // 기본 언어 설정
-    fallbackLng: "en", // 언어를 찾을 수 없을 때 사용할 언어
-    interpolation: {
-      escapeValue: false
-    }
-  });
+try {
+  i18n
+    .use(initReactI18next)
+    .init({
+      resources,
+      lng: "en",  // 기본 언어 설정
+      fallbackLng: "en", // 언어를 찾을 수 없을 때 사용할 언어
+      interpolation: {
+        escapeValue: false
+      }
+    });
+} catch (err) {
+  console.error('i18n init failed (possibly storage blocked):', err);
+}
 
 document.documentElement.lang = i18n.language;
 i18n.on('languageChanged', (lang) => {

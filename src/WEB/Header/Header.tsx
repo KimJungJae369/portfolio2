@@ -2,10 +2,19 @@ import './Header.css';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 
+function useSafeTranslation() {
+    try {
+        return useTranslation();
+    } catch (err) {
+        console.error('translation hook failed:', err);
+        return { t: (key: string) => key } as any;
+    }
+}
+
 
 
 export default function Header() {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useSafeTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -34,82 +43,103 @@ export default function Header() {
 
   const HomeClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    // 다른 버튼 클릭 시 스와이퍼 숨김 및 섹션 타이틀 숨김
-    if (typeof window !== 'undefined') {
-      window.setSwiperState?.({ isHidden: false, isScrollOut: false, isLastSlide: false });
-      window.setProjectsState?.({ forceShow: false });
-      window.setSectionState?.({ hide: true });
-      // 폴백: 직접 컨테이너 숨김 해제
-      document.querySelector('.swiperContainer')?.classList.remove('hidden-by-projects');
-      document.body.classList.remove('section-scrolled-out');
+    try {
+      // 다른 버튼 클릭 시 스와이퍼 숨김 및 섹션 타이틀 숨김
+      if (typeof window !== 'undefined') {
+        window.setSwiperState?.({ isHidden: false, isScrollOut: false, isLastSlide: false });
+        window.setProjectsState?.({ forceShow: false });
+        window.setSectionState?.({ hide: true });
+        // 폴백: 직접 컨테이너 조정
+        const sc = document.querySelector('.swiperContainer');
+        sc?.classList.remove('hidden-by-projects');
+        sc?.classList.add('show');
+        document.body.classList.remove('section-scrolled-out');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (err) {
+      console.error('[HomeClick] error', err);
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   
   const AboutClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    const aboutSection = document.getElementById('about_section');
+    try {
+      const aboutSection = document.getElementById('about_section');
 
-    // 즉시 상태 해제: Projects 관련 숨김을 먼저 해제해서 스크롤/클릭이 정상 동작하도록 함
-    if (typeof window !== 'undefined') {
-      window.setProjectsState?.({ forceShow: false });
-      window.setSwiperState?.({ isHidden: true, isScrollOut: false, isLastSlide: false });
-      window.setSectionState?.({ hide: false });
-      document.querySelector('.swiperContainer')?.classList.remove('hidden-by-projects');
-      document.body.classList.remove('section-scrolled-out');
-    }
+      // 즉시 상태 해제: Projects 관련 숨김을 먼저 해제해서 스크롤/클릭이 정상 동작하도록 함
+      if (typeof window !== 'undefined') {
+        window.setProjectsState?.({ forceShow: false });
+        window.setSwiperState?.({ isHidden: true, isScrollOut: false, isLastSlide: false });
+        window.setSectionState?.({ hide: false });
+        const sc = document.querySelector('.swiperContainer');
+        sc?.classList.remove('hidden-by-projects');
+        sc?.classList.add('show');
+        document.body.classList.remove('section-scrolled-out');
+      }
 
-    if (aboutSection) {
-      // 스크롤은 상태 정리 후 실행
-      aboutSection.scrollIntoView({ behavior: 'smooth' });
+      if (aboutSection) {
+        // 스크롤은 상태 정리 후 실행
+        aboutSection.scrollIntoView({ behavior: 'smooth' });
 
-      setTimeout(() => {
-        if (typeof window !== 'undefined' && window.swiperRef && typeof window.swiperRef.slideToLoop === 'function') {
-          window.swiperRef.slideToLoop(0, 0);
-        }
-      }, 500);
-    }
-  }
-
-  const ProjectsClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    // Projects 클릭 시 스와이퍼 숨김 + Section 완전 해제
-    if (typeof window !== 'undefined') {
-      window.setSwiperState?.({ isHidden: false, isScrollOut: false, isLastSlide: false });
-      window.setProjectsState?.({ forceShow: true });
-      window.setSectionState?.({ hide: true });
-      // 폴백: 직접 컨테이너 숨김
-      document.querySelector('.swiperContainer')?.classList.add('hidden-by-projects');
-      document.body.classList.add('section-scrolled-out');
-    }
-
-    const projectsSection = document.getElementById('projects_section');
-    if (projectsSection) {
-      projectsSection.scrollIntoView({ behavior: 'smooth' });
-      // 보조: 스크롤 후 projects에 in-view 클래스를 강제 추가 (IntersectionObserver가 늦게 반응할 경우 대비)
-      setTimeout(() => {
-        projectsSection.classList.add('in-view');
-        if (typeof window !== 'undefined' && window.swiperRef && typeof window.swiperRef.slideToLoop === 'function') {
-          window.swiperRef.slideToLoop(4, 0);
-        }
-      }, 500);
+        setTimeout(() => {
+          if (typeof window !== 'undefined' && window.swiperRef && typeof window.swiperRef.slideToLoop === 'function') {
+            window.swiperRef.slideToLoop(0, 0);
+          }
+        }, 500);
+      }
+    } catch (err) {
+      console.error('[AboutClick] error', err);
     }
   }
 
   const FooterClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    // Footer 클릭 시 스와이퍼 숨김 + Section 완전 해제
-    if (typeof window !== 'undefined') {
-      window.setSwiperState?.({ isHidden: false, isScrollOut: false, isLastSlide: false });
-      window.setProjectsState?.({ forceShow: true });
+    try {
+      if (typeof window !== 'undefined') {
+        window.setSwiperState?.({ isHidden: false, isScrollOut: false, isLastSlide: false });
+        window.setProjectsState?.({ forceShow: true });
+      }
+      const footerElement = document.querySelector('#footer_section') as HTMLElement | null;
+      if (footerElement) {
+        window.scrollTo({ top: footerElement.offsetTop, behavior: 'smooth' });
+      }
+    } catch (err) {
+      console.error('[FooterClick] error', err);
     }
+  }
 
-    const footerElement = document.querySelector('#footer_section') as HTMLElement;
-    if (footerElement) {
-      window.scrollTo({
-        top: footerElement.offsetTop,
-        behavior: 'smooth'
-      });
+  const ProjectsClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    try {
+      // Projects 클릭 시 스와이퍼 숨김 + Section 완전 해제
+      if (typeof window !== 'undefined') {
+        window.setSwiperState?.({ isHidden: false, isScrollOut: false, isLastSlide: false });
+        window.setProjectsState?.({ forceShow: true });
+        window.setSectionState?.({ hide: true });
+        // 폴백: 직접 컨테이너 숨김
+        const sc = document.querySelector('.swiperContainer');
+        sc?.classList.add('hidden-by-projects');
+        sc?.classList.remove('show');
+        document.body.classList.add('section-scrolled-out');
+      }
+
+      const projectsSection = document.getElementById('projects_section');
+      if (projectsSection) {
+        // force style to make the section visible immediately
+        projectsSection.style.opacity = '1';
+        projectsSection.style.transform = 'none';
+        projectsSection.style.marginTop = '0';
+        projectsSection.scrollIntoView({ behavior: 'smooth' });
+        // 보조: 스크롤 후 projects에 in-view 클래스를 강제 추가
+        setTimeout(() => {
+          projectsSection.classList.add('in-view');
+          if (typeof window !== 'undefined' && window.swiperRef && typeof window.swiperRef.slideToLoop === 'function') {
+            window.swiperRef.slideToLoop(4, 0);
+          }
+        }, 500);
+      }
+    } catch (err) {
+      console.error('[ProjectsClick] error', err);
     }
   }
 

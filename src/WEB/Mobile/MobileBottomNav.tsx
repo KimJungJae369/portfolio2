@@ -1,6 +1,5 @@
 import { RefObject } from 'react';
 import type { Swiper as SwiperType } from 'swiper';
-import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface MobileBottomNavProps {
@@ -10,7 +9,7 @@ interface MobileBottomNavProps {
     scrollToSection: (section: 'about' | 'projects', aboutPageNum?: number) => void;
 }
 
-export default function MobileBottomNav({ swiperRef, aboutPage, setAboutPage, scrollToSection }: MobileBottomNavProps) {
+export default function MobileBottomNav({ swiperRef, aboutPage, scrollToSection }: MobileBottomNavProps) {
 
     const { t } = useTranslation();
 

@@ -30,7 +30,8 @@
   "section": {
     "subtitle": "Portfolio",
     "title1": "WEB-FRONTEND",
-    "title2": "PORTFOLIO"
+    "title2": "PORTFOLIO",
+    "scrollTitle": "Portfolio"
   },
   "projects": {
     "subtitle": "Projects Section",

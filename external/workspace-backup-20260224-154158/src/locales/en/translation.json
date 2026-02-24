@@ -1,0 +1,45 @@
+{
+  "header": {
+    "mypage": "My page",
+    "logout": "Sign Out",
+    "login": "Sign In",
+    "register": "Sign Up",
+    "language": "Languages",
+    "help": "Help",
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact",
+    "footer": "Information"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "shopping-mall": "Shopping Mall"
+  },
+  "mainTitle": {
+    "story_my": "MY",
+    "story_story": "STORY",
+    "title": "WEB-FRONTEND PORTFOLIO"
+  },
+  "mobileNav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "footer": "Footer"
+  },
+  "section": {
+    "subtitle": "Portfolio",
+    "title1": "WEB-FRONTEND",
+    "title2": "PORTFOLIO"
+  },
+  "projects": {
+    "subtitle": "Projects Section",
+    "title": "Introducing my project",
+    "scrollHint": "Scroll down for more projects"
+  },
+  "footer": {
+    "title": "KIMJUNGJAE PORTFOLIO",
+    "email": "Email",
+    "github": "GitHub"
+  }
+}

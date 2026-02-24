@@ -1,0 +1,18 @@
+.wrap {
+  width: 100%;
+  min-height: auto;
+  background-color: #1a1612;
+  color: #d4af6a ;
+  font-family: "Cormorant Garamond", serif;
+}
+
+ul,li {
+    list-style: none;
+}
+
+
+a{
+    text-decoration: none;
+    color:  #d4af6a;
+    font-family: "Cormorant Garamond", serif;
+}
