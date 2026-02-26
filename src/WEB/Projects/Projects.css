@@ -60,9 +60,6 @@
 }
 
 /* Projects list: stacked layout — 각 프로젝트를 한 줄(세로)로 표시 */
-    background-color: transparent;
-    display: flex;
-    flex-direction: column;
 #projects_section .projects-list {
     display: flex;
     flex-direction: column; /* 한 줄씩 쌓음 */
@@ -101,7 +98,7 @@
     width: 90%;
     margin: 60px auto;
     padding: 50px;
-    font-family: 'Gowun Batang', 'Nanum Myeongjo', 'Noto Serif KR', serif;
+    font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
     background: linear-gradient(to bottom,  #1a1612,  #2c261f);
     backdrop-filter: blur(10px);
     border-radius: 24px;
@@ -171,18 +168,24 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
 }
 
 #projects_section .device-label {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    z-index: 2;
-    padding: 4px 10px;
-    border-radius: 999px;
-    background: rgba(26, 22, 18, 0.82);
-    border: 1px solid rgba(212, 175, 106, 0.35);
-    color: #d4af6a;
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    /* caption acts as full-size wrapper */
+    position: static;
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    border: none;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#projects_section .device-label img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
 }
 
 #projects_section .device-frame img {
@@ -200,18 +203,25 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
     border-radius: 22px;
 }
 
+#projects_section .device-tablet {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    padding: 10px;
+    border-radius: 22px;
+}
+
 #projects_section .device-desktop img {
     border-radius: 12px;
 }
 
 
 #projects_section .device-mobile {
-    width: 34%;
+    width: 38%;          /* slightly larger to give more room */
     aspect-ratio: 9 / 18;
     position: absolute;
     right: -12px;
     bottom: -18px;
-    padding: 8px;
+    padding: 4px;        /* reduce padding so image can grow */
     border-radius: 24px;
     display: flex;
     align-items: center;
@@ -685,11 +695,6 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
         font-size: 0.68rem;
         right: 8px;
     }
-}
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-    transition: left 0.5s ease;
 }
 
 #projects_section .subMenu a:hover {

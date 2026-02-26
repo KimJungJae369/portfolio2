@@ -12,14 +12,11 @@ function useSafeTranslation() {
         return { t: (key: string) => key } as any;
     }
 }
-import SwiperCarousel from '../Swiper/SwiperCarousel';
-import ErrorBoundary from '../ErrorBoundary';
 
 export default function Section() {
     const { t } = useSafeTranslation();
-    const [isHidden, setIsHidden] = useState(false);
-    const [isScrollOut, setIsScrollOut] = useState(false);
-    const [isLastSlide, setIsLastSlide] = useState(false);
+
+    const [isHidden, setIsHidden] = useState(false); // controls mainTitle slide
 
     // 섹션 타이틀의 스크롤 연동 애니메이션 (아래로 스크롤하면 title이 위로 올라가며 사라짐)
     const [titleShift, setTitleShift] = useState(0);
@@ -44,45 +41,15 @@ export default function Section() {
         return () => window.removeEventListener('scroll', onScrollTitle);
     }, []);
 
-    // about_section이 뷰포트를 벗어나면 스와이퍼를 완전 숨깁니다 (백그라운드로 보이는 문제 방지)
-    useEffect(() => {
-        const section = document.getElementById('about_section');
-        if (!section) return;
-
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (!entry.isIntersecting) {
-                    // 섹션이 뷰포트 밖으로 나가면 스와이퍼 숨김
-                    setIsHidden(false);
-                    setIsScrollOut(false);
-                    setIsLastSlide(false);
-
-                    // 전역 상태와 DOM 폴백 동기화
-                    if (typeof window !== 'undefined' && window.setSwiperState) {
-                        window.setSwiperState({ isHidden: false, isScrollOut: false, isLastSlide: false });
-                    }
-                    document.querySelector('.swiperContainer')?.classList.add('hidden-by-projects');
-                    document.body.classList.add('section-scrolled-out');
-                } else {
-                    // 섹션이 다시 보이면 숨김 클래스 해제
-                    document.querySelector('.swiperContainer')?.classList.remove('hidden-by-projects');
-                    document.body.classList.remove('section-scrolled-out');
-                }
-            });
-        }, { threshold: 0.05 });
-
-        obs.observe(section);
-        return () => obs.disconnect();
-    }, []);
 
     // 전역에서 섹션 타이틀(hidden) 제어할 수 있도록 노출
     useEffect(() => {
         if (typeof window === 'undefined') return;
-        window.setSectionState = (state: { hide: boolean }) => {
+        (window as any).setSectionState = (state: { hide: boolean }) => {
             setIsHidden(!!state.hide);
         };
         // expose function to animate title flying to header/button
-        window.flyTitleTo = (targetRect?: { left: number; top: number; width: number; height: number }) => {
+        (window as any).flyTitleTo = (targetRect?: { left: number; top: number; width: number; height: number }) => {
             try {
                 const main = document.querySelector('.mainTitle') as HTMLElement | null;
                 if (!main) return;
@@ -142,7 +109,7 @@ export default function Section() {
                     main.style.opacity = '';
                     if (typeof window !== 'undefined') {
                         // sync global state
-                        window.setSectionState?.({ hide: true });
+                        (window as any).setSectionState?.({ hide: true });
                     }
                 };
 
@@ -155,16 +122,35 @@ export default function Section() {
         };
         return () => {
             if (typeof window !== 'undefined') {
-                delete window.setSectionState;
-                delete window.flyTitleTo;
+                delete (window as any).setSectionState;
+                delete (window as any).flyTitleTo;
             }
         };
     }, []);
 
+    // animate the whole section when scrolled into view
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const sec = document.getElementById('about_section');
+        if (!sec) return;
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    document.body.classList.add('section-in-view');
+                } else {
+                    document.body.classList.remove('section-in-view');
+                }
+            });
+        }, { threshold: 0.2 });
+        obs.observe(sec);
+        return () => {
+            obs.disconnect();
+            document.body.classList.remove('section-in-view');
+        };
+    }, []);
+
     // 타이틀 인라인 스타일 계산: CSS custom properties로 전달
-    const titleStyle: React.CSSProperties = isHidden
-        ? { ['--title-shift' as any]: '180px', ['--title-opacity' as any]: '0' }
-        : { ['--title-shift' as any]: `${titleShift}px`, ['--title-opacity' as any]: `${titleOpacity}` };
+    const titleStyle: React.CSSProperties = { ['--title-shift' as any]: `${titleShift}px`, ['--title-opacity' as any]: `${titleOpacity}` };
 
     return (
         <>
@@ -182,16 +168,6 @@ export default function Section() {
                 </div>
 
                 {/* Swiper를 에러 바운더리로 감싸서, Swiper 내부 오류로 전체 앱이 죽지 않게 합니다. */}
-                <ErrorBoundary>
-                    <SwiperCarousel 
-                        isHidden={isHidden}
-                        setIsHidden={setIsHidden}
-                        isScrollOut={isScrollOut}
-                        setIsScrollOut={setIsScrollOut}
-                        isLastSlide={isLastSlide}
-                        setIsLastSlide={setIsLastSlide}
-                    />
-                </ErrorBoundary>
             </section>
         </>
     )

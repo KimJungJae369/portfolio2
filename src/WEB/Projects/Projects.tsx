@@ -1,24 +1,18 @@
 import './Projects.css'
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
-
-function useSafeTranslation() {
-    try {
-        return useTranslation();
-    } catch (err) {
-        console.error('translation hook failed:', err);
-        return { t: (key: string) => key } as any;
-    }
-}
-import Portfolio1 from './img/Portfolio1.png';
-import Portfolio2 from './img/Portfolio2.png';
+// gif previews: first project uses img, second uses img2
+import PcGif1 from '../img/pc.gif';
+import MoGif1 from '../img/mo.gif';
+import PcGif2 from '../img2/pc2.gif';
+import MoGif2 from '../img2/mo2.gif';
 
 interface ProjectsProps {
   isHorizontalPage?: boolean;
 }
 
 export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
-  const { t } = useSafeTranslation();
+  const { t } = useTranslation();
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
@@ -32,7 +26,7 @@ export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
           setInView(true);
           // 전역 상태로 Projects 진입 알림 (스와이퍼 숨김)
           if (typeof window !== 'undefined') {
-            window.setProjectsState?.({ forceShow: true });
+            (window as any).setProjectsState?.({ forceShow: true });
             // 폴백: body 클래스 직접 추가
             document.body.classList.add('section-scrolled-out');
             // 컨테이너 직접 숨김 폴백
@@ -42,7 +36,7 @@ export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
           section.classList.remove('in-view');
           setInView(false);
           if (typeof window !== 'undefined') {
-            window.setProjectsState?.({ forceShow: false });
+            (window as any).setProjectsState?.({ forceShow: false });
             // 폴백: body 클래스 직접 제거
             document.body.classList.remove('section-scrolled-out');
             // 컨테이너 숨김 해제
@@ -70,12 +64,14 @@ export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
             <main>
               <div className="project-device-preview" aria-label="나만의 가계부 PC 및 모바일 화면">
                 <figure className="device-frame device-desktop">
-                  <figcaption className="device-label">PC VERSION</figcaption>
-                  <img src={Portfolio1} alt="나만의 가계부 PC 버전" />
+                  <figcaption className="device-label">
+                    <img src={PcGif1} alt="나만의 가계부 PC 미리보기" />
+                  </figcaption>
                 </figure>
                 <figure className="device-frame device-mobile">
-                  <figcaption className="device-label">MOBILE VERSION</figcaption>
-                  <img src={Portfolio1} alt="나만의 가계부 모바일 버전" />
+                  <figcaption className="device-label">
+                    <img src={MoGif1} alt="나만의 가계부 모바일 미리보기" />
+                  </figcaption>
                 </figure>
               </div>
 
@@ -111,19 +107,21 @@ export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
             <main>
               <div className="project-device-preview" aria-label="포트폴리오 사이트 PC 및 모바일 화면">
                 <figure className="device-frame device-desktop">
-                  <figcaption className="device-label">PC VERSION</figcaption>
-                  <img src={Portfolio2} alt="포트폴리오 사이트 PC 버전" />
+                  <figcaption className="device-label">
+                    <img src={PcGif2} alt="포트폴리오 사이트 PC 미리보기" />
+                  </figcaption>
                 </figure>
                 <figure className="device-frame device-mobile">
-                  <figcaption className="device-label">MOBILE VERSION</figcaption>
-                  <img src={Portfolio2} alt="포트폴리오 사이트 모바일 버전" />
+                  <figcaption className="device-label">
+                    <img src={MoGif2} alt="포트폴리오 사이트 모바일 미리보기" />
+                  </figcaption>
                 </figure>
               </div>
 
               <div className="left_title">
-                <h1>사이트</h1>
+                <h1>나만의 공간</h1>
                 <span>
-                 나만의 포트폴리오 사이트: React와 Tailwind CSS로 완성한 나만의 디지털 공간
+                  나만의 포트폴리오 사이트: React와 Tailwind CSS로 완성한 나만의 디지털 공간
                 </span>
                 <h3 className="feature-icons-title">technology stack</h3>
                 <div className="feature-icons" aria-label="기술 스택">

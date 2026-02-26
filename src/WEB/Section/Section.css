@@ -14,8 +14,17 @@ section{
     margin: 0;
     text-align: center;
     pointer-events: auto;
+    /* start hidden, will fade/slide in */
+    opacity: 0;
+    transform: translateY(40px);
     transition: opacity 0.6s ease, transform 0.6s ease;
     z-index: 10;
+}
+
+/* show section when in view */
+body.section-in-view section {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Subtle static base gradient; rotating overlay applied via ::after */
@@ -214,7 +223,10 @@ section>h1::after {
 }
 
 /* Rotating conic-gradient overlay for full-rotation effect */
-section::after {
+/* apply same animated overlay to about and projects sections only */
+section::after,
+#about_section::after,
+#projects_section::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -225,16 +237,23 @@ section::after {
     mix-blend-mode: overlay;
     transform-origin: 50% 50%;
     transform: rotate(0deg);
-    animation: sectionGradientSpin 28s linear infinite;
+    /* animation removed per request */
+    animation: none !important;
 }
 
+/* rotating animation removed, keyframes no longer used */
+/*
 @keyframes sectionGradientSpin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
+*/
 
 /* Very subtle vignette/texture overlay (non-intrusive) */
-section::before {
+/* apply to about section, projects section, and footer for continuity */
+#about_section::before,
+#projects_section::before,
+footer::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -252,7 +271,10 @@ section::before {
         background-size: auto !important;
     }
 
-    section::before {
+    /* about_section shares the same overlay rule */
+    #about_section::before,
+    #projects_section::before,
+    footer::before {
         animation: none !important;
     }
 }
@@ -321,6 +343,14 @@ body.section-scrolled-out .swiperContainer {
     pointer-events: none !important;
 }
 */
+
+/* also hide when footer is in view via body class */
+body.footer-in-view .swiperContainer {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
 
 /* 직접 컨테이너에 클래스가 달리면 강제로 숨깁니다 (JS 폴백) */
 .swiperContainer.hidden-by-projects {
@@ -615,6 +645,11 @@ body.section-scrolled-out .swiperContainer {
         top: 0;
         left: 0;
     }
+
+    /* footer가 보일 때는 섹션 고정 해제하여 스크롤 허용 */
+    body.footer-in-view section {
+        position: static !important;
+    }
     
     /* 모바일 네비게이션 버튼 컨테이너 */
     .mobile-nav-bottom {
@@ -634,7 +669,7 @@ body.section-scrolled-out .swiperContainer {
     .nav-btn {
         border: none;
         cursor: pointer;
-        font-family: "Crimson Text", serif;
+        font-family: 'Noto Sans', 'Noto Sans KR', sans-serif;
         font-weight: 600;
         transition: all 0.3s ease;
         -webkit-tap-highlight-color: transparent;

@@ -1,15 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Serif+KR:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Cormorant Garamond', 'Noto Serif KR', serif !important;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif !important;
 }
 
 *::before,
 *::after {
-  font-family: 'Cormorant Garamond', 'Noto Serif KR', serif !important;
+  font-family: 'Noto Sans', 'Noto Sans KR', sans-serif !important;
 }
 
 :root {
