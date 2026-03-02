@@ -54,11 +54,13 @@ export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
   return (
     <>
         <div id="projects_section" className={`${isHorizontalPage ? 'horizontal-mode' : ''} ${inView ? 'in-view' : ''}`}>
-            <span className='yell'>{t('projects.subtitle')}</span>
-            <h1>{t('projects.title')}</h1>
-            {isHorizontalPage && (
-              <p className="projects-scroll-hint">{t('projects.scrollHint')}</p>
-            )}
+            <div className="projects-header">
+              <span className='yell'>{t('projects.subtitle')}</span>
+              <h1>{t('projects.title')}</h1>
+              {isHorizontalPage && (
+                <p className="projects-scroll-hint">{t('projects.scrollHint')}</p>
+              )}
+            </div>
          
             <div className="projects-list">
             <main>

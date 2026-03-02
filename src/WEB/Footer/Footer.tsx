@@ -1,9 +1,10 @@
 import './Footer.css'
 import { useTranslation } from 'react-i18next';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Footer() {
   const { t } = useTranslation();
+  const [inView, setInView] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,30 +24,28 @@ export default function Footer() {
 
   // add scroll observer to show footer with animation
   useEffect(() => {
-    if (typeof window === 'undefined') return;
     const footerEl = document.getElementById('footer_section');
     if (!footerEl) return;
+    
+    // Add initial state check on mount
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            document.body.classList.add('footer-in-view');
+            setInView(true);
           } else {
-            document.body.classList.remove('footer-in-view');
+             setInView(false);
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 } // slightly earlier
     );
     observer.observe(footerEl);
-    return () => {
-      observer.disconnect();
-      document.body.classList.remove('footer-in-view');
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <footer id="footer_section">
+    <footer id="footer_section" className={inView ? 'in-view' : ''}>
       <ul>
         <li>
             {t('footer.email')} : <a href="mailto:ktk662002@naver.com">ktk662002@naver.com</a>

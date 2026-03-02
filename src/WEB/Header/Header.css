@@ -204,3 +204,365 @@ ul li:hover a span:nth-child(8) { animation-delay: 0.7s; }
         display: none;
     }
 }
+/* --- Theme Toggle & Controls --- */
+.header-controls {
+    position: fixed;
+    top: 24px;
+    right: 32px;
+    z-index: 1000000;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.theme-toggle-btn {
+    position: relative;
+    width: 40px;
+    height: 60px; /* Include wire height */
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    margin-top: -12px; /* Hang from top */
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    outline: none;
+}
+
+.theme-toggle-btn:hover {
+    transform: translateY(2px);
+}
+
+.theme-toggle-btn:active {
+    transform: translateY(4px) scale(0.95);
+}
+
+.bulb-wire {
+    width: 2px;
+    height: 18px;
+    background-color: #4a4a4a;
+    margin-bottom: -1px; /* Connect to bulb without gap */
+    transition: background-color 0.3s;
+    box-shadow: 1px 0 2px rgba(0,0,0,0.3);
+}
+
+.bulb-icon-small {
+    width: 28px;
+    height: 28px;
+    color: #443c36; /* Off state: dark brownish grey */
+    transition: color 0.4s, filter 0.4s, transform 0.3s;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.5));
+    z-index: 2;
+}
+
+.filament-small {
+    stroke: #5d5248;
+    transition: stroke 0.4s;
+}
+
+.bulb-glow-small {
+    position: absolute;
+    top: 26px; /* Center of bulb head */
+    left: 50%;
+    transform: translateX(-50%) scale(0.4);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 230, 160, 0.9) 0%, rgba(255, 200, 100, 0.3) 50%, rgba(0,0,0,0) 70%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s, transform 0.4s;
+    z-index: 1;
+    mix-blend-mode: screen;
+}
+
+/* Active (Light Mode) State */
+.theme-toggle-btn.active .bulb-icon-small {
+    color: #fff8e0;
+    filter: drop-shadow(0 0 10px rgba(255, 220, 120, 0.8));
+    transform: scale(1.05);
+}
+
+.theme-toggle-btn.active .filament-small {
+    stroke: #ffeab0;
+    filter: drop-shadow(0 0 2px #fff);
+}
+
+.theme-toggle-btn.active .bulb-glow-small {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.4);
+    animation: bulb-pulse 2.5s infinite ease-in-out;
+}
+
+@keyframes bulb-pulse {
+    0%, 100% { transform: translateX(-50%) scale(1.4); opacity: 0.9; }
+    50% { transform: translateX(-50%) scale(1.6); opacity: 1; }
+}
+
+/* Re-style existing lang-btn to fit in controls */
+.lang-btn {
+    position: static !important;
+    background: rgba(26, 22, 18, 0.5);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(212, 175, 106, 0.3);
+    color: #d4af6a;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 28px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    margin-top: 5px; /* Align visually with bulb */
+}
+
+.lang-btn:hover {
+    background: rgba(212, 175, 106, 0.15);
+    border-color: rgba(212, 175, 106, 0.8);
+    color: #ffeab0;
+}
+
+/* --- LIGHT MODE GLOBAL OVERRIDES --- */
+
+/* 1. Background & Base Text (Vintage Bright) */
+body.light-mode {
+    background-color: #f7f1e3 !important; /* Creamy vintage paper */
+    color: #4b3d32 !important; /* Mocha brown text */
+    background-image: linear-gradient(to bottom, #f7f1e3 0%, #fdfcf8 100%);
+}
+
+/* 2. Header */
+body.light-mode header {
+    background: rgba(247, 241, 227, 0.85);
+    border-bottom: 1px solid rgba(140, 114, 84, 0.15);
+}
+
+body.light-mode header.scrolled {
+    background: rgba(247, 241, 227, 0.95);
+    box-shadow: 0 4px 20px rgba(75, 61, 50, 0.05);
+}
+
+body.light-mode header li a {
+    color: #5e4b3b;
+}
+body.light-mode header li a:hover {
+    color: #c9a86a; /* Vintage Gold */
+}
+
+body.light-mode .bulb-wire {
+    background-color: #8c7a6b;
+}
+
+body.light-mode .lang-btn {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(140, 114, 84, 0.25);
+    color: #8c7352;
+}
+body.light-mode .lang-btn:hover {
+    background: rgba(197, 160, 89, 0.12);
+    border-color: rgba(197, 160, 89, 0.6);
+    color: #5e4a32;
+}
+
+/* 3. Text Elements */
+body.light-mode h1, 
+body.light-mode h2, 
+body.light-mode h3 {
+    color: #3e3025; /* Dark sepia */
+}
+
+body.light-mode p, 
+body.light-mode span,
+body.light-mode li,
+body.light-mode div {
+    color: #5d4d3e;
+}
+
+body.light-mode .yell,
+body.light-mode .section-title,
+body.light-mode h1 span,
+body.light-mode .accent-text {
+    color: #c5a059 !important; /* Muted gold */
+}
+
+/* 4. Projects Section */
+body.light-mode #projects_section .projects-header h1 {
+    color: #3e3025;
+}
+body.light-mode #projects_section .projects-header .yell {
+    color: #bfa04d;
+}
+
+/* Device Frames in Light Mode */
+body.light-mode .device-frame {
+    border-color: rgba(62, 48, 37, 0.12);
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 15px 40px rgba(62, 48, 37, 0.08); /* Softer shadow */
+}
+
+/* 5. Footer (Envelope Style Adjustment) */
+body.light-mode footer {
+    color: #4b3d32;
+}
+
+body.light-mode footer::before {
+    background: #fdfaf6; /* Lighter top flap */
+    border-bottom: 1px solid rgba(140, 114, 84, 0.1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+
+body.light-mode footer form input,
+body.light-mode footer form textarea {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(140, 114, 84, 0.2);
+    color: #3e3025;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
+}
+
+body.light-mode footer form input::placeholder,
+body.light-mode footer form textarea::placeholder {
+    color: rgba(93, 77, 62, 0.5);
+}
+
+body.light-mode footer button {
+    background: #e6dcc8;
+    color: #4b3d32;
+    border: 1px solid rgba(140, 114, 84, 0.3);
+}
+body.light-mode footer button:hover {
+    background: #dcd0b8;
+    color: #2c241b;
+}
+
+/* 6. Section Specifics */
+
+/* Add specific section override to clear the dark wrap background */
+body.light-mode .wrap,
+body.light-mode section {
+    background-color: transparent !important;
+    background: none !important; /* Disabling gradients or colors */
+}
+
+/* Ensure body background shows through, or set specific if needed */
+body.light-mode {
+    /* Confirming the body background is the main source */
+     background-color: #f7f1e3 !important;
+}
+
+body.light-mode section .mainTitle h1 {
+    color: #3e3025;
+    text-shadow: 2px 2px 0px rgba(255,255,255,0.5); /* Embossed look */
+}
+
+body.light-mode section .mainTitle p {
+    color: #6d5d4d;
+}
+
+/* Scroll Text for Light Mode */
+body.light-mode .mainTitle .scroll-title .scroll-text {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(140, 114, 84, 0.4); /* Darker border */
+    color: #4b3d32; /* Vintage dark brown */
+    text-shadow: none;
+    box-shadow: 0 4px 12px rgba(62, 48, 37, 0.1);
+}
+
+body.light-mode .mainTitle .scroll-arrow {
+    color: #4b3d32;
+}
+
+/* Footer: Stronger visible envelope shape */
+body.light-mode footer {
+    /* Use drop-shadow to outline the clipped shape */
+    filter: drop-shadow(0 0 1px rgba(75, 61, 50, 0.8)) drop-shadow(0 10px 15px rgba(62, 48, 37, 0.15));
+    border: none; /* Reset if any */
+}
+
+body.light-mode footer::before {
+    background: #f1ebd8; /* Slightly darker flap */
+    border-bottom: 1px solid rgba(75, 61, 50, 0.4); /* Stronger visible line */
+    box-shadow: 0 2px 4px rgba(62, 48, 37, 0.1);
+}
+
+/* Ensure form inputs are readable */
+body.light-mode footer form input,
+body.light-mode footer form textarea {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(62, 48, 37, 0.4);
+    color: #2c241b;
+}
+
+/* Projects Main Content - Light Mode */
+body.light-mode #projects_section main {
+    background: rgba(255, 255, 255, 0.85) !important; /* Force override dark gradient */
+    border: 1px solid rgba(140, 114, 84, 0.25);
+    box-shadow: 0 15px 40px rgba(62, 48, 37, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(12px); /* Enhance glass effect */
+}
+
+/* Ensure all text inside Project Cards is dark in light mode */
+body.light-mode #projects_section main h1,
+body.light-mode #projects_section main h2,
+body.light-mode #projects_section main h3,
+body.light-mode #projects_section main p,
+body.light-mode #projects_section main span,
+body.light-mode #projects_section main div {
+    color: #4b3d32;
+    text-shadow: none;
+}
+
+body.light-mode #projects_section .left_title h1 {
+    color: #3e3025;
+    font-weight: 800;
+}
+
+body.light-mode #projects_section .feature-icons-title {
+    color: #8c7a6b !important; /* Muted subtitle */
+    border-bottom-color: rgba(140, 114, 84, 0.3);
+}
+
+body.light-mode #projects_section .feature-icon-item {
+    color: #5d4d3e !important;
+    background: rgba(247, 241, 227, 0.6) !important;
+    border: 1px solid rgba(140, 114, 84, 0.3);
+    box-shadow: 0 2px 5px rgba(62, 48, 37, 0.05);
+}
+
+body.light-mode #projects_section .ai-usage-head span,
+body.light-mode #projects_section .ai-usage-value {
+    color: #4b3d32 !important;
+}
+
+body.light-mode #projects_section .ai-usage-bar {
+    background: rgba(140, 114, 84, 0.2);
+}
+
+body.light-mode #projects_section .subMenu a {
+    color: #5d4d3e;
+    border: 1px solid rgba(140, 114, 84, 0.4);
+    background: rgba(255, 255, 255, 0.5);
+}
+
+body.light-mode #projects_section .subMenu a:hover {
+    background: #e6dcc8;
+    color: #2c241b;
+    border-color: #8c7a6b;
+}
+
+/* Loading Screen Light Mode (If visible during transition) */
+body.light-mode .loding-container {
+    background-color: #f7f1e3;
+}
+body.light-mode .bulb-icon {
+    color: #8c7a6b;
+}
+body.light-mode .loading-text {
+    color: #5d4d3e;
+}
+

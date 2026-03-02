@@ -13,12 +13,12 @@ footer{
     /* fade/slide animation when scrolled into view */
     opacity: 0;
     transform: translateY(40px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     will-change: opacity, transform;
 }
 
 /* when footer is in view, fade and slide in */
-body.footer-in-view footer {
+footer.in-view {
     opacity: 1;
     transform: translateY(0);
 }

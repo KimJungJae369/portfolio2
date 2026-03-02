@@ -1,4 +1,4 @@
-#projects_section {
+﻿#projects_section {
     position: relative;
     width: 100%;
     min-height: 150vh;
@@ -39,7 +39,23 @@
     animation-delay: 0.16s !important;
 }
 
+#projects_section.horizontal-mode .projects-header {
+    opacity: 0;
+    transform: translateY(28px);
+    animation: projectCardReveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
 
+/* Base animation setup for Projects header in vertical mode */
+#projects_section .projects-header {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+#projects_section.in-view .projects-header {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 #projects_section .yell {
     font-size: 0.95rem;
@@ -51,7 +67,7 @@
     opacity: 0.9;
 }
 
-#projects_section > h1 {
+#projects_section h1 {
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 80px;
@@ -59,10 +75,10 @@
     letter-spacing: -1px;
 }
 
-/* Projects list: stacked layout — 각 프로젝트를 한 줄(세로)로 표시 */
+/* Projects list: stacked layout ??媛??꾨줈?앺듃瑜???以??몃줈)濡??쒖떆 */
 #projects_section .projects-list {
     display: flex;
-    flex-direction: column; /* 한 줄씩 쌓음 */
+    flex-direction: column; /* ??以꾩뵫 ?볦쓬 */
     gap: 60px;
     align-items: center;
     width: 100%;
@@ -77,7 +93,7 @@
 }
 
 @media (max-width: 1024px) {
-    /* 모바일/태블릿에서는 동일하게 세로 스택 유지 */
+    /* 紐⑤컮???쒕툝由우뿉?쒕뒗 ?숈씪?섍쾶 ?몃줈 ?ㅽ깮 ?좎? */
     #projects_section .projects-list {
         gap: 28px;
     }
@@ -109,12 +125,12 @@
 }
 
 body.section-scrolled-out #projects_section {
-    transition-delay: 120ms; /* 슬라이더 퇴장 후 즉시 reveal 시작 */
+    transition-delay: 120ms; /* ?щ씪?대뜑 ?댁옣 ??利됱떆 reveal ?쒖옉 */
 }
 
 body.section-scrolled-out #projects_section main {
     animation: projectCardReveal 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    animation-delay: 160ms; /* 카드 애니메이션 지연 단축 */
+    animation-delay: 160ms; /* 移대뱶 ?좊땲硫붿씠??吏???⑥텞 */
 }
 
 body.section-scrolled-out #projects_section main:nth-of-type(2) {
@@ -528,9 +544,7 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
         padding: 100px 12px 80px;
         min-height: 120vh;
         margin-top: 80vh;
-    }
-
-    #projects_section > h1 {
+    }#projects_section .projects-header h1 {
         font-size: 2.4rem;
         margin-bottom: 48px;
     }
@@ -606,9 +620,7 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
         margin-top: 0;
         opacity: 0;
         transform: translateY(28px);
-    }
-
-    #projects_section > h1 {
+    }#projects_section .projects-header h1 {
         font-size: 1.6rem;
         margin-bottom: 28px;
     }
@@ -666,7 +678,7 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
     /* MOBILE: ensure the small device preview is visible and not clipped */
     #projects_section .device-mobile {
         width: 160px;
-        margin-top: 8px; /* previously negative — push into view */
+        margin-top: 8px; /* previously negative ??push into view */
         display: block;
         opacity: 1;
         transform: none;
@@ -725,7 +737,7 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
     }
 }
 
-/* 태블릿 (769px ~ 1024px) */
+/* ?쒕툝由?(769px ~ 1024px) */
 @media (max-width: 1024px) {
     #projects_section {
         padding: 100px 0 60px;
@@ -734,9 +746,7 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
     #projects_section .yell {
         font-size: 0.85rem;
         letter-spacing: 2.5px;
-    }
-
-    #projects_section > h1 {
+    }#projects_section .projects-header h1 {
         font-size: 2.5rem;
         margin-bottom: 60px;
     }
@@ -801,7 +811,7 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
     }
 }
 
-/* 모바일 (768px 이하) */
+/* 紐⑤컮??(768px ?댄븯) */
 @media (max-width: 768px) {
     #projects_section {
         padding: 80px 0 50px;
@@ -812,9 +822,7 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
         font-size: 0.75rem;
         letter-spacing: 2px;
         margin-bottom: 12px;
-    }
-
-    #projects_section > h1 {
+    }#projects_section .projects-header h1 {
         font-size: 1.8rem;
         margin-bottom: 40px;
     }
@@ -913,14 +921,14 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
     }
 }
 
-/* 모바일 전용: Section이 fixed이므로 Projects의 margin-top 제거 */
+/* 紐⑤컮???꾩슜: Section??fixed?대?濡?Projects??margin-top ?쒓굅 */
 @media (max-width: 768px) {
     body.section-scrolled-out #projects_section {
         margin-top: 0;
     }
 }
 
-/* Horizontal Mode (Mobile 원페이지 레이아웃) */
+/* Horizontal Mode (Mobile ?먰럹?댁? ?덉씠?꾩썐) */
 #projects_section.horizontal-mode {
     width: 100%;
     height: auto;
@@ -937,7 +945,7 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
     margin-bottom: 12px;
 }
 
-#projects_section.horizontal-mode > h1 {
+#projects_section.horizontal-mode .projects-header h1 {
     font-size: 2rem;
     margin-bottom: 20px;
 }
@@ -975,3 +983,5 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
     padding: 10px 20px;
     font-size: 0.85rem;
 }
+
+

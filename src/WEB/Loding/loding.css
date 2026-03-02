@@ -1,265 +1,193 @@
-.loding-container {
+﻿.loding-container {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #1a1612;
+  /* Very dark base background for "off" state */
+  background-color: #0d0b0a;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+  transition: opacity 0.8s ease-out, visibility 0.8s;
+  overflow: hidden;
 }
 
 .loding-container.fade-out {
-  transform: translateY(-100%);
   opacity: 0;
-}
-
-.explosion-wrapper {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.rotating-circles {
-  position: relative;
-  width: 220px;
-  height: 220px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform-style: preserve-3d;
-  perspective: 1200px;
-  -webkit-perspective: 1200px;
-  animation: rotate 5s linear infinite;
-}
-
-/* subtle glowing ring behind */
-.rotating-circles::before {
-  content: '';
-  position: absolute;
-  width: 360px;
-  height: 360px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 50% 40%, rgba(212,175,106,0.06), rgba(212,175,106,0.02) 30%, rgba(0,0,0,0) 60%);
-  filter: blur(18px);
-  opacity: 0.75;
-  transform: translateZ(-60px) rotateX(18deg);
+  visibility: hidden;
   pointer-events: none;
 }
 
-.loding-container h1 {
-  font-size: 2.6rem;
-  color: #f7e9c8;
-  text-transform: uppercase;
-  letter-spacing: 6px;
-  animation: pulse 1.6s ease-in-out infinite;
+/* Vintage Noise Overlay */
+.vintage-overlay {
   position: absolute;
-  z-index: 3;
-  text-shadow: 0 6px 20px rgba(212,175,106,0.18);
-}
-
-.circle-explosion {
-  position: absolute;
-  border-radius: 50%;
-  width: 14px;
-  height: 14px;
-  background: radial-gradient(circle at 35% 30%, #fff5d9, #d4af6a 45%, #b8935a 70%);
-  box-shadow: 0 2px 8px rgba(212,175,106,0.28), 0 0 28px rgba(212,175,106,0.12);
-  transform-origin: center center;
-  opacity: 0.95;
-  animation: orbitPulse 2.2s ease-in-out infinite;
-}
-
-.circle-1 { transform: rotate(0deg) translateX(96px) rotate(0deg); animation-delay: 0s; }
-.circle-2 { transform: rotate(45deg) translateX(96px) rotate(-45deg); animation-delay: -0.18s; }
-.circle-3 { transform: rotate(90deg) translateX(96px) rotate(-90deg); animation-delay: -0.36s; }
-.circle-4 { transform: rotate(135deg) translateX(96px) rotate(-135deg); animation-delay: -0.54s; }
-.circle-5 { transform: rotate(180deg) translateX(96px) rotate(-180deg); animation-delay: -0.72s; }
-.circle-6 { transform: rotate(225deg) translateX(96px) rotate(-225deg); animation-delay: -0.9s; }
-.circle-7 { transform: rotate(270deg) translateX(96px) rotate(-270deg); animation-delay: -1.08s; }
-.circle-8 { transform: rotate(315deg) translateX(96px) rotate(-315deg); animation-delay: -1.26s; }
-
-
-@keyframes rotate {
-  0% { transform: rotateX(12deg) rotateZ(0deg); }
-  100% { transform: rotateX(12deg) rotateZ(360deg); }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.98); }
-}
-
-@keyframes orbitPulse {
-  0% { transform: translateZ(0px) scale(0.9); opacity: 0.9; }
-  50% { transform: translateZ(6px) scale(1.12); opacity: 1; }
-  100% { transform: translateZ(0px) scale(0.9); opacity: 0.9; }
-}
-
-/* small trailing glow to simulate light streak */
-.rotating-circles .trail {
-  position: absolute;
-  width: 6px;
-  height: 60px;
-  background: linear-gradient(180deg, rgba(212,175,106,0.8), rgba(212,175,106,0));
-  border-radius: 4px;
-  filter: blur(6px);
-  opacity: 0.5;
-  transform: translateX(96px) translateY(-18px) rotate(28deg) translateZ(10px);
-}
-
-/* small decorative sparks */
-.rotating-circles .spark {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 25%, #fffefc, #ffdfa0 40%, rgba(212,175,106,0.9) 70%);
-  box-shadow: 0 0 16px rgba(212,175,106,0.22), 0 2px 8px rgba(0,0,0,0.18);
-  opacity: 0.95;
-  transform: translateZ(8px);
-  pointer-events: none;
-  animation: floatSpark 3.2s ease-in-out infinite;
-}
-.rotating-circles .spark-1 { left: 24%; top: 18%; animation-delay: 0s; }
-.rotating-circles .spark-2 { left: 78%; top: 20%; animation-delay: -0.6s; }
-.rotating-circles .spark-3 { left: 64%; top: 72%; animation-delay: -1.1s; }
-.rotating-circles .spark-4 { left: 36%; top: 74%; animation-delay: -0.9s; }
-.rotating-circles .spark-5 { left: 50%; top: 6%; animation-delay: -0.3s; }
-.rotating-circles .spark-6 { left: 8%; top: 48%; animation-delay: -1.6s; }
-
-@keyframes floatSpark {
-  0% { transform: translateZ(6px) translateY(0) scale(0.9); opacity: 0.9; }
-  50% { transform: translateZ(22px) translateY(-8px) scale(1.25); opacity: 1; }
-  100% { transform: translateZ(6px) translateY(0) scale(0.9); opacity: 0.9; }
-}
-
-/* subtle film grain + chromatic glow overlay */
-.loding-container::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px);
-  background-size: 3px 3px;
-  opacity: 0.06;
-  mix-blend-mode: overlay;
-  z-index: 9;
-}
-.loding-container::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(circle at 50% 40%, rgba(212,175,106,0.06), rgba(212,175,106,0.02) 30%, transparent 60%);
-  filter: blur(18px);
-  opacity: 0.6;
-  mix-blend-mode: screen;
-  z-index: 8;
-}
-
-/* POLISH: layered rotor, halo, text shine + stronger orbit effects */
-.rotating-circles .rotor {
-  position: absolute;
-  width: 260px;
-  height: 260px;
-  border-radius: 50%;
-  background: conic-gradient(from 120deg, rgba(212,175,106,0.18), rgba(212,175,106,0.03) 30%, rgba(0,0,0,0) 60%);
-  filter: blur(12px);
-  opacity: 0.9;
-  transform: translateZ(-40px) rotateX(12deg);
-  pointer-events: none;
-  animation: rotorSpin 6s linear infinite;
-}
-
-.rotating-circles .halo {
-  position: absolute;
-  width: 420px;
-  height: 420px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 50% 36%, rgba(212,175,106,0.10), rgba(212,175,106,0.02) 36%, rgba(0,0,0,0) 65%);
-  filter: blur(30px);
-  opacity: 0.85;
-  transform: translateZ(-80px);
-  pointer-events: none;
-}
-
-.circle-explosion {
-  position: absolute;
-  border-radius: 50%;
-  width: 14px;
-  height: 14px;
-  background: radial-gradient(circle at 35% 30%, #fff5d9, #d4af6a 45%, #b8935a 70%);
-  box-shadow: 0 2px 12px rgba(212,175,106,0.28), 0 0 36px rgba(212,175,106,0.14);
-  transform-origin: center center;
-  opacity: 0.95;
-  animation: orbitPulse 2.2s ease-in-out infinite;
-}
-
-.circle-1 { transform: rotate(0deg) translateX(96px) rotate(0deg); animation-delay: 0s; }
-.circle-2 { transform: rotate(45deg) translateX(96px) rotate(-45deg); animation-delay: -0.18s; }
-.circle-3 { transform: rotate(90deg) translateX(96px) rotate(-90deg); animation-delay: -0.36s; }
-.circle-4 { transform: rotate(135deg) translateX(96px) rotate(-135deg); animation-delay: -0.54s; }
-.circle-5 { transform: rotate(180deg) translateX(96px) rotate(-180deg); animation-delay: -0.72s; }
-.circle-6 { transform: rotate(225deg) translateX(96px) rotate(-225deg); animation-delay: -0.9s; }
-.circle-7 { transform: rotate(270deg) translateX(96px) rotate(-270deg); animation-delay: -1.08s; }
-.circle-8 { transform: rotate(315deg) translateX(96px) rotate(-315deg); animation-delay: -1.26s; }
-
-@keyframes rotorSpin {
-  from { transform: translateZ(-40px) rotateX(12deg) rotateZ(0deg); }
-  to { transform: translateZ(-40px) rotateX(12deg) rotateZ(360deg); }
-}
-
-@keyframes orbitPulse {
-  0% { transform: translateZ(0px) scale(0.92); opacity: 0.88; filter: hue-rotate(0deg); }
-  50% { transform: translateZ(8px) scale(1.18); opacity: 1; filter: hue-rotate(8deg); }
-  100% { transform: translateZ(0px) scale(0.92); opacity: 0.88; filter: hue-rotate(0deg); }
-}
-
-/* trailing streak rotates slowly to create motion blur */
-@keyframes trailRotate {
-  0% { transform: translateX(96px) translateY(-18px) rotate(28deg) translateZ(10px) rotate(0deg); opacity: 0.45; }
-  50% { transform: translateX(96px) translateY(-18px) rotate(28deg) translateZ(10px) rotate(90deg); opacity: 0.6; }
-  100% { transform: translateX(96px) translateY(-18px) rotate(28deg) translateZ(10px) rotate(180deg); opacity: 0.45; }
-}
-.rotating-circles .trail { animation: trailRotate 3.6s linear infinite; }
-
-/* central text: gradient + shine */
-.loding-container h1 {
-  font-size: 2.6rem;
-  color: transparent;
-  text-transform: uppercase;
-  letter-spacing: 8px;
-  animation: pulse 1.6s ease-in-out infinite;
-  position: absolute;
-  z-index: 3;
-  text-shadow: 0 6px 24px rgba(212,175,106,0.16);
-}
-.loding-container h1 .loader-text {
-  position: relative;
-  display: inline-block;
-  background: linear-gradient(90deg, #fffefc 0%, #f6e6b8 45%, #d4af6a 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  transform: translateZ(12px);
-}
-.loding-container h1 .loader-text::after {
-  content: '';
-  position: absolute;
-  left: -40%;
   top: 0;
-  width: 36%;
+  left: 0;
+  width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.75), rgba(255,255,255,0));
-  transform: skewX(-18deg);
-  filter: blur(8px);
-  opacity: 0.9;
+  opacity: 0.08;
   pointer-events: none;
-  animation: shine 2.6s linear infinite;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.5'/%3E%3C/svg%3E");
 }
-@keyframes shine { 0% { left: -40%; } 100% { left: 120%; } }
+
+/* Room Light Effect - Controls whole screen brightness */
+.room-light {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150vmax;
+  height: 150vmax;
+  background: radial-gradient(circle, rgba(212, 175, 106, 0.12) 0%, rgba(13, 11, 10, 0.95) 60%, rgba(5, 4, 3, 1) 100%);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0; /* Starts off */
+  animation: room-flicker 3.5s infinite; 
+  mix-blend-mode: screen;
+}
+
+.bulb-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  transform-style: preserve-3d;
+}
+
+/* Socket / Wire simulation above bulb */
+.bulb-socket {
+  position: absolute;
+  top: -60px;
+  width: 2px;
+  height: 60px;
+  background-color: #2a2520;
+  box-shadow: 1px 0 2px rgba(0,0,0,0.5);
+}
+.bulb-socket::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -8px;
+  width: 18px;
+  height: 12px;
+  background: linear-gradient(to right, #333, #555, #333);
+  border-radius: 2px;
+}
+
+.bulb-icon {
+  width: 100px;
+  height: 100px;
+  color: #3b3025; /* Off state color: dark brown/grey */
+  transition: color 0.1s;
+  overflow: visible;
+  animation: bulb-flicker 3.5s infinite; /* Synced with room */
+}
+
+/* The actual glowing filament inside */
+.bulb-icon .filament {
+  stroke: #4a3e33; /* Off state */
+  stroke-width: 2px;
+  stroke-linecap: round;
+  fill: none;
+  transition: stroke 0.1s;
+  animation: filament-flicker 3.5s infinite;
+}
+
+/* Core glow right around the bulb */
+.bulb-glow-core {
+  position: absolute;
+  top: 15px; /* Adjust to sit behind the glass part */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 230, 150, 0.9) 0%, rgba(255, 180, 50, 0.2) 60%, transparent 100%);
+  filter: blur(8px);
+  opacity: 0;
+  animation: core-flicker 3.5s infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.loading-text {
+  margin-top: 30px;
+  font-family: 'Courier New', Courier, monospace; /* Typewriter style */
+  font-weight: bold;
+  font-size: 1rem;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: #554a40; /* Off state text */
+  text-shadow: none;
+  animation: text-flicker 3.5s infinite;
+}
+
+/* 
+   Animation Synchronization:
+   0% - 10%: On (Flickering start)
+   10% - 20%: Unstable
+   20% - 30%: Off briefly
+   30% - 35%: Flash
+   35% - 80%: Stable On (Bright)
+   80% - 90%: Dimming / Unstable
+   90% - 100%: Off / Low
+*/
+
+/* 1. Room Light Animation */
+@keyframes room-flicker {
+  0%, 4%, 8%, 12% { opacity: 0.8; }
+  2%, 6%, 10% { opacity: 0.6; }
+  14%, 25% { opacity: 0; } /* Off */
+  26%, 28% { opacity: 0.4; } /* Low */
+  30%, 32% { opacity: 0.9; } /* Flash */
+  34%, 85% { opacity: 0.85; } /* Stable On */
+  86%, 100% { opacity: 0.1; } /* Fade out / Dim */
+}
+
+/* 2. Bulb Glass Color Animation */
+@keyframes bulb-flicker {
+  0%, 4%, 8%, 12% { color: #ffeab0; filter: drop-shadow(0 0 8px rgba(255,200,100,0.6)); }
+  2%, 6%, 10% { color: #d4af6a; filter: drop-shadow(0 0 5px rgba(212,175,106,0.3));}
+  14%, 25% { color: #3b3025; filter: none; }
+  26%, 28% { color: #8a7045; filter: drop-shadow(0 0 4px rgba(212,175,106,0.2)); }
+  30%, 32% { color: #fff8e0; filter: drop-shadow(0 0 12px rgba(255,220,150,0.8)); }
+  34%, 85% { color: #ffeab0; filter: drop-shadow(0 0 10px rgba(255,210,120,0.5)); }
+  86%, 100% { color: #4a3b30; filter: drop-shadow(0 0 2px rgba(212,175,106,0.1)); }
+}
+
+/* 3. Filament Hot Wire Animation (Brighter than glass) */
+@keyframes filament-flicker {
+  0%, 4%, 8%, 12% { stroke: #fff; }
+  2%, 6%, 10% { stroke: #ffdfa0; }
+  14%, 25% { stroke: #4a3e33; }
+  26%, 28% { stroke: #b8935a; }
+  30%, 32% { stroke: #ffffff; }
+  34%, 85% { stroke: #fff6d6; }
+  86%, 100% { stroke: #5e4d3b; }
+}
+
+/* 4. Core Glow Animation */
+@keyframes core-flicker {
+  0%, 4%, 8%, 12% { opacity: 0.9; transform: translateX(-50%) scale(1); }
+  2%, 6%, 10% { opacity: 0.7; transform: translateX(-50%) scale(0.9); }
+  14%, 25% { opacity: 0; transform: translateX(-50%) scale(0.5); }
+  26%, 28% { opacity: 0.3; transform: translateX(-50%) scale(0.8); }
+  30%, 32% { opacity: 1; transform: translateX(-50%) scale(1.2); }
+  34%, 85% { opacity: 0.95; transform: translateX(-50%) scale(1.05); }
+  86%, 100% { opacity: 0.1; transform: translateX(-50%) scale(0.8); }
+}
+
+/* 5. Text Animation */
+@keyframes text-flicker {
+  0%, 4%, 8%, 12% { color: #d4af6a; text-shadow: 0 0 5px rgba(212,175,106,0.5); opacity: 1; }
+  2%, 6%, 10% { color: #a68b58; text-shadow: none; opacity: 0.8; }
+  14%, 25% { color: #3b3025; text-shadow: none; opacity: 0.3; }
+  30%, 32% { color: #fff; text-shadow: 0 0 8px rgba(255,255,255,0.6); opacity: 1; }
+  34%, 85% { color: #d4af6a; text-shadow: 0 0 4px rgba(212,175,106,0.3); opacity: 0.9; }
+  86%, 100% { color: #4a3b30; text-shadow: none; opacity: 0.4; }
+}
