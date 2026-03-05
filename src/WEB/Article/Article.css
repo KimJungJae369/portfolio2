@@ -1,0 +1,185 @@
+#article_section {
+    background-color: #1a1612;
+    min-height: 100vh;
+    display: block; 
+    padding: 100px 5%;
+    color: #e6d9c2;
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+    opacity: 1; /* Override default hidden state from global section style */
+    transform: none; /* Override default transform */
+    height: auto;
+}
+
+.article-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15vh;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.article-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8vw;
+    width: 100%;
+    /* opacity removed to test visibility, children are animated */
+    min-height: 80vh; /* Ensure each item takes up significant vertical space */
+}
+
+/* Image Animation - Default Visible for testing, then animate */
+.article-image-wrapper {
+    flex: 0 0 45%;
+    opacity: 0; /* Hidden when out of view */
+    transform: translateX(-50px);
+    transition: opacity 1.2s ease-out, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* For alternate layout if desired */
+.article-image-wrapper.image-right {
+    order: 2;
+    transform: translateX(100px);
+}
+.article-content-wrapper.content-left {
+    order: 1;
+    align-items: flex-end; /* right-align text if image is on right? or keep center */
+    text-align: right;
+    transform: translateX(-100px);
+}
+/* override text align for alternate */
+.article-content-wrapper.content-left .article-description {
+    text-align: right; 
+}
+
+
+.article-image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    filter: sepia(0.2) contrast(1.1);
+    border-radius: 4px;
+}
+
+/* Content Animation - Default Visible for testing */
+.article-content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 1.0s ease-out, transform 1.0s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.article-subtitle {
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #d4af6a;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.article-title {
+    font-size: 4.5rem;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    font-family: serif; 
+    font-weight: 400;
+    color: #e6d9c2;
+    text-transform: uppercase;
+}
+
+.article-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+    color: #999;
+    max-width: 400px;
+}
+
+.article-link {
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #d4af6a;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.3s;
+}
+
+.article-link:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* Active State (Per Item) */
+.article-container.in-view .article-image-wrapper {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.article-container.in-view .article-content-wrapper {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+/* Remove or Comment out the section hiding to prevent unintended hiding */
+body.section-scrolled-out #article_section {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+}
+
+#article_section {
+    transition: opacity 0.8s ease;
+}
+
+
+/* Mobile Responsive */
+@media (max-width: 1024px) {
+    .article-list {
+        gap: 8vh;
+    }
+    .article-container {
+        flex-direction: column;
+        gap: 3rem;
+        text-align: center;
+    }
+    
+    .article-image-wrapper.image-right {
+        order: 0; /* Reset order on mobile for consistency */
+        transform: translateY(30px);
+    }
+    .article-content-wrapper.content-left {
+        order: 1;
+        align-items: center;
+        text-align: center;
+        transform: translateY(30px);
+    }
+    .article-content-wrapper.content-left .article-description {
+        text-align: center;
+    }
+    
+    .article-image-wrapper {
+        flex: 0 0 auto;
+        width: 100%;
+        transform: translateY(30px);
+    }
+    .article-content-wrapper {
+        align-items: center;
+        transform: translateY(30px);
+    }
+    
+    .article-title {
+        font-size: 2.8rem;
+    }
+}

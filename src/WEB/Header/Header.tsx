@@ -67,47 +67,52 @@ export default function Header() {
       if (typeof window !== 'undefined') {
         window.setSwiperState?.({ isHidden: false, isScrollOut: false, isLastSlide: false });
         window.setProjectsState?.({ forceShow: false });
-        window.setSectionState?.({ hide: true });
+        window.setSectionState?.({ hide: false });
         // 폴백: 직접 컨테이너 조정
         const sc = document.querySelector('.swiperContainer');
         sc?.classList.remove('hidden-by-projects');
         sc?.classList.add('show');
         document.body.classList.remove('section-scrolled-out');
+
+        // 홈으로 이동 시 스와이퍼 첫 페이지로 이동
+        if (window.swiperRef) {
+          if (typeof window.swiperRef.slideToLoop === 'function') {
+             window.swiperRef.slideToLoop(0, 500);
+          } else if (typeof window.swiperRef.slideTo === 'function') {
+             window.swiperRef.slideTo(0, 500);
+          }
+        }
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       console.error('[HomeClick] error', err);
     }
   }
-  
-  const AboutClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
+
+  const ArticleClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     try {
-      const aboutSection = document.getElementById('about_section');
+      const articleSection = document.getElementById('article_section');
 
-      // 즉시 상태 해제: Projects 관련 숨김을 먼저 해제해서 스크롤/클릭이 정상 동작하도록 함
+      // 상태 해제 (AboutClick과 유사)
       if (typeof window !== 'undefined') {
         window.setProjectsState?.({ forceShow: false });
-        window.setSwiperState?.({ isHidden: true, isScrollOut: false, isLastSlide: false });
-        window.setSectionState?.({ hide: false });
+        // 스와이퍼는 Article에서는 필요 없을 수 있으나, 일단 살려둡니다.
+        // Article이 Section 아래에 있으므로, Section을 지나쳐야 함.
+        window.setSwiperState?.({ isHidden: true, isScrollOut: false, isLastSlide: false }); 
+        window.setSectionState?.({ hide: false }); // Section title might be visible or not, usually passing it hides it via scroll.
+
         const sc = document.querySelector('.swiperContainer');
         sc?.classList.remove('hidden-by-projects');
         sc?.classList.add('show');
         document.body.classList.remove('section-scrolled-out');
       }
 
-      if (aboutSection) {
-        // 스크롤은 상태 정리 후 실행
-        aboutSection.scrollIntoView({ behavior: 'smooth' });
-
-        setTimeout(() => {
-          if (typeof window !== 'undefined' && window.swiperRef && typeof window.swiperRef.slideToLoop === 'function') {
-            window.swiperRef.slideToLoop(0, 0);
-          }
-        }, 500);
+      if (articleSection) {
+        articleSection.scrollIntoView({ behavior: 'smooth' });
       }
     } catch (err) {
-      console.error('[AboutClick] error', err);
+      console.error('[ArticleClick] error', err);
     }
   }
 
@@ -167,7 +172,7 @@ export default function Header() {
         <header className={isScrolled ? 'scrolled' : ''}>
             <ul>
                 <li><a href="#" onClick={HomeClick}>{splitText(t('header.home'))}</a></li>
-                <li><a href="#" onClick={AboutClick}>{splitText(t('header.about'))}</a></li>
+                <li><a href="#" onClick={ArticleClick}>{splitText(t('header.article'))}</a></li>
                 <li>
                   <a href="#" onClick={ProjectsClick} aria-label={t('header.projects')}>
                     <span className="nav-icon nav-icon-projects" aria-hidden="true">

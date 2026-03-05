@@ -94,12 +94,12 @@ footer button.copy-email:hover {
 
 footer ul li:first-child{
     font-size: 24px;
-    padding-bottom: 20px;
+    /* padding-bottom: px; */
 }
 
 footer ul li{
     padding-bottom: 8px;
-    font-size: 16px;
+    font-size: 24px;
 }
 
 /* 태블릿 (768px ~ 1024px) */

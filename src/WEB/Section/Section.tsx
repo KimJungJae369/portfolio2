@@ -1,6 +1,6 @@
 import './Section.css'
 import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 // provide wrapper that catches exceptions from useTranslation (possibly
 // thrown when i18n storage access is blocked)
@@ -17,30 +17,43 @@ export default function Section() {
     const { t } = useSafeTranslation();
 
     const [isHidden, setIsHidden] = useState(false); // controls mainTitle slide
-
-    // 섹션 타이틀의 스크롤 연동 애니메이션 (아래로 스크롤하면 title이 위로 올라가며 사라짐)
-    const [titleShift, setTitleShift] = useState(0);
-    const [titleOpacity, setTitleOpacity] = useState(1);
+    const titleRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const section = document.getElementById('about_section');
         if (!section) return;
 
-        const onScrollTitle = () => {
-            const rect = section.getBoundingClientRect();
-            const start = window.innerHeight * 0.25; // 시작점(타이틀이 움직이기 시작할 뷰포트 위치)
-            const end = - (rect.height * 0.5); // 끝점(완전히 사라진 상태)
+        const updateTitleTransform = () => {
+            if (!titleRef.current || isHidden) return;
+            const rect = section.getBoundingClientRect(); // relative to viewport
+            // start animation when top passes 25% of viewport
+            const start = window.innerHeight * 0.25; 
+            const end = - (rect.height * 0.5); 
             const progress = Math.min(Math.max((start - rect.top) / (start - end), 0), 1);
-            const shift = progress * 180; // px, 위로 이동량
-            setTitleShift(shift);
-            setTitleOpacity(1 - progress);
+            const shift = progress * 180; 
+            
+            titleRef.current.style.setProperty('--title-shift', `${shift}px`);
+            titleRef.current.style.setProperty('--title-opacity', `${1 - progress}`);
         };
 
-        onScrollTitle();
-        window.addEventListener('scroll', onScrollTitle, { passive: true });
-        return () => window.removeEventListener('scroll', onScrollTitle);
-    }, []);
+        const handleMouseMove = (e: MouseEvent) => {
+            if (isHidden || !titleRef.current) return;
+            const x = (e.clientX / window.innerWidth - 0.5) * 20; 
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            
+            titleRef.current.style.setProperty('--rotate-x', `${-y}deg`);
+            titleRef.current.style.setProperty('--rotate-y', `${x}deg`);
+        };
 
+        window.addEventListener('scroll', updateTitleTransform, { passive: true });
+        window.addEventListener('mousemove', handleMouseMove);
+        updateTitleTransform(); // initial
+
+        return () => {
+            window.removeEventListener('scroll', updateTitleTransform);
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
+    }, [isHidden]);
 
     // 전역에서 섹션 타이틀(hidden) 제어할 수 있도록 노출
     useEffect(() => {
@@ -149,13 +162,20 @@ export default function Section() {
         };
     }, []);
 
-    // 타이틀 인라인 스타일 계산: CSS custom properties로 전달
-    const titleStyle: React.CSSProperties = { ['--title-shift' as any]: `${titleShift}px`, ['--title-opacity' as any]: `${titleOpacity}` };
-
     return (
         <>
-            <section id="about_section">   
-                <div className={`mainTitle ${isHidden ? 'slide-up' : ''}`} style={titleStyle}>
+            <section id="about_section">
+                <div className="section-decorations" aria-hidden="true">
+                    <div className="bg-text-layer">PORTFOLIO</div>
+                    <div className="floating-shape shape-1"></div>
+                    <div className="floating-shape shape-2"></div>
+                    <div className="floating-shape shape-3"></div>
+                    <div className="particles"></div>
+                    <div className="shooting-star star-1"></div>
+                    <div className="shooting-star star-2"></div>
+                </div>
+                
+                <div ref={titleRef} className={`mainTitle ${isHidden ? 'slide-up' : ''}`}>
                     <span className="section-subtitle">{t('section.subtitle')}</span>
                     <h1>
                         {t('section.title1')}

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import Loding from './Loding/loding'
 import Header from './Header/Header'
 import Section from './Section/Section'
+import Article from './Article/Article'
 import Projects from './Projects/Projects'
 import Footer from './Footer/Footer'
 import MobileHorizontalLayout from './Mobile/MobileHorizontalLayout'
@@ -74,6 +75,7 @@ function Wrap() {
           <>
             <Header />
             <Section />
+            <Article />
             <Projects />
             <Footer/>
           </>

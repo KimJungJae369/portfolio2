@@ -60,12 +60,12 @@ export default function Footer() {
         <input
           type="email"
           name="email"
-          placeholder={t('footer.formEmail') || 'Your email'}
+          placeholder={t('Email') || 'Your email'}
           required
         />
         <textarea
           name="message"
-          placeholder={t('footer.formMessage') || 'Your message'}
+          placeholder={t('Message') || 'Your message'}
           required
         />
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>

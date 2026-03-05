@@ -151,11 +151,7 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
     height: auto;
     object-fit: cover;
     border-radius: 16px;
-    box-shadow: 
-        0 20px 50px rgba(0, 0, 0, 0.15),
-        0 8px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 #projects_section main img:hover {
@@ -172,16 +168,6 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
     position: relative;
 }
 
-#projects_section .device-frame {
-    margin: 0;
-    position: relative;
-    overflow: hidden;
-    border: 1px solid rgba(212, 175, 106, 0.28);
-    background: rgba(212, 175, 106, 0.05);
-    box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.22),
-        0 8px 20px rgba(0, 0, 0, 0.14);
-}
 
 #projects_section .device-label {
     /* caption acts as full-size wrapper */
