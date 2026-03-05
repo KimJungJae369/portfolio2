@@ -748,8 +748,8 @@ body.footer-in-view .swiperContainer {
 .floating-shape {
     position: absolute;
     border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.6;
+    filter: blur(60px);
+    opacity: 0.8;
     animation: floatShape 20s infinite alternate ease-in-out;
 }
 
@@ -758,7 +758,7 @@ body.footer-in-view .swiperContainer {
     left: -10%;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(212,175,106,0.15), transparent 70%);
+    background: radial-gradient(circle, rgba(212,175,106,0.2), transparent 70%);
     animation-delay: -5s;
 }
 
@@ -767,7 +767,7 @@ body.footer-in-view .swiperContainer {
     right: -5%;
     width: 500px;
     height: 500px;
-    background: radial-gradient(circle, rgba(160,140,100,0.1), transparent 70%);
+    background: radial-gradient(circle, rgba(160,140,100,0.15), transparent 70%);
     animation-delay: -2s;
 }
 
@@ -776,7 +776,7 @@ body.footer-in-view .swiperContainer {
     left: 30%;
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, rgba(255,255,255,0.03), transparent 70%);
+    background: radial-gradient(circle, rgba(255,255,255,0.05), transparent 70%);
     animation-delay: -8s;
 }
 
@@ -957,16 +957,15 @@ body.light-mode #projects_section::after {
 
 
 body.light-mode .floating-shape {
-    opacity: 0.25;
-    filter: blur(100px);
+    opacity: 0.5;
+    filter: blur(60px);
 }
 body.light-mode .floating-shape.shape-1 {
-    background: radial-gradient(circle, rgba(44,62,80,0.4), transparent 70%);
+    background: radial-gradient(circle, rgba(44,62,80,0.6), transparent 70%);   
 }
 body.light-mode .floating-shape.shape-2 {
-    background: radial-gradient(circle, rgba(93,64,55,0.4), transparent 70%);
+    background: radial-gradient(circle, rgba(93,64,55,0.6), transparent 70%);   
 }
 body.light-mode .floating-shape.shape-3 {
-    background: radial-gradient(circle, rgba(52,152,219,0.3), transparent 70%);
-}
+    background: radial-gradient(circle, rgba(52,152,219,0.5), transparent 70%); 
 
