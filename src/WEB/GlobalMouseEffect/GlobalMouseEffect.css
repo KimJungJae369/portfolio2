@@ -1,0 +1,53 @@
+.global-gold-dust-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 999990; /* High z-index but below cursor */
+}
+
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 10px rgba(212, 175, 106, 0.3);
+    pointer-events: none;
+    z-index: 999999;
+    transform: translate(-50%, -50%); /* Start centered conceptually, JS overrides */
+    margin-left: -10px; /* Center circle on mouse */
+    margin-top: -10px;
+    transition: width 0.3s ease, height 0.3s ease, margin 0.3s ease, background-color 0.3s ease, border-radius 0.3s ease;
+    mix-blend-mode: normal;
+}
+
+/* Active state: when over titles */
+.custom-cursor.active {
+    width: 50px;
+    height: 50px;
+    margin-left: -25px;
+    margin-top: -25px;
+    background-color: #ffffff;
+    mix-blend-mode: difference;
+    box-shadow: none;
+    /* This inverts colors underneath. 
+       White cursor (difference) on Black text -> White text.
+       White cursor (difference) on White bg -> Black bg.
+    */
+}
+
+/* Light mode adjustments if needed */
+body.light-mode .custom-cursor {
+    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .custom-cursor.active {
+    background-color: #ffffff; /* Difference mode needs white to invert effectively */
+    mix-blend-mode: difference; 
+}

@@ -1,6 +1,7 @@
 import './Section.css'
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect, useRef } from 'react';
+import { createFirework } from '../utils/fireworks'; // Import firework utility
 
 // provide wrapper that catches exceptions from useTranslation (possibly
 // thrown when i18n storage access is blocked)
@@ -18,6 +19,8 @@ export default function Section() {
 
     const [isHidden, setIsHidden] = useState(false); // controls mainTitle slide
     const titleRef = useRef<HTMLDivElement>(null);
+
+    // Gold Dust Effect moved to GlobalMouseEffect.tsx
 
     useEffect(() => {
         const section = document.getElementById('about_section');
@@ -162,6 +165,15 @@ export default function Section() {
         };
     }, []);
 
+    const handleTitleClick = (e: React.MouseEvent) => {
+        // Calculate center of the clicked element but use event coordinates for trigger
+        const x = e.clientX;
+        const y = e.clientY;
+        
+        // Trigger single firework
+        createFirework(x, y);
+    };
+
     return (
         <>
             <section id="about_section">
@@ -178,7 +190,7 @@ export default function Section() {
                 <div ref={titleRef} className={`mainTitle ${isHidden ? 'slide-up' : ''}`}>
                     <span className="section-subtitle">{t('section.subtitle')}</span>
                     <h1>
-                        {t('section.title1')}
+                        <span onClick={handleTitleClick} style={{cursor: 'pointer', display: 'inline-block', pointerEvents: 'auto'}}>{t('section.title1')}</span>
                         <p>{t('section.title2')}</p>
                     </h1>
                     <div className="scroll-title" aria-hidden="true">

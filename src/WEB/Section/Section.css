@@ -971,3 +971,45 @@ body.light-mode .floating-shape.shape-3 {
 
 
 }
+
+/* Gold Dust Canvas */
+.gold-dust-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Title Hover Effect: Color Inversion */
+.mainTitle h1 {
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    cursor: default;
+    pointer-events: auto; /* Enable hover since parent has none */
+}
+
+.mainTitle h1:hover,
+.mainTitle h1:hover p {
+    background: linear-gradient(to right, #ffffff, #d4af6a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(212, 175, 106, 0.6);
+    transform: scale(1.02);
+}
+
+/* Reset p specific styles on hover to inherit gradient */
+.mainTitle h1:hover p {
+    opacity: 1;
+}
+
+
+body.light-mode .mainTitle h1:hover,
+body.light-mode .mainTitle h1:hover p {
+    background: linear-gradient(to right, #2c3e50, #000000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(44, 62, 80, 0.4);
+}
+

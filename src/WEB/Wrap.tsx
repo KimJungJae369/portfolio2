@@ -7,6 +7,7 @@ import Article from './Article/Article'
 import Projects from './Projects/Projects'
 import Footer from './Footer/Footer'
 import MobileHorizontalLayout from './Mobile/MobileHorizontalLayout'
+import GlobalMouseEffect from './GlobalMouseEffect/GlobalMouseEffect'
 
 function Wrap() {
   const [isLoading, setIsLoading] = useState(true)
@@ -67,6 +68,7 @@ function Wrap() {
 
   return (
     <div className="wrap">
+      <GlobalMouseEffect />
       {isLoading && <Loding onLoadingComplete={() => setIsLoading(false)} />}
       {!isLoading && (
         isMobile ? (
