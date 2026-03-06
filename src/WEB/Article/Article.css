@@ -62,8 +62,8 @@
     height: auto;
     display: block;
     box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-    filter: sepia(0.2) contrast(1.1);
     border-radius: 4px;
+    filter: sepia(100%);
 }
 
 /* Content Animation - Default Visible for testing */
@@ -88,6 +88,7 @@
 }
 
 .article-title {
+    max-width: 100%;
     font-size: 4.5rem;
     line-height: 1.1;
     margin-bottom: 2rem;
@@ -102,7 +103,7 @@
     line-height: 1.6;
     margin-bottom: 3rem;
     color: #999;
-    max-width: 400px;
+    max-width: 100%;
 }
 
 .article-link {
