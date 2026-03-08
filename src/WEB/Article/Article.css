@@ -132,6 +132,24 @@
     transform: translateX(0);
 }
 
+.article-wrapper.in-view .section-header-title {
+    opacity: 1;
+    transform: translateY(0);
+}
+.article-wrapper .section-header-title {
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: opacity 1.0s ease-out, transform 1.0s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.section-header-title {
+    font-size: 40px;
+    color: #d4af6a;
+    margin-bottom: 50px;
+    font-family: serif;
+    letter-spacing: 5px;
+}
+
 
 /* Remove or Comment out the section hiding to prevent unintended hiding */
 body.section-scrolled-out #article_section {

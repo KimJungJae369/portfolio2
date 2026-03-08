@@ -14,6 +14,18 @@ interface ProjectsProps {
 export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
   const { t } = useTranslation();
   const [inView, setInView] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [popupContent, setPopupContent] = useState('');
+
+  const openPopup = (content: string) => {
+    setPopupContent(content);
+    setIsPopupOpen(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupOpen(false);
+    setPopupContent('');
+  };
 
   useEffect(() => {
     const section = document.getElementById('projects_section');
@@ -101,6 +113,7 @@ export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
                 <div className="subMenu">
                   <a href="https://github.com/KimJungJae369/portfolio">{t('footer.github')}</a>
                   <a href="https://kimjungjae369.github.io/portfolio/">Demo</a>
+                  <button className="project-desc-btn" onClick={() => openPopup("이 프로젝트는 React와 Vite를 사용하여 개발되었습니다. Tailwind CSS로 스타일링되었으며, GitHub Pages를 통해 배포되었습니다. 주요 기능으로는 수입/지출 관리, 차트 시각화 등이 있습니다.")}>Description</button>
                 </div>
               </div>
             </main>
@@ -144,11 +157,21 @@ export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
                 <div className="subMenu">
                   <a href="https://github.com/KimJungJae369/portfolio2">{t('footer.github')}</a>
                   <a href="https://kimjungjae369.github.io/portfolio2/">Demo</a>
+                  <button className="project-desc-btn" onClick={() => openPopup("이 프로젝트는 TypeScript와 React를 기반으로 제작된 개인 포트폴리오 사이트입니다. 반응형 웹 디자인을 적용하였으며, 다국어 지원(i18n) 기능을 포함하고 있습니다.")}>Description</button>
                 </div>
               </div>
             </main>
             </div>
         </div>
+
+        {isPopupOpen && (
+          <div className="popup-overlay" onClick={closePopup}>
+            <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+              <button className="popup-close" onClick={closePopup}>&times;</button>
+              <p>{popupContent}</p>
+            </div>
+          </div>
+        )}
     </>
   )
 }
