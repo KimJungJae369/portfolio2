@@ -317,7 +317,7 @@ ul li:hover a span:nth-child(8) { animation-delay: 0.7s; }
 
 .bulb-glow-small {
     position: absolute;
-    top: 36px; /* Center of bulb head */
+    top: 0px; /* Center of bulb head */
     left: 50%;
     transform: translateX(-50%) scale(0.4);
     width: 80px;

@@ -48,9 +48,8 @@ export default function Footer() {
     <footer id="footer_section" className={inView ? 'in-view' : ''}>
       <div className="footer-shell">
         <div className="footer-intro">
-          <p className="footer-kicker">CONTACT</p>
-          <h2 className="footer-title">함께 이야기해요</h2>
-          <p className="footer-subtitle">언제든지 연락주세요. 반갑게 답변드리겠습니다.</p>
+          <h2 className="footer-title" style={{textAlign : 'center', color: '#d4af6a'}}>MY CONTACT</h2>
+          <p className="footer-subtitle" style={{textAlign : 'center', marginTop: '10px'}}>부족한 부분은 피드백 부탁드립니다 :)</p>
         </div>
 
         <section className="footer-card footer-contact-card">
