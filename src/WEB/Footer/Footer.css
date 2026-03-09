@@ -188,8 +188,8 @@ footer textarea::placeholder {
 }
 
 footer textarea {
-    min-height: 96px;
-    resize: vertical;
+    min-height: 100px;
+    padding-top: 35px;
 }
 
 .emoji-row {
