@@ -17,6 +17,22 @@ export default function Header() {
   const { t, i18n } = useSafeTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLightMode, setIsLightMode] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [activeSection, setActiveSection] = useState(0);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Listen for section changes from Wrap.tsx
+  useEffect(() => {
+    const handler = (e: Event) => setActiveSection((e as CustomEvent).detail);
+    window.addEventListener('sectionChange', handler);
+    return () => window.removeEventListener('sectionChange', handler);
+  }, []);
 
   useEffect(() => {
     const handlerScroll = () => {
@@ -60,9 +76,13 @@ export default function Header() {
     i18n.changeLanguage(newLang);
   };
 
-  const HomeClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
+  const HomeClick = (e : React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
     e.preventDefault();
     try {
+      if (isMobile && window.slideToSection) {
+        window.slideToSection(0);
+        return;
+      }
       // 다른 버튼 클릭 시 스와이퍼 숨김 및 섹션 타이틀 숨김
       if (typeof window !== 'undefined') {
         window.setSwiperState?.({ isHidden: false, isScrollOut: false, isLastSlide: false });
@@ -89,9 +109,13 @@ export default function Header() {
     }
   }
 
-  const ArticleClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
+  const ArticleClick = (e : React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
     e.preventDefault();
     try {
+      if (isMobile && window.slideToSection) {
+        window.slideToSection(1);
+        return;
+      }
       const articleSection = document.getElementById('article_section');
 
       // 상태 해제 (AboutClick과 유사)
@@ -116,9 +140,13 @@ export default function Header() {
     }
   }
 
-  const FooterClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
+  const FooterClick = (e : React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
     e.preventDefault();
     try {
+      if (isMobile && window.slideToSection) {
+        window.slideToSection(3);
+        return;
+      }
       if (typeof window !== 'undefined') {
         window.setSwiperState?.({ isHidden: false, isScrollOut: false, isLastSlide: false });
         window.setProjectsState?.({ forceShow: true });
@@ -132,9 +160,13 @@ export default function Header() {
     }
   }
 
-  const ProjectsClick = (e : React.MouseEvent<HTMLAnchorElement>) => {
+  const ProjectsClick = (e : React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
     e.preventDefault();
     try {
+      if (isMobile && window.slideToSection) {
+        window.slideToSection(2);
+        return;
+      }
       // Projects 클릭 시 스와이퍼 숨김 + Section 완전 해제
       if (typeof window !== 'undefined') {
         window.setSwiperState?.({ isHidden: false, isScrollOut: false, isLastSlide: false });
@@ -206,6 +238,41 @@ export default function Header() {
             {i18n.language === 'en' ? 'KO' : 'EN'}
           </button>
         </div>
+
+        {/* Mobile Bottom Navigation */}
+        {isMobile && (
+          <nav className="mobile-bottom-nav">
+            <button className={`bottom-nav-item ${activeSection === 0 ? 'active' : ''}`} onClick={HomeClick}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+              <span>{t('mobileNav.home')}</span>
+            </button>
+            <button className={`bottom-nav-item ${activeSection === 1 ? 'active' : ''}`} onClick={ArticleClick}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+              </svg>
+              <span>{t('mobileNav.about')}</span>
+            </button>
+            <button className={`bottom-nav-item ${activeSection === 2 ? 'active' : ''}`} onClick={ProjectsClick}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+              <span>{t('mobileNav.projects')}</span>
+            </button>
+            <button className={`bottom-nav-item ${activeSection === 3 ? 'active' : ''}`} onClick={FooterClick}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="16" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12.01" y2="8"/>
+              </svg>
+              <span>{t('mobileNav.footer')}</span>
+            </button>
+          </nav>
+        )}
     </>
   )
 }

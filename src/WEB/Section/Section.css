@@ -173,6 +173,25 @@ section>h1::after {
     100% { transform: translateY(0) rotateX(0deg); opacity: 0.9; }
 }
 
+/* Mobile horizontal scroll indicator */
+.scroll-title-horizontal {
+    flex-direction: row !important;
+    gap: 12px !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+.scroll-title-horizontal .scroll-arrow {
+    animation: arrowBounceHorizontal 1.1s ease-in-out infinite !important;
+}
+
+@keyframes arrowBounceHorizontal {
+    0% { transform: translateX(0); opacity: 0.9; }
+    50% { transform: translateX(10px); opacity: 1; }
+    100% { transform: translateX(0); opacity: 0.9; }
+}
+
 /* Responsive adjustments */
 @media (max-width: 1024px) {
     .mainTitle { --title-offset: 18px; }
@@ -182,10 +201,14 @@ section>h1::after {
     .mainTitle .scroll-title .scroll-text { font-size: 16px; letter-spacing: 5px; }
     .mainTitle .scroll-title .scroll-arrow { font-size: 26px; }
 }
+@media (max-width: 768px) {
+    .mainTitle h1 { font-size: 4.2rem; }
+    .mainTitle h1 p { font-size: 1.15rem; }
+}
 @media (max-width: 480px) {
     .mainTitle { --title-offset: 12px; }
-    .mainTitle h1 { font-size: 2.6rem; }
-    .mainTitle h1 p { font-size: 0.95rem; }
+    .mainTitle h1 { font-size: 3.4rem; }
+    .mainTitle h1 p { font-size: 1.05rem; }
     .mainTitle .scroll-title { margin-top: 300px; }
     .mainTitle .scroll-title .scroll-text { font-size: 14px; letter-spacing: 3px; padding: 4px 10px; }
     .mainTitle .scroll-title .scroll-arrow { font-size: 20px; }
@@ -655,29 +678,19 @@ body.footer-in-view .swiperContainer {
     }
 }
 
-/* 모바일 전용: Section을 fixed로 변경하여 배경이 제대로 보이도록 */
+/* 모바일: Section을 relative로 유지하여 단일 스크롤 레이아웃 */
 @media (max-width: 768px) {
     section {
-        position: fixed;
-        top: 0;
-        left: 0;
+        position: relative;
+        top: auto;
+        left: auto;
+        height: 100vh;
     }
 
-    /* footer가 보일 때는 섹션 고정 해제하여 스크롤 허용 */
-    body.footer-in-view section {
-        position: static !important;
-    }
-    
-    /* 모바일 네비게이션 버튼 컨테이너 */
+    /* 모바일 네비게이션 버튼 숨김 (PC 레이아웃 사용) */
     .mobile-nav-bottom {
-        position: fixed;
-        bottom: 100px;
-        left: 0;
-        right: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 20px;
+        display: none;
+    }
         z-index: 20;
         padding: 0 20px;
     }

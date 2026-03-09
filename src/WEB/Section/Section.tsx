@@ -18,7 +18,15 @@ export default function Section() {
     const { t } = useSafeTranslation();
 
     const [isHidden, setIsHidden] = useState(false); // controls mainTitle slide
+    const [isMobile, setIsMobile] = useState(false);
     const titleRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     // Gold Dust Effect moved to GlobalMouseEffect.tsx
 
@@ -193,9 +201,9 @@ export default function Section() {
                         <span onClick={handleTitleClick} style={{cursor: 'pointer', display: 'inline-block', pointerEvents: 'auto'}}>{t('section.title1')}</span>
                         <p>{t('section.title2')}</p>
                     </h1>
-                    <div className="scroll-title" aria-hidden="true">
-                        <div className="scroll-text">scroll</div>
-                        <div className="scroll-arrow">↓</div>
+                    <div className={`scroll-title ${isMobile ? 'scroll-title-horizontal' : ''}`} aria-hidden="true">
+                        <div className="scroll-text">{isMobile ? 'left' : 'scroll'}</div>
+                        <div className="scroll-arrow">{isMobile ? '→' : '↓'}</div>
                     </div>
                 </div>
 

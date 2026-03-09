@@ -9,5 +9,6 @@ declare global {
         setSwiperState?: (state: { isHidden: boolean; isScrollOut: boolean; isLastSlide: boolean }) => void;
         setProjectsState?: (state: { forceShow: boolean }) => void;
         setSectionState?: (state: { hide: boolean }) => void;
+        slideToSection?: (index: number) => void;
     }
 }

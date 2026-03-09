@@ -8,7 +8,7 @@ footer {
 
 .footer-shell {
     max-width: 1020px;
-    height: 600px;
+    height: auto;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -18,7 +18,7 @@ footer {
 .footer-intro,
 .footer-contact-card,
 .footer-guest-card {
-    height: 150px;
+    height: auto;
     opacity: 0;
     transform: translateY(36px);
     transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
@@ -66,7 +66,7 @@ footer.in-view .footer-guest-card {
 }
 
 .footer-card {
-    height: 400px;
+    height: auto;
     border: 1px solid rgba(212, 175, 106, 0.35);
     border-radius: 22px;
     background: rgba(212, 175, 106, 0.06);

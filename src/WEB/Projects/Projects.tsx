@@ -1,6 +1,7 @@
 import './Projects.css'
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 // gif previews: first project uses img, second uses img2
 import PcGif1 from '../img/pc.gif';
 import MoGif1 from '../img/mo.gif';
@@ -282,7 +283,7 @@ export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
             </div>
         </div>
 
-        {isPopupOpen && popupContent && (
+        {isPopupOpen && popupContent && createPortal(
           <div className="popup-overlay" onClick={closePopup}>
             <div className="popup-content" onClick={(e) => e.stopPropagation()}>
               <button className="popup-close" onClick={closePopup}>&times;</button>
@@ -303,7 +304,8 @@ export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
                 </div>
               </div>
             </div>
-          </div>
+          </div>,
+          document.body
         )}
     </>
   )

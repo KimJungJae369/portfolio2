@@ -1,9 +1,16 @@
 import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import './Article.css';
 import profileImg from '../img2/KakaoTalk_20260305_211431499.jpg';
 import secondImg from '../img2/imag.png';
 
+const nl2br = (text: string) =>
+    text.split('\n').map((line, i, arr) => (
+        <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
+    ));
+
 export default function Article() {
+    const { t } = useTranslation();
     const sectionRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
@@ -36,18 +43,14 @@ export default function Article() {
                         <img src={profileImg} alt="Profile" />
                     </div>
                     <div className={`article-content-wrapper ${index % 2 !== 0 ? 'content-left' : ''}`}>
-                        <span className="article-subtitle">1996-2026 year</span>
+                        <span className="article-subtitle">{t('article.profile.subtitle')}</span>
                         <h2 className="article-title" style={{ fontSize: '20px' }}>
-                            런웨이 대신 브라우저로 출근하는 '핏(Fit)'이 다른 개발자 김정재입니다
+                            {t('article.profile.title')}
                         </h2>
                         <p className="article-description" style={{ fontSize: '18px' }}>
-                            계절보다 앞서가는 패션계의 속도감 속에서 살아남았습니다.
-                            <br />
-                            매일같이 쏟아지는 새로운 프레임워크와 라이브러리라는 '신상'들 앞에서도 
-                            <br />
-                            누구보다 빠르게 트렌드를 분석해 서비스에 입힐 준비가 되어 있습니다
+                            {nl2br(t('article.profile.description'))}
                         </p>
-                        <a href="https://blog.naver.com/ktk662002" target='_blank' rel='noopener noreferrer' className="article-link">MY BLOG →</a>
+                        <a href="https://blog.naver.com/ktk662002" target='_blank' rel='noopener noreferrer' className="article-link">{t('article.profile.link')}</a>
                     </div>
                 </div>
             );
@@ -57,24 +60,20 @@ export default function Article() {
         if (index === 1) {
             return (
                 <div key={index} className="article-wrapper" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-                    <h2 className="section-header-title">DEVELOPER STORY</h2>
+                    <h2 className="section-header-title">{t('article.story.headerTitle')}</h2>
                     <div className="article-container">
                         <div className={`article-image-wrapper ${index % 2 !== 0 ? 'image-right' : ''}`}>
                             <img src={secondImg} alt="Profile" style={{ filter: 'none' }} />
                         </div>
                         <div className={`article-content-wrapper ${index % 2 !== 0 ? 'content-left' : ''}`} style={{ textAlign: 'left', alignItems: 'flex-start' }}>
-                            <span className="article-subtitle">Developer Story</span>
+                            <span className="article-subtitle">{t('article.story.subtitle')}</span>
                             <h2 className="article-title" style={{ fontSize: '20px' }}>
-                                고객의 동선을 읽는 개발자
+                                {t('article.story.title')}
                             </h2>
                             <p className="article-description" style={{ fontSize: '15px', textAlign: 'left' }}>
-                                패션 세일즈 현장에서 제가 배운 가장 소중한 것은 '고객의 시선과'을 따라가는 법을 배웠습니다
-                                <br /><br />
-                                사용자가 길을 잃지 않도록 메뉴 배치 등 과정에서 고객의 시선을 따라가며 웹사이트를 설계하는 개발자가 목표를 하고 
-                                오프라인 매장의 한계를 넘어, 전 세계 누구나 제가 만든 '개발 쇼룸'에 들어와 즐거운 경험 만들어 옷을 입었을 때의 자신감을,
-                                제가 만든 웹사이트를 사용할 때의 편리함으로 치환해 전달하는 개발자가 되겠습니다
+                                {nl2br(t('article.story.description'))}
                             </p>
-                            <a href="https://github.com/ktk662442-sys/html-css-/tree/main/9.%20%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83" target='_blank' rel='noopener noreferrer' className="article-link">MY GITHUB →</a>
+                            <a href="https://github.com/ktk662442-sys/html-css-/tree/main/9.%20%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83" target='_blank' rel='noopener noreferrer' className="article-link">{t('article.story.link')}</a>
                         </div>
                     </div>
                 </div>
@@ -85,35 +84,35 @@ export default function Article() {
         if (index === 2) {
             const categories = [
                 {
-                    title: "Design & UI/UX",
+                    title: t('article.techStack.categories.designTitle'),
                     skills: [
-                        { name: 'Photoshop', percent: 32, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg', desc: '이미지 리터칭과 합성을 통해 비트맵 기반의 고품질 시각 자료를 자유롭게 제작합니다' },
-                        { name: 'Illustrator', percent: 28, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg', desc: '벡터 그래픽을 활용하여 로고 및 아이콘을 직접 디자인하고 웹에 최적화하여 적용합니다' },
-                        { name: 'Figma', percent: 36, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg', desc: '사용자 중심의 UI/UX를 기획하고, 개발 단계에서의 오차를 줄이는 정교한 프로토타입을 설계합니다' },
+                        { name: 'Photoshop', percent: 32, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg', desc: t('article.techStack.skills.photoshop') },
+                        { name: 'Illustrator', percent: 28, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-original.svg', desc: t('article.techStack.skills.illustrator') },
+                        { name: 'Figma', percent: 36, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg', desc: t('article.techStack.skills.figma') },
                     ]
                 },
                 {
-                    title: "The Core Web",
+                    title: t('article.techStack.categories.coreWebTitle'),
                     skills: [
-                        { name: 'HTML', percent: 39, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg', desc: "웹 접근성과 표준을 준수하여 정보의 구조가 명확한 시맨틱 마크업을 작성합니다" },
-                        { name: 'CSS', percent: 35, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', desc: "트렌디한 디자인을 코드로 구현하며, 반응형 레이아웃과 애니메이션으로 생동감을 더합니다" },
-                        { name: 'JavaScript', percent: 33, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', desc: "ES6+ 문법을 활용하여 사용자와 상호작용하는 동적인 웹 기능을 주도적으로 구현합니다" },
+                        { name: 'HTML', percent: 39, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg', desc: t('article.techStack.skills.html') },
+                        { name: 'CSS', percent: 35, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', desc: t('article.techStack.skills.css') },
+                        { name: 'JavaScript', percent: 33, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', desc: t('article.techStack.skills.javascript') },
                     ]
                 },
                 {
-                    title: "Modern Development",
+                    title: t('article.techStack.categories.modernDevTitle'),
                     skills: [
-                        { name: 'jQuery', percent: 24, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg', desc: 'DOM 조작과 이벤트 처리를 간결하게 구현하며, 기존 라이브러리와의 호환성을 고려해 활용합니다' },
-                        { name: 'React', percent: 37, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', desc: '재사용 가능한 컴포넌트 설계로 개발 생산성을 높이고, SPA(Single Page Application)를 효율적으로 구축합니다' },
-                        { name: 'TypeScript', percent: 31, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg', desc: "타입 안정성을 확보하여 버그를 줄이고, 협업 시 가독성이 뛰어난 코드를 작성합니다" },
-                        { name: 'Next.js', percent: 29, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg', desc: 'SSR(서버 사이드 렌더링)을 적용하여 초기 로딩 속도를 개선하고 검색 엔진 최적화(SEO)를 구현합니다' },
+                        { name: 'jQuery', percent: 24, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg', desc: t('article.techStack.skills.jquery') },
+                        { name: 'React', percent: 37, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', desc: t('article.techStack.skills.react') },
+                        { name: 'TypeScript', percent: 31, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg', desc: t('article.techStack.skills.typescript') },
+                        { name: 'Next.js', percent: 29, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg', desc: t('article.techStack.skills.nextjs') },
                     ]
                 }
             ];
 
             return (
                 <div key={index} className="article-wrapper" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', padding: '40px 0' }}>
-                    <h2 className="section-header-title">TECHNOLOGY STACK</h2>
+                    <h2 className="section-header-title">{t('article.techStack.headerTitle')}</h2>
                     <div className="tech-stack-container" style={{ width: '100%', maxWidth: '1200px', padding: '0 20px' }}>
                         {categories.map((cat, catIndex) => (
                             <div key={catIndex} className="tech-category" style={{ marginBottom: '60px' }}>
@@ -140,7 +139,7 @@ export default function Article() {
                                                                 width: '100%', 
                                                                 height: '100%', 
                                                                 objectFit: 'contain',
-                                                                filter: (skill.name === 'Next.js' || skill.name === 'Photoshop' || skill.name === 'Illustrator') ? 'brightness(0) invert(1)' : 'none'
+                                                                filter: skill.name === 'Next.js' ? 'brightness(0) invert(1)' : 'none'
                                                             }} 
                                                         />
                                                     </div>
@@ -170,7 +169,7 @@ export default function Article() {
             
             return (
                 <div key={index} className="article-wrapper" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', padding: '80px 0' }}>
-                     <h2 className="section-header-title" style={{ fontSize: '40px', color: '#d4af6a' }}>DEPLOYMENT</h2>
+                     <h2 className="section-header-title" style={{ fontSize: '40px', color: '#d4af6a' }}>{t('article.deployment.headerTitle')}</h2>
                      
                      <div className="article-container" style={{flexDirection: 'column', gap: '40px', alignItems: 'center'}}>
                         {/* GitHub Section */}
@@ -180,13 +179,9 @@ export default function Article() {
                                     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub Repository" style={{ width: '70px', height: '70px', filter: 'brightness(0) invert(1)' }} />
                                 </div>
                              </a>
-                             <h3 style={{ fontSize: '24px', color: '#e6d9c2', marginBottom: '20px' }}>Continuous Integration & Development</h3>
+                             <h3 style={{ fontSize: '24px', color: '#e6d9c2', marginBottom: '20px' }}>{t('article.deployment.ciTitle')}</h3>
                              <p className="article-description" style={{ fontSize: '16px', lineHeight: '1.8', wordBreak: 'keep-all', textAlign: 'center' }}>
-                                 단순한 코드 작성을 넘어, 안정적이고 지속 가능한 서비스를 위한 배포 환경을 구축합니다.<br/>
-                                 Git을 활용한 체계적인 버전 관리와 GitHub 중심의 협업 워크플로우를 준수하며,<br/>
-                                 상시 배포 가능한 상태를 유지하기 위해 자동화된 CI/CD 파이프라인 구축에도 깊은 관심을 기울이고 있습니다.<br/>
-                                 프로젝트의 히스토리가 곧 개발자의 성장 기록임을 믿으며, 모든 커밋에 의미를 담아 관리합니다.<br/>
-                                 아래 링크를 통해 이 포트폴리오의 전체 소스 코드와 커밋 로그를 직접 확인하실 수 있습니다.
+                                 {nl2br(t('article.deployment.description'))}
                              </p>
                         </div>
 
