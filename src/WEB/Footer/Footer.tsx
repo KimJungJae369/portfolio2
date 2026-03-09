@@ -46,35 +46,63 @@ export default function Footer() {
 
   return (
     <footer id="footer_section" className={inView ? 'in-view' : ''}>
-      <ul>
-        <li>
-            {t('footer.email')} : <a href="mailto:ktk662002@naver.com">ktk662002@naver.com</a>
-        </li>
-
-        <li>
-            {t('footer.github')} : <a href="https://github.com/KimJungJae369/myPORTFOLIO">github.com</a>
-        </li>
-      </ul>
-
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          placeholder={t('Email') || 'Your email'}
-          required
-        />
-        <textarea
-          name="message"
-          placeholder={t('Message') || 'Your message'}
-          required
-        />
-        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
-          <button type="submit">Send</button>
-          <button type="button" className="copy-email" onClick={copyEmail}>
-            Copy my email
-          </button>
+      <div className="footer-shell">
+        <div className="footer-intro">
+          <p className="footer-kicker">CONTACT</p>
+          <h2 className="footer-title">함께 이야기해요</h2>
+          <p className="footer-subtitle">언제든지 연락주세요. 반갑게 답변드리겠습니다.</p>
         </div>
-      </form>
+
+        <section className="footer-card footer-contact-card">
+          <h3 className="footer-card-title">연락 방법</h3>
+          <div className="contact-grid">
+            <a className="contact-chip" href="mailto:ktk662002@naver.com">
+              <span className="chip-icon chip-email">✉</span>
+              <span className="chip-copy">
+                <strong>{t('footer.email')}</strong>
+                <small>ktk662002@naver.com</small>
+              </span>
+            </a>
+            <a className="contact-chip" href="https://github.com/KimJungJae369/myPORTFOLIO.git" target="_blank" rel="noreferrer">
+              <span className="chip-icon chip-github">◎</span>
+              <span className="chip-copy">
+                <strong>{t('footer.github')}</strong>
+                <small>github.com/KimJungJae369/myPORTFOLIO.git</small>
+              </span>
+            </a>
+          </div>
+        </section>
+
+        <section className="footer-card footer-guest-card">
+          <h3 className="footer-card-title">방명록</h3>
+          <p className="guestbook-note">방문해주셔서 감사해요! 한마디 남겨주세요 ✍️</p>
+
+          <form className="guestbook-form" onSubmit={handleSubmit}>
+            <div className="guestbook-row">
+              <input
+                type="email"
+                name="email"
+                placeholder={t('Email') || 'Your email'}
+                required
+              />
+              <textarea
+                name="message"
+                placeholder={t('Message') || 'Your message'}
+                required
+              />
+            </div>
+
+            <div className="emoji-row" aria-hidden="true">이모지: 👋 🔥 ✨ 💡 🚀 💬 🙌 ❤️</div>
+
+            <div className="guestbook-actions">
+              <button type="submit">Send</button>
+              <button type="button" className="copy-email" onClick={copyEmail}>
+                Copy my email
+              </button>
+            </div>
+          </form>
+        </section>
+      </div>
     </footer>
   );
 }

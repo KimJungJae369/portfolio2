@@ -1,140 +1,258 @@
-footer{
-    position: relative;
+footer {
     width: 100%;
-    max-width: 820px;              /* limit width like a letter */
-    margin: 0 auto 0 auto; /* no margin all around */
-    padding: 80px 25px 140px;       /* increased vertical space */
-    /* no extra bottom margin */
-    text-align: center;
-    scroll-margin-top: 90px;
-    /* border: 1px solid #e8dcc8; */
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
-    overflow: visible;              /* allow tip to be visible outside container */
-    /* fade/slide animation when scrolled into view */
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    will-change: opacity, transform;
+    overflow: hidden;
+    padding: 110px 20px 90px;
+    background: #1a1612;
+    color: #e8dcc8;
 }
 
-/* when footer is in view, fade and slide in */
-footer.in-view {
+.footer-shell {
+    max-width: 1020px;
+    height: 600px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.footer-intro,
+.footer-contact-card,
+.footer-guest-card {
+    height: 200px;
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.footer-intro {
+    grid-column: 1 / -1;
+}
+
+footer.in-view .footer-intro,
+footer.in-view .footer-contact-card,
+footer.in-view .footer-guest-card {
     opacity: 1;
     transform: translateY(0);
 }
 
-footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    background: #fdfaf6;
-    clip-path: polygon(0 0, 100% 0, 50% 100%);
-
-    border-bottom: 1px solid transparent; /* reserve space to avoid flicker */
-    will-change: transform;
+footer.in-view .footer-contact-card {
+    transition-delay: 0.1s;
 }
 
-footer ul {
-    margin: 30px auto; /* added top margin */
-    padding: 0;
+footer.in-view .footer-guest-card {
+    transition-delay: 0.2s;
 }
 
-/* form inside envelope */
-footer form {
+.footer-kicker {
+    margin: 0 0 8px;
+    color: #d4af6a;
+    font-size: 0.82rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+}
+
+.footer-title {
+    margin: 0;
+    color: #e8dcc8;
+    font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+    line-height: 1.2;
+    font-family: 'Gowun Batang', 'Nanum Myeongjo', serif;
+}
+
+.footer-subtitle {
+    margin: 10px 0 30px;
+    color: #e8dcc8;
+    line-height: 1.6;
+}
+
+.footer-card {
+    height: 400px;
+    border: 1px solid rgba(212, 175, 106, 0.35);
+    border-radius: 22px;
+    background: rgba(212, 175, 106, 0.06);
+    padding: 20px;
+    margin-bottom: 0;
+}
+
+.footer-card.footer-contact-card {
+    background: transparent;
+}
+
+.footer-card-title {
+    margin: 0 0 12px;
+    color: #e8dcc8;
+    font-size: 1.9rem;
+    font-weight: 800;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-rows: repeat(2, minmax(1, 1fr));
+    gap: 12px;
+}
+
+.contact-chip {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
-    max-width: 600px;
-    margin: 40px auto 0;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(212, 175, 106, 0.35);
+    text-decoration: none;
+    background: rgba(212, 175, 106, 0.08);
+    color: #e8dcc8;
+    box-shadow: 0 2px 8px rgba(60, 71, 102, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    text-align: left;
+}
+
+.contact-chip:hover {
+    transform: translateY(-2px);
+    border-color: rgba(212, 175, 106, 0.7);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.chip-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    line-height: 1;
+    border: 1px solid rgba(212, 175, 106, 0.45);
+    background: rgba(212, 175, 106, 0.12);
+    color: #d4af6a;
+}
+
+.chip-icon.chip-email {
+    background: rgba(212, 175, 106, 0.12);
+    border-color: rgba(212, 175, 106, 0.45);
+    color: #d4af6a;
+}
+
+.chip-icon.chip-github {
+    background: rgba(212, 175, 106, 0.12);
+    border-color: rgba(212, 175, 106, 0.45);
+    color: #d4af6a;
+}
+
+.chip-copy {
+    display: grid;
+    gap: 2px;
+}
+
+.chip-copy strong {
+    font-size: 0.95rem;
+    color: #e8dcc8;
+}
+
+.chip-copy small {
+    color: #d4af6a;
+    font-size: 0.76rem;
+}
+
+.guestbook-note {
+    margin: 0 0 12px;
+    color: #e8dcc8;
+    font-size: 1.05rem;
+}
+
+.guestbook-form {
+    display: grid;
+    gap: 12px;
+}
+
+.guestbook-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 12px;
 }
 
 footer input[type="email"],
 footer textarea {
     width: 100%;
-    padding: 18px 20px;
-    border: 1px solid #e8dcc8;
-    border-radius: 8px;
-    background: #fff;
-    color: #1a1612;
-    font-size: 1.2rem;
+    border: 1px solid rgba(212, 175, 106, 0.35);
+    border-radius: 12px;
+    background: rgba(212, 175, 106, 0.08);
+    color: #e8dcc8;
+    padding: 12px 14px;
+    font-size: 1.02rem;
+    font-family: inherit;
+}
+
+footer input[type="email"]::placeholder,
+footer textarea::placeholder {
+    color: #d4af6a;
+}
+
+footer textarea {
+    min-height: 96px;
     resize: vertical;
 }
 
-footer textarea { min-height: 160px; }
-
-footer button {
-    padding: 22px 28px;
-    border: none;
-    border-radius: 8px;
-    background: #d4af6a;
-    color: #fdfaf6;
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: background 0.3s ease;
+.emoji-row {
+    color: #d4af6a;
+    letter-spacing: 1px;
+    font-size: 1.08rem;
 }
 
-footer button.copy-email {
-    /* match primary button color */
-    background: #d4af6a;
-    color: #fdfaf6;
-    border: none;
+.guestbook-actions {
+    display: flex;
+    gap: 10px;
+}
+
+footer button {
+    border: 1px solid rgba(212, 175, 106, 0.45);
+    border-radius: 12px;
+    background: rgba(212, 175, 106, 0.12);
+    color: #e8dcc8;
+    padding: 11px 16px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 footer button:hover {
-    background: #c39a50;
+    background: rgba(212, 175, 106, 0.2);
+    border-color: #d4af6a;
 }
 
-footer button.copy-email:hover {
-    background: #c39a50;
+footer button.copy-email {
+    background: transparent;
 }
 
-footer ul li:first-child{
-    font-size: 24px;
-    /* padding-bottom: px; */
-}
-
-footer ul li{
-    padding-bottom: 8px;
-    font-size: 24px;
-}
-
-/* 태블릿 (768px ~ 1024px) */
-@media (max-width: 1024px) {
-    footer {
-        padding: 20px;
+@media (max-width: 900px) {
+    .footer-shell {
+        grid-template-columns: 1fr;
     }
 
-    footer ul li:first-child {
-        font-size: 16px;
-        padding-bottom: 12px;
+    .contact-grid {
+        grid-template-columns: 1fr;
     }
 
-    footer ul li {
-        font-size: 12px;
+    .guestbook-row {
+        grid-template-columns: 1fr;
     }
 }
 
-/* 모바일 (768px 이하) */
 @media (max-width: 768px) {
     footer {
-        padding: 20px 15px;
+        padding: 80px 14px 70px;
     }
 
-    footer ul li:first-child {
-        font-size: 14px;
-        padding-bottom: 10px;
+    .footer-card {
+        padding: 14px;
+        border-radius: 16px;
     }
 
-    footer ul li {
-        font-size: 11px;
-        padding-bottom: 4px;
+    .footer-card-title {
+        font-size: 1.4rem;
     }
 
-    footer ul li a {
-        word-break: break-all;
+    .guestbook-actions {
+        flex-wrap: wrap;
     }
 }

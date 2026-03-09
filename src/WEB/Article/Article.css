@@ -162,6 +162,62 @@ body.section-scrolled-out #article_section {
     transition: opacity 0.8s ease;
 }
 
+/* Tech stack category reveal (3rd section) */
+.tech-category {
+    opacity: 0;
+    transform: translateY(70px);
+    transition: opacity 0.9s ease-out, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tech-category.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Deployment section reveal + graph animation (4th section) */
+.deployment-content,
+.deployment-chart {
+    opacity: 0;
+    transform: translateY(70px);
+    transition: opacity 0.9s ease-out, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.article-container.in-view .deployment-content,
+.article-container.in-view .deployment-chart {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.article-container.in-view .deployment-chart {
+    transition-delay: 0.18s;
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #b89553, #d4af6a, #f2dcaa);
+    background-size: 180% 100%;
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 1.25s cubic-bezier(0.22, 1, 0.36, 1);
+    animation: articleBarShine 2.8s linear infinite;
+}
+
+.article-container.in-view .bar-fill {
+    transform: scaleX(1);
+}
+
+@keyframes articleBarShine {
+    0% { background-position: 0% 0; }
+    100% { background-position: 180% 0; }
+}
+
+.github-icon-wrapper:hover {
+    transform: scale(1.08);
+    border-color: #f2dcaa;
+    box-shadow: 0 0 18px rgba(212, 175, 106, 0.45);
+}
+
 
 /* Mobile Responsive */
 @media (max-width: 1024px) {
