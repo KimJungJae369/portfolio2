@@ -37,7 +37,6 @@ export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
       {
         icon: '📌',
         title: '1. 프로젝트 소개: Pastel Budget App',
-        image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=640&q=80',
         items: [
           '데이터 분석으로 스마트한 소비 습관을 만드는 가계부 어플리케이션',
           '이 프로젝트는 사용자가 자신의 수입과 지출을 직관적으로 관리하고, 통계 데이터를 통해 소비 패턴을 분석할 수 있도록 설계된 웹 앱입니다.',
@@ -47,7 +46,6 @@ export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
       {
         icon: '🛠️',
         title: '2. 주요 기능 (Key Features)',
-        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=640&q=80',
         items: [
           '스마트 기록 시스템: 수입/지출 유형 선택, 카테고리 지정, 금액 및 날짜 입력을 통해 세밀한 자산 관리가 가능합니다.',
           '통합 자산 관리: 실시간으로 업데이트되는 수입, 지출, 잔액 합계를 한눈에 확인할 수 있습니다.',
@@ -58,7 +56,6 @@ export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
       {
         icon: '🧩',
         title: '3. 기술 스택',
-        image: 'https://images.unsplash.com/photo-1518773553398-650c184e0bb3?auto=format&fit=crop&w=640&q=80',
         items: [
           'Frontend: React, Vite',
           'Styling: Tailwind CSS (Responsive Design)',
@@ -69,7 +66,6 @@ export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
       {
         icon: '⚙️',
         title: '4. 구현 포인트',
-        image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=640&q=80',
         items: [
           '컴포넌트 기반 설계: 기록 입력부, 내역 리스트, 분석 리포트 등 기능별로 컴포넌트를 분리하여 유지보수성을 높였습니다.',
           '데이터 로직 구현: 입력된 수입/지출 데이터를 필터링하고 합산하여 평균값 및 잔액을 도출하는 알고리즘을 직접 설계했습니다.',
@@ -78,7 +74,6 @@ export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
       {
         icon: '🚨',
         title: '5. 문제점 & 해결 방안 (Troubleshooting)',
-        image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=640&q=80',
         items: [
           '문제: 수입과 지출 데이터가 많아질 때 실시간 합계와 평균값이 느리게 업데이트되거나 꼬이는 현상.',
           '해결: 데이터의 불변성(Immutability)을 유지하며 상태를 업데이트하고, useMemo 등을 활용해 불필요한 연산을 줄여 성능을 최적화했습니다.',
@@ -89,7 +84,6 @@ export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
       {
         icon: '🗂️',
         title: '6. 페이지 구조 (App Structure)',
-        image: 'https://images.unsplash.com/photo-1526498460520-4c246339dccb?auto=format&fit=crop&w=640&q=80',
         items: [
           '입력부: 유형(수입/지출) 선택 -> 카테고리 -> 금액/날짜/메모 입력',
           '대시보드: 현재 잔액, 총 수입, 총 지출 현황판',
@@ -107,7 +101,6 @@ export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
       {
         icon: '🌐',
         title: '1. 프로젝트 소개',
-        image: 'https://images.unsplash.com/photo-1522542550221-31fd19575a2d?auto=format&fit=crop&w=640&q=80',
         items: [
           'TypeScript와 React 기반으로 제작된 개인 포트폴리오 사이트입니다.',
           '반응형 웹 디자인과 다국어 지원(i18n) 기능을 포함합니다.',

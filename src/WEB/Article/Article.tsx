@@ -163,46 +163,51 @@ export default function Article() {
         // DEPLOYMENT
         if (index === 3) {
             const deploymentSkills = [
-                { name: 'Git & GitHub', percent: 38 },
-                { name: 'Vercel / Netlify', percent: 34 },
-                { name: 'CI/CD Pipelines (GitHub Actions)', percent: 27 },
+                { name: 'Git & GitHub', percent: 38, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg', desc: '체계적인 버전 관리와 GitHub 중심의 협업 워크플로우를 통해 프로젝트 이력을 관리합니다' },
+                { name: 'Vercel / Netlify', percent: 34, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg', desc: '정적 사이트 및 서버리스 함수 배포를 자동화하여 빠르고 안정적인 서비스 환경을 구성합니다' },
+                { name: 'GitHub Actions', percent: 27, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg', desc: 'CI/CD 파이프라인을 구축하여 코드 품질 검증과 자동 배포 프로세스를 운용합니다' },
             ];
             
             return (
-                <div key={index} className="article-wrapper" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', padding: '80px 0' }}>
+                <div key={index} className="article-wrapper" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', padding: '40px 0' }}>
                      <h2 className="section-header-title" style={{ fontSize: '40px', color: '#d4af6a' }}>DEPLOYMENT</h2>
-                     
-                     <div className="article-container" style={{flexDirection: 'column', gap: '40px', alignItems: 'center'}}>
-                        {/* GitHub Section */}
-                        <div className="deployment-content" style={{ textAlign: 'center', maxWidth: '800px', width: '100%' }}>
-                             <a href="https://github.com/KimJungJae369/myPORTFOLIO.git" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', marginBottom: '30px' }}>
-                                <div className="github-icon-wrapper" style={{ width: '120px', height: '120px', borderRadius: '50%', border: '2px solid #d4af6a', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', transition: 'transform 0.3s ease' }}>
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub Repository" style={{ width: '70px', height: '70px', filter: 'brightness(0) invert(1)' }} />
-                                </div>
-                             </a>
-                             <h3 style={{ fontSize: '24px', color: '#e6d9c2', marginBottom: '20px' }}>Continuous Integration & Development</h3>
-                             <p className="article-description" style={{ fontSize: '16px', lineHeight: '1.8', wordBreak: 'keep-all', textAlign: 'center' }}>
-                                 단순한 코드 작성을 넘어, 안정적이고 지속 가능한 서비스를 위한 배포 환경을 구축합니다.<br/>
-                                 Git을 활용한 체계적인 버전 관리와 GitHub 중심의 협업 워크플로우를 준수하며,<br/>
-                                 상시 배포 가능한 상태를 유지하기 위해 자동화된 CI/CD 파이프라인 구축에도 깊은 관심을 기울이고 있습니다.<br/>
-                                 프로젝트의 히스토리가 곧 개발자의 성장 기록임을 믿으며, 모든 커밋에 의미를 담아 관리합니다.<br/>
-                                 아래 링크를 통해 이 포트폴리오의 전체 소스 코드와 커밋 로그를 직접 확인하실 수 있습니다.
-                             </p>
-                        </div>
+                     <div className="tech-stack-container" style={{ width: '100%', maxWidth: '1200px', padding: '0 20px' }}>
+                        <div className="tech-category" style={{ marginBottom: '30px' }}>
+                            <h3 style={{ fontSize: '24px', color: '#d4af6a', marginBottom: '30px', borderBottom: '1px solid rgba(212, 175, 106, 0.3)', paddingBottom: '10px', textAlign: 'left' }}>Continuous Integration &amp; Deployment</h3>
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '40px', justifyContent: 'center' }}>
+                                {deploymentSkills.map((skill, skillIndex) => {
+                                    const radius = 40;
+                                    const circumference = 2 * Math.PI * radius;
+                                    const percent = skill.percent;
+                                    const offset = circumference - (percent / 100) * circumference;
 
-                        {/* Animated Bar Chart */}
-                        <div className="deployment-chart" style={{ width: '100%', maxWidth: '800px', marginTop: '40px' }}>
-                            {deploymentSkills.map((skill, i) => (
-                                <div key={i} className="bar-container" style={{ marginBottom: '30px' }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', color: '#e6d9c2' }}>
-                                        <span style={{ fontSize: '18px', fontWeight: 'bold' }}>{skill.name}</span>
-                                        <span style={{ fontSize: '16px', color: '#d4af6a', fontWeight: 'bold' }}>{skill.percent}%</span>
-                                    </div>
-                                    <div style={{ width: '100%', height: '20px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '10px', overflow: 'hidden', position: 'relative' }}>
-                                        <div className="bar-fill" style={{ width: `${skill.percent}%` }}></div>
-                                    </div>
-                                </div>
-                            ))}
+                                    return (
+                                        <div key={skillIndex} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '250px', textAlign: 'center' }}>
+                                            <div style={{ position: 'relative', width: '120px', height: '120px', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '20px' }}>
+                                                <svg width="120" height="120" viewBox="0 0 100 100" style={{ transform: 'rotate(-90deg)' }}>
+                                                    <circle cx="50" cy="50" r={radius} stroke="rgba(255,255,255,0.1)" strokeWidth="6" fill="transparent" />
+                                                    <circle cx="50" cy="50" r={radius} stroke="#d4af6a" strokeWidth="6" fill="transparent" strokeDasharray={circumference} strokeDashoffset={offset} strokeLinecap="round" />
+                                                </svg>
+                                                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '50px', height: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                                    <img
+                                                        src={skill.icon}
+                                                        alt={skill.name}
+                                                        style={{
+                                                            width: '100%',
+                                                            height: '100%',
+                                                            objectFit: 'contain',
+                                                            filter: 'brightness(0) invert(1)'
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div style={{ position: 'absolute', bottom: '-30px', color: '#d4af6a', fontSize: '18px', fontWeight: 'bold' }}>{percent}%</div>
+                                            </div>
+                                            <h4 style={{ fontSize: '18px', marginBottom: '10px', marginTop: '20px', color: '#fff', fontWeight: 'bold' }}>{skill.name}</h4>
+                                            <p style={{ fontSize: '14px', color: '#ccc', lineHeight: '1.5', wordBreak: 'keep-all' }}>{skill.desc}</p>
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </div>
                      </div>
                 </div>
