@@ -604,9 +604,14 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
         padding: 90px 10px 100px;
         min-height: 100vh;
         margin-top: 0;
-        opacity: 0;
-        transform: translateY(28px);
-    }#projects_section .projects-header h1 {
+    }
+
+    #projects_section.in-view {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    #projects_section .projects-header h1 {
         font-size: 1.6rem;
         margin-bottom: 28px;
     }
@@ -617,11 +622,12 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
         opacity: 0;
         transform: translateY(28px);
         animation: projectCardReveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
 
-    /* Make left_title title+subtitle one line on small screens */
+    /* Stack left_title elements vertically on small screens */
     #projects_section .left_title {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
         gap: 10px;
         justify-content: center;
@@ -630,21 +636,17 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
     #projects_section .left_title h1 {
         margin-bottom: 0;
         font-size: 1.4rem;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 45%;
+        width: 100%;
+        text-align: center;
     }
 
     #projects_section .left_title span {
         display: block;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 45%;
         font-size: 0.95rem;
-        line-height: 1.1;
+        line-height: 1.6;
         margin: 0;
+        width: 100%;
+        text-align: center;
     }
 
     /* place feature icons and other blocks below the inline title */
@@ -654,7 +656,6 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
         width: 100%;
         margin-top: 8px;
         text-align: center;
-    }
     }
 
     #projects_section main:nth-of-type(2) {
@@ -1042,6 +1043,24 @@ body.section-scrolled-out #projects_section main:nth-of-type(2) {
 
 .popup-close:hover {
     color: #fff;
+}
+
+.popup-blog-btn {
+    display: inline-block;
+    padding: 12px 28px;
+    background: #d4af6a;
+    color: #1a1612;
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.popup-blog-btn:hover {
+    background: #f2dcaa;
+    transform: scale(1.05);
 }
 
 .popup-body {

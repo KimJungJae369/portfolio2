@@ -86,26 +86,26 @@ export default function Article() {
                 {
                     title: t('article.techStack.categories.designTitle'),
                     skills: [
-                        { name: 'Photoshop', percent: 32, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg', desc: t('article.techStack.skills.photoshop') },
-                        { name: 'Illustrator', percent: 28, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-original.svg', desc: t('article.techStack.skills.illustrator') },
-                        { name: 'Figma', percent: 36, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg', desc: t('article.techStack.skills.figma') },
+                        { name: 'Photoshop', percent: 65, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/photoshop/photoshop-original.svg', desc: t('article.techStack.skills.photoshop') },
+                        { name: 'Illustrator', percent: 62, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/illustrator/illustrator-original.svg', desc: t('article.techStack.skills.illustrator') },
+                        { name: 'Figma', percent: 70, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg', desc: t('article.techStack.skills.figma') },
                     ]
                 },
                 {
                     title: t('article.techStack.categories.coreWebTitle'),
                     skills: [
-                        { name: 'HTML', percent: 39, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg', desc: t('article.techStack.skills.html') },
-                        { name: 'CSS', percent: 35, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', desc: t('article.techStack.skills.css') },
-                        { name: 'JavaScript', percent: 33, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', desc: t('article.techStack.skills.javascript') },
+                        { name: 'HTML', percent: 80, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg', desc: t('article.techStack.skills.html') },
+                        { name: 'CSS', percent: 75, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', desc: t('article.techStack.skills.css') },
+                        { name: 'JavaScript', percent: 70, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', desc: t('article.techStack.skills.javascript') },
                     ]
                 },
                 {
                     title: t('article.techStack.categories.modernDevTitle'),
                     skills: [
-                        { name: 'jQuery', percent: 24, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg', desc: t('article.techStack.skills.jquery') },
-                        { name: 'React', percent: 37, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', desc: t('article.techStack.skills.react') },
-                        { name: 'TypeScript', percent: 31, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg', desc: t('article.techStack.skills.typescript') },
-                        { name: 'Next.js', percent: 29, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg', desc: t('article.techStack.skills.nextjs') },
+                        { name: 'jQuery', percent: 65, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg', desc: t('article.techStack.skills.jquery') },
+                        { name: 'React', percent: 85, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg', desc: t('article.techStack.skills.react') },
+                        { name: 'TypeScript', percent: 85, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg', desc: t('article.techStack.skills.typescript') },
+                        { name: 'Next.js', percent: 55, icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg', desc: t('article.techStack.skills.nextjs') },
                     ]
                 }
             ];
@@ -139,11 +139,10 @@ export default function Article() {
                                                                 width: '100%', 
                                                                 height: '100%', 
                                                                 objectFit: 'contain',
-                                                                filter: skill.name === 'Next.js' ? 'brightness(0) invert(1)' : 'none'
                                                             }} 
                                                         />
                                                     </div>
-                                                    <div style={{ position: 'absolute', bottom: '-30px', color: '#d4af6a', fontSize: '18px', fontWeight: 'bold' }}>{percent}%</div>
+                                                    
                                                 </div>
                                                 <h4 style={{ fontSize: '18px', marginBottom: '10px', marginTop: '20px', color: '#fff', fontWeight: 'bold' }}>{skill.name}</h4>
                                                 <p style={{ fontSize: '14px', color: '#ccc', lineHeight: '1.5', wordBreak: 'keep-all' }}>{skill.desc}</p>
@@ -175,8 +174,8 @@ export default function Article() {
                         {/* GitHub Section */}
                         <div className="deployment-content" style={{ textAlign: 'center', maxWidth: '800px', width: '100%' }}>
                              <a href="https://github.com/KimJungJae369/myPORTFOLIO.git" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', marginBottom: '30px' }}>
-                                <div className="github-icon-wrapper" style={{ width: '120px', height: '120px', borderRadius: '50%', border: '2px solid #d4af6a', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', transition: 'transform 0.3s ease' }}>
-                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub Repository" style={{ width: '70px', height: '70px', filter: 'brightness(0) invert(1)' }} />
+                                <div className="github-icon-wrapper" style={{ width: '120px', height: '120px', borderRadius: '50%', backgroundColor : '#d4af6a' , border: '2px solid #d4af6a', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto', transition: 'transform 0.3s ease'}}>
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub Repository" style={{ width: '70px', height: '70px'}} />
                                 </div>
                              </a>
                              <h3 style={{ fontSize: '24px', color: '#e6d9c2', marginBottom: '20px' }}>{t('article.deployment.ciTitle')}</h3>

@@ -302,6 +302,9 @@ export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
                     </div>
                   ))}
                 </div>
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px', paddingBottom: '10px' }}>
+                  <a href="https://blog.naver.com/ktk662002/224212013448" target="_blank" rel="noopener noreferrer" className="popup-blog-btn">블로그 바로가기</a>
+                </div>
               </div>
             </div>
           </div>,
