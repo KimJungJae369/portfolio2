@@ -296,14 +296,14 @@ export default function Projects({ isHorizontalPage = false }: ProjectsProps) {
                       <h3><span className="popup-section-icon">{section.icon}</span>{section.title}</h3>
                       <ul>
                         {section.items.map((item, idx) => (
-                          <li key={`${section.title}-${idx}`}>{item}</li>
+                          <li key={`${section.title}-${idx}`} className={item.startsWith('해결:') ? 'solve-last' : ''}>{item}</li>
                         ))}
                       </ul>
                     </div>
                   ))}
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px', paddingBottom: '10px' }}>
-                  <a href="https://blog.naver.com/ktk662002/224212013448" target="_blank" rel="noopener noreferrer" className="popup-blog-btn">블로그 바로가기</a>
+                  <a href="https://blog.naver.com/ktk662002" target="_blank" rel="noopener noreferrer" className="popup-blog-btn">블로그 바로가기</a>
                 </div>
               </div>
             </div>
