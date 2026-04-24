@@ -4,14 +4,98 @@ import './Article.css';
 import profileImg from '../img2/KakaoTalk_20260305_211431499.jpg';
 import secondImg from '../img2/imag.png';
 
-const nl2br = (text: string) =>
-    text.split('\n').map((line, i, arr) => (
+const nl2br = (text: string) => {
+    if (!text || typeof text !== 'string') return text;
+    return text.split('\n').map((line, i, arr) => (
         <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
     ));
+};
 
 export default function Article() {
     const { t } = useTranslation();
     const sectionRef = useRef<HTMLElement>(null);
+
+    const projectShowcaseContent = {
+        monami: {
+            title: '모나미',
+            description: '문구 브랜드 모나미의 메인 사이트를 기반으로, 브랜드 철학과 제품 카테고리가 자연스럽게 이어지도록 구성한 클론 프로젝트입니다.\n대형 비주얼과 제품 섹션, 뉴스 영역의 흐름을 살리면서 감성적인 브랜드 무드를 웹에서 재현하는 데 집중했습니다.'
+        },
+        drclone: {
+            title: 'DR Clone',
+            description: '산업용 열화상 카메라와 안전 제품을 소개하는 사이트 구조를 분석해 제작한 클론 페이지입니다.\n강한 신뢰감을 주는 비주얼, 제품 안내 섹션, 공지형 콘텐츠 배치를 통해 B2B 제품 사이트 특유의 분위기를 구현했습니다.'
+        },
+        kakao: {
+            title: '카카오 엔터프라이즈',
+            description: 'AI, 클라우드, 기술 블로그, 서비스 소개가 유기적으로 이어지는 카카오 엔터프라이즈 사이트를 참고해 만든 클론 작업입니다.\n대기업 서비스 페이지 특유의 명확한 메시지 전달과 섹션 전환 리듬을 프론트엔드 관점에서 정리해 구현했습니다.'
+        },
+        picogram: {
+            title: '피앤코',
+            description: '친환경 기술과 생활환경가전, 연구개발 비전을 중심으로 전개되는 기업형 사이트를 바탕으로 구성한 클론 프로젝트입니다.\n브랜드 메시지와 제품 카테고리, 기술 소개가 차분하게 이어지는 레이아웃을 통해 기업 홈페이지의 정보 전달 구조를 연습했습니다.'
+        }
+    } as const;
+
+    type ProjectShowcaseKey = keyof typeof projectShowcaseContent;
+
+    const projectShowcaseItems: Array<{ key: ProjectShowcaseKey; image: string; url: string }> = [
+        {
+            key: 'monami',
+            image: 'https://www.monami.com/images/main/visual1.jpg',
+            url: 'https://kimjungjae369.github.io/moname/'
+        },
+        {
+            key: 'drclone',
+            image: 'https://www.irguide.co.kr/img/main/video_img.png',
+            url: 'https://kimjungjae369.github.io/DRClone/'
+        },
+        {
+            key: 'kakao',
+            image: 'https://kimjungjae369.github.io/KAKAO/site_layout/img/main.jpg',
+            url: 'https://kimjungjae369.github.io/KAKAO/'
+        },
+        {
+            key: 'picogram',
+            image: 'http://www.picogram.co.kr/upload/maindata8/maindata892631_0.jpg',
+            url: 'https://kimjungjae369.github.io/picoClon.html/'
+        }
+    ];
+
+    const projectCards = projectShowcaseItems.map((project, index) => (
+        <div key={project.key} className="article-container article-project-card">
+            <div className={`article-image-wrapper article-project-image-wrapper ${index % 2 !== 0 ? 'image-right' : ''}`}>
+                <img src={project.image} alt={projectShowcaseContent[project.key].title} className="article-project-image" />
+            </div>
+            <div className={`article-content-wrapper article-project-content ${index % 2 !== 0 ? 'content-left' : ''}`}>
+                <span className="article-subtitle">{t(`article.projects.items.${project.key}.subtitle`)}</span>
+                <h2 className="article-title article-project-title">
+                    {projectShowcaseContent[project.key].title}
+                </h2>
+                <p className="article-description article-project-description">
+                    {nl2br(projectShowcaseContent[project.key].description)}
+                </p>
+                <a href={project.url} target="_blank" rel="noopener noreferrer" className="article-link">
+                    {t('article.projects.link')}
+                </a>
+            </div>
+        </div>
+    ));
+
+    const profileSection = (
+        <div className="article-container article-profile-block">
+            <div className="article-image-wrapper">
+                <img src={profileImg} alt="Profile" />
+            </div>
+            <div className="article-content-wrapper">
+                <span className="article-subtitle">{t('article.profile.subtitle')}</span>
+                <h2 className="article-title" style={{ fontSize: '20px' }}>
+                    {t('article.profile.title')}
+                </h2>
+                <p className="article-description" style={{ fontSize: '18px' }}>
+                    {nl2br(t('article.profile.description'))}
+                </p>
+                <a href="https://blog.naver.com/ktk662002" target='_blank' rel='noopener noreferrer' className="article-link">{t('article.profile.link')}</a>
+            </div>
+        </div>
+    );
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -37,23 +121,7 @@ export default function Article() {
 
     const articles = Array(4).fill(null).map((_, index) => {
         if (index === 0) {
-            return (
-                <div key={index} className="article-container">
-                    <div className={`article-image-wrapper ${index % 2 !== 0 ? 'image-right' : ''}`}>
-                        <img src={profileImg} alt="Profile" />
-                    </div>
-                    <div className={`article-content-wrapper ${index % 2 !== 0 ? 'content-left' : ''}`}>
-                        <span className="article-subtitle">{t('article.profile.subtitle')}</span>
-                        <h2 className="article-title" style={{ fontSize: '20px' }}>
-                            {t('article.profile.title')}
-                        </h2>
-                        <p className="article-description" style={{ fontSize: '18px' }}>
-                            {nl2br(t('article.profile.description'))}
-                        </p>
-                        <a href="https://blog.naver.com/ktk662002" target='_blank' rel='noopener noreferrer' className="article-link">{t('article.profile.link')}</a>
-                    </div>
-                </div>
-            );
+            return null;
         }
         //  MY STORY
 
@@ -61,7 +129,8 @@ export default function Article() {
             return (
                 <div key={index} className="article-wrapper" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
                     <h2 className="section-header-title">{t('article.story.headerTitle')}</h2>
-                    <div className="article-container">
+                    {profileSection}
+                    <div className="article-container article-story-block">
                         <div className={`article-image-wrapper ${index % 2 !== 0 ? 'image-right' : ''}`}>
                             <img src={secondImg} alt="Profile" style={{ filter: 'none' }} />
                         </div>
@@ -76,6 +145,7 @@ export default function Article() {
                             <a href="https://github.com/ktk662442-sys/html-css-/tree/main/9.%20%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83" target='_blank' rel='noopener noreferrer' className="article-link">{t('article.story.link')}</a>
                         </div>
                     </div>
+                    {projectCards}
                 </div>
             );
         }

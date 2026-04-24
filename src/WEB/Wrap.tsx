@@ -11,6 +11,7 @@ import GlobalMouseEffect from './GlobalMouseEffect/GlobalMouseEffect'
 function Wrap() {
   const [isLoading, setIsLoading] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
+  const [isLibraryMode, setIsLibraryMode] = useState(false)
   const [currentSection, setCurrentSection] = useState(0)
   const touchStartX = useRef(0)
   const touchStartY = useRef(0)
@@ -22,6 +23,19 @@ function Wrap() {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    const syncLibraryMode = () => {
+      const params = new URLSearchParams(window.location.search);
+      const mode = params.get('mode')?.toLowerCase();
+      const view = params.get('view')?.toLowerCase();
+      setIsLibraryMode(mode === 'library' || view === 'library');
+    };
+
+    syncLibraryMode();
+    window.addEventListener('popstate', syncLibraryMode);
+    return () => window.removeEventListener('popstate', syncLibraryMode);
   }, []);
 
   // Expose slideToSection to window for Header bottom nav
@@ -119,7 +133,7 @@ function Wrap() {
                 >
                   <div className="section-slide"><Section /></div>
                   <div className="section-slide"><Article /></div>
-                  <div className="section-slide"><Projects /></div>
+                  <div className="section-slide"><Projects isHorizontalPage={isLibraryMode} /></div>
                   <div className="section-slide"><Footer /></div>
                 </div>
                 {/* Page indicator dots */}
@@ -138,7 +152,7 @@ function Wrap() {
               <>
                 <Section />
                 <Article />
-                <Projects />
+                <Projects isHorizontalPage={isLibraryMode} />
                 <Footer/>
               </>
             )}
