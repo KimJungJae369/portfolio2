@@ -45,6 +45,11 @@
     order: 2;
     transform: translateX(100px);
 }
+
+.article-image-wrapper.image-right img {
+    filter: none;
+}
+
 .article-content-wrapper.content-left {
     order: 1;
     align-items: flex-end; /* right-align text if image is on right? or keep center */
@@ -107,7 +112,7 @@
 }
 
 .article-link {
-    font-size: 0.85rem;
+    font-size: 0.85rem; 
     letter-spacing: 2px;
     text-transform: uppercase;
     color: #d4af6a;
@@ -125,6 +130,7 @@
 .article-container.in-view .article-image-wrapper {
     opacity: 1;
     transform: translateX(0);
+    filter: sepia(40%);
 }
 
 .article-container.in-view .article-content-wrapper {
@@ -301,6 +307,7 @@ body.section-scrolled-out #article_section {
         flex: 0 0 auto;
         width: 100%;
         transform: translateY(30px);
+        filter: sepia(100%);
     }
     .article-content-wrapper {
         align-items: center;
